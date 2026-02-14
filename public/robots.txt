@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Disallow: /mentions-legales
+Disallow: /politique-confidentialite
+Disallow: /cgu
+
+Sitemap: https://dossierpret.fr/sitemap-index.xml

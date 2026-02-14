@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Mentions légales | DossierPrêt"
+  description="Mentions légales de DossierPrêt — informations sur l'éditeur, l'hébergeur et les conditions d'utilisation de l'outil."
+  noindex={true}
+>
+  <div class="min-h-screen flex flex-col">
+    <Navbar />
+    <main class="flex-1 py-12 sm:py-16">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Mentions légales</h1>
+
+        <div class="prose prose-gray prose-sm sm:prose max-w-none space-y-8">
+          <section>
+            <h2>Éditeur du site</h2>
+            <p>DossierPrêt est un outil de simulation et d'information en matière de crédit immobilier.</p>
+            <p>Pour toute question : <a href="mailto:contact@dossierpret.fr">contact@dossierpret.fr</a></p>
+          </section>
+
+          <section>
+            <h2>Hébergement</h2>
+            <p>Ce site est hébergé sur une infrastructure sécurisée. Les données ne sont pas stockées côté serveur.</p>
+          </section>
+
+          <section>
+            <h2>Propriété intellectuelle</h2>
+            <p>L'ensemble du contenu de ce site (textes, graphiques, logo, structure) est protégé par le droit d'auteur. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
+          </section>
+
+          <section>
+            <h2>Limitation de responsabilité</h2>
+            <p>DossierPrêt est un <strong>outil d'information et de simulation pédagogique</strong>. Il ne constitue pas un conseil financier, bancaire ou juridique.</p>
+            <p>Les résultats fournis par l'outil sont basés sur des critères standardisés et ne tiennent pas compte de toutes les spécificités individuelles ou des politiques propres à chaque établissement bancaire.</p>
+            <p><strong>Aucune garantie d'obtention de financement</strong> ne peut être tirée des résultats de la simulation.</p>
+            <p>DossierPrêt ne remplace pas l'avis d'un professionnel (courtier, conseiller bancaire, notaire).</p>
+          </section>
+
+          <section>
+            <h2>Absence de partenariat bancaire</h2>
+            <p>DossierPrêt n'est partenaire d'aucun établissement bancaire, organisme de crédit ou intermédiaire en opérations de banque. Aucune commission n'est perçue sur les dossiers de financement.</p>
+          </section>
+
+          <section>
+            <h2>Données personnelles</h2>
+            <p>Les données saisies dans le simulateur ne sont pas collectées ni stockées. Voir notre <a href="/politique-confidentialite">Politique de confidentialité</a>.</p>
+          </section>
+
+          <section>
+            <h2>Droit applicable</h2>
+            <p>Ce site est soumis au droit français. Tout litige relatif à son utilisation relève de la compétence exclusive des tribunaux français.</p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

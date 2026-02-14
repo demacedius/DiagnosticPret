@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Politique de confidentialité | DossierPrêt"
+  description="Politique de confidentialité de DossierPrêt — comment nous traitons (ou ne traitons pas) vos données personnelles."
+  noindex={true}
+>
+  <div class="min-h-screen flex flex-col">
+    <Navbar />
+    <main class="flex-1 py-12 sm:py-16">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Politique de confidentialité</h1>
+        <p class="text-sm text-gray-500 mb-8">Dernière mise à jour : décembre 2024</p>
+
+        <div class="prose prose-gray prose-sm sm:prose max-w-none">
+          <section>
+            <h2>Résumé</h2>
+            <p>DossierPrêt est conçu avec une philosophie de <strong>confidentialité maximale</strong> :</p>
+            <ul>
+              <li>Les données que vous saisissez dans le simulateur <strong>ne sont pas envoyées à nos serveurs</strong></li>
+              <li>Les calculs s'effectuent entièrement dans votre navigateur</li>
+              <li>Nous n'utilisons <strong>aucun cookie de traçage</strong> ni aucun outil d'analytics</li>
+              <li>Aucune donnée personnelle n'est revendue ou transmise à des tiers</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>Données collectées</h2>
+            <h3>Simulateur</h3>
+            <p>Les données financières que vous saisissez (revenus, charges, apport, comportement bancaire) sont traitées localement dans votre navigateur. Elles ne sont ni stockées, ni transmises.</p>
+
+            <h3>Formulaires de contact</h3>
+            <p>Si vous nous contactez par email, vos coordonnées sont utilisées uniquement pour répondre à votre demande et ne sont pas conservées au-delà de 12 mois.</p>
+
+            <h3>Données de navigation</h3>
+            <p>Ce site ne dépose aucun cookie de traçage. Des logs de serveur (adresse IP anonymisée, pages visitées) peuvent être conservés à des fins de sécurité pendant 12 mois maximum.</p>
+          </section>
+
+          <section>
+            <h2>Vos droits (RGPD)</h2>
+            <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez des droits suivants :</p>
+            <ul>
+              <li>Droit d'accès à vos données</li>
+              <li>Droit de rectification</li>
+              <li>Droit à l'effacement</li>
+              <li>Droit à la limitation du traitement</li>
+              <li>Droit à la portabilité</li>
+              <li>Droit d'opposition</li>
+            </ul>
+            <p>Pour exercer ces droits : <a href="mailto:contact@dossierpret.fr">contact@dossierpret.fr</a></p>
+          </section>
+
+          <section>
+            <h2>Cookies</h2>
+            <p>DossierPrêt n'utilise pas de cookies à des fins publicitaires ou de traçage. Des cookies strictement fonctionnels peuvent être utilisés pour le bon fonctionnement du site (session utilisateur). Ces cookies ne nécessitent pas de consentement explicite selon la réglementation CNIL.</p>
+          </section>
+
+          <section>
+            <h2>Tiers</h2>
+            <p>Aucun réseau publicitaire, pixel de conversion ou outil de suivi tiers n'est intégré sur ce site. Les polices de caractères sont auto-hébergées.</p>
+          </section>
+
+          <section>
+            <h2>Contact DPO</h2>
+            <p>Pour toute question relative à la protection des données : <a href="mailto:contact@dossierpret.fr">contact@dossierpret.fr</a></p>
+            <p>Vous pouvez également adresser une réclamation à la CNIL : <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a></p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

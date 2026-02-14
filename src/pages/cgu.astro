@@ -1,0 +1,82 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Conditions Générales d'Utilisation | DossierPrêt"
+  description="Conditions générales d'utilisation de DossierPrêt."
+  noindex={true}
+>
+  <div class="min-h-screen flex flex-col">
+    <Navbar />
+    <main class="flex-1 py-12 sm:py-16">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Conditions Générales d'Utilisation</h1>
+        <p class="text-sm text-gray-500 mb-8">Version en vigueur depuis décembre 2024</p>
+
+        <div class="prose prose-gray prose-sm sm:prose max-w-none">
+          <section>
+            <h2>1. Objet</h2>
+            <p>Les présentes Conditions Générales d'Utilisation (CGU) régissent l'accès et l'utilisation du site DossierPrêt, outil de simulation et de diagnostic pédagogique en matière de crédit immobilier.</p>
+          </section>
+
+          <section>
+            <h2>2. Nature du service</h2>
+            <p>DossierPrêt est un <strong>outil d'information et de simulation pédagogique</strong>. Il ne constitue pas :</p>
+            <ul>
+              <li>Un conseil financier ou bancaire</li>
+              <li>Une offre de crédit</li>
+              <li>Une garantie d'obtention de financement</li>
+              <li>Un service d'intermédiation bancaire</li>
+            </ul>
+            <p>Les résultats fournis sont basés sur des critères standardisés et publiquement disponibles (règles HCSF, pratiques bancaires communes). Ils ne tiennent pas compte des politiques spécifiques de chaque établissement bancaire.</p>
+          </section>
+
+          <section>
+            <h2>3. Acceptation des CGU</h2>
+            <p>L'utilisation du site implique l'acceptation pleine et entière des présentes CGU. Si vous n'acceptez pas ces conditions, vous devez cesser d'utiliser le site.</p>
+          </section>
+
+          <section>
+            <h2>4. Conditions d'accès</h2>
+            <p>Le service est accessible à toute personne physique majeure. L'utilisation est gratuite pour le diagnostic express. Un plan premium payant peut être proposé pour des analyses approfondies.</p>
+          </section>
+
+          <section>
+            <h2>5. Limitations de responsabilité</h2>
+            <p>DossierPrêt ne saurait être tenu responsable :</p>
+            <ul>
+              <li>Des décisions prises par l'utilisateur sur la base des résultats de la simulation</li>
+              <li>D'un refus de prêt, quelle qu'en soit la cause</li>
+              <li>D'une différence entre le résultat simulé et la décision bancaire réelle</li>
+              <li>D'interruptions temporaires de service</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>6. Propriété intellectuelle</h2>
+            <p>L'ensemble des contenus (textes, code, design, algorithmes) est la propriété exclusive de DossierPrêt. Toute reproduction ou utilisation commerciale est interdite sans accord préalable.</p>
+          </section>
+
+          <section>
+            <h2>7. Données personnelles</h2>
+            <p>Voir notre <a href="/politique-confidentialite">Politique de confidentialité</a>.</p>
+          </section>
+
+          <section>
+            <h2>8. Modification des CGU</h2>
+            <p>DossierPrêt se réserve le droit de modifier les présentes CGU à tout moment. Les utilisateurs seront informés des modifications substantielles via le site.</p>
+          </section>
+
+          <section>
+            <h2>9. Droit applicable</h2>
+            <p>Les présentes CGU sont régies par le droit français. Tout litige relève de la compétence exclusive des tribunaux de Paris.</p>
+          </section>
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

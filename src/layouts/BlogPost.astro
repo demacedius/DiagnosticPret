@@ -1,0 +1,123 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  tags: string[];
+  category: string;
+  readingTime: number;
+  slug: string;
+}
+
+const { title, description, date, tags, category, readingTime, slug } = Astro.props;
+
+const dateStr = date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' });
+const siteUrl = 'https://dossierpret.fr';
+
+const blogPostSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  datePublished: date.toISOString(),
+  author: { '@type': 'Organization', name: 'DossierPrêt' },
+  publisher: { '@type': 'Organization', name: 'DossierPrêt', url: siteUrl },
+  url: `${siteUrl}/blog/${slug}`,
+};
+---
+
+<BaseLayout
+  title={`${title} | DossierPrêt`}
+  description={description}
+  schema={blogPostSchema}
+>
+  <div class="min-h-screen flex flex-col">
+    <Navbar currentPath="/blog" />
+
+    <main class="flex-1 py-12 sm:py-16">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-xs text-gray-400 dark:text-slate-500 mb-8">
+          <a href="/" class="hover:text-gray-600 dark:hover:text-slate-300 transition-colors">Accueil</a>
+          <span>/</span>
+          <a href="/blog" class="hover:text-gray-600 dark:hover:text-slate-300 transition-colors">Blog</a>
+          <span>/</span>
+          <span class="text-gray-600 dark:text-slate-400 truncate">{title}</span>
+        </nav>
+
+        <!-- Header -->
+        <header class="mb-10">
+          <div class="flex flex-wrap items-center gap-2 mb-4">
+            <span class="badge badge-gray">{category}</span>
+            {tags.slice(0, 2).map(tag => (
+              <span class="badge badge-gray">{tag}</span>
+            ))}
+          </div>
+          <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white leading-snug mb-4">{title}</h1>
+          <p class="text-lg text-gray-500 dark:text-slate-400 leading-relaxed mb-5">{description}</p>
+          <div class="flex items-center gap-4 text-xs text-gray-400 dark:text-slate-500">
+            <span class="flex items-center gap-1.5">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              {dateStr}
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {readingTime} min de lecture
+            </span>
+          </div>
+        </header>
+
+        <!-- Article -->
+        <article class="prose prose-gray prose-sm sm:prose max-w-none
+          prose-headings:font-bold prose-headings:text-gray-900
+          prose-p:text-gray-600 prose-p:leading-relaxed
+          prose-a:text-gray-900 prose-a:underline hover:prose-a:text-gray-600
+          prose-strong:text-gray-900
+          prose-ul:text-gray-600 prose-ol:text-gray-600
+          prose-li:leading-relaxed
+          prose-blockquote:border-gray-900 prose-blockquote:text-gray-600
+          prose-hr:border-gray-100
+          dark:prose-invert
+          dark:prose-headings:text-white
+          dark:prose-p:text-slate-300
+          dark:prose-a:text-slate-200
+          dark:prose-strong:text-white
+          dark:prose-ul:text-slate-300 dark:prose-ol:text-slate-300
+          dark:prose-blockquote:border-slate-600 dark:prose-blockquote:text-slate-400
+          dark:prose-hr:border-slate-700">
+          <slot />
+        </article>
+
+        <!-- End CTA -->
+        <div class="mt-14 bg-gray-900 rounded-2xl p-6 sm:p-8 text-white text-center">
+          <p class="text-xs font-semibold text-white/50 uppercase tracking-widest mb-2">DossierPrêt</p>
+          <h2 class="text-xl sm:text-2xl font-bold mb-3">Analysez votre profil maintenant</h2>
+          <p class="text-sm text-white/60 mb-5 max-w-sm mx-auto">
+            Découvrez les risques de refus de votre dossier immobilier en 30 secondes, gratuitement.
+          </p>
+          <a
+            href="/"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-white text-gray-900 font-semibold text-sm rounded-xl hover:bg-gray-100 transition-colors"
+          >
+            Lancer l'analyse
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <!-- Nav prev/next placeholder -->
+        <div class="mt-8 flex justify-between">
+          <a href="/blog" class="flex items-center gap-2 text-sm text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5"/><path d="m12 19-7-7 7-7"/></svg>
+            Retour au blog
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

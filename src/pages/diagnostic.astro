@@ -1,0 +1,59 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import DiagnosticPremium from '../components/DiagnosticPremium.svelte';
+import { hasPremium } from '../lib/subscription';
+
+const { userId } = Astro.locals.auth();
+if (!userId) {
+  return Astro.redirect('/connexion');
+}
+
+const user = await Astro.locals.currentUser();
+
+if (!hasPremium(user)) {
+  return Astro.redirect('/premium?upgrade=1');
+}
+
+const prenom = user?.firstName ?? 'vous';
+---
+
+<BaseLayout
+  title="Diagnostic complet | DossierPrêt"
+  description="Analysez votre dossier emprunteur en profondeur : taux d'endettement HCSF, plan d'action priorité, simulations d'amortissement."
+  noindex={true}
+>
+  <div class="min-h-screen flex flex-col">
+    <Navbar currentPath="/diagnostic" />
+
+    <main class="flex-1 py-12 bg-gray-50 dark:bg-slate-900 transition-colors duration-200">
+      <div class="container-main max-w-2xl">
+
+        <!-- Header -->
+        <div class="mb-8">
+          <div class="flex items-center gap-2 mb-2">
+            <a href="/dashboard" class="text-xs text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 transition-colors">
+              Mon espace
+            </a>
+            <span class="text-gray-300 dark:text-slate-600">/</span>
+            <span class="text-xs text-gray-500 dark:text-slate-400">Diagnostic complet</span>
+          </div>
+          <div class="flex items-center gap-2 mb-1">
+            <span class="badge badge-amber">Premium</span>
+          </div>
+          <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Diagnostic complet</h1>
+          <p class="text-gray-500 dark:text-slate-400 mt-1">
+            Bonjour {prenom} — renseignez votre situation pour obtenir une analyse HCSF complète et un plan d'action personnalisé.
+          </p>
+        </div>
+
+        <!-- Form + Results -->
+        <DiagnosticPremium client:load />
+
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

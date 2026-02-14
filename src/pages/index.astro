@@ -1,17 +1,234 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import Simulator from '../components/Simulator.svelte';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="DossierPrêt — Évaluez les risques de refus de votre prêt immobilier"
+  description="Analysez votre profil bancaire en 30 secondes. Identifiez les facteurs qui peuvent entraîner un refus de prêt immobilier et découvrez comment les corriger."
+>
+  <div class="min-h-screen flex flex-col">
+    <Navbar currentPath="/" />
+
+    <!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
+    <section class="pt-16 pb-12 sm:pt-20 sm:pb-16 bg-gradient-to-b from-white dark:from-slate-900 to-gray-50/50 dark:to-slate-800/50 transition-colors duration-200">
+      <div class="container-main">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+          <!-- Left: Copy -->
+          <div class="lg:pt-6">
+            <!-- Label -->
+            <div class="inline-flex items-center gap-2 bg-gray-900 text-white text-xs font-semibold px-3 py-1.5 rounded-full mb-6">
+              <span class="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse"></span>
+              Diagnostic immédiat · Sans inscription
+            </div>
+
+            <!-- Headline -->
+            <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white leading-tight tracking-tight mb-5">
+              Votre dossier peut-il être{' '}
+              <span class="relative inline-block">
+                refusé
+                <span class="absolute bottom-0 left-0 right-0 h-0.5 bg-gray-900 dark:bg-white rounded-full"></span>
+              </span>{' '}
+              par la banque&nbsp;?
+            </h1>
+
+            <!-- Subhead -->
+            <p class="text-lg text-gray-500 dark:text-slate-400 leading-relaxed mb-8 max-w-lg">
+              Analysez votre profil selon les critères bancaires standards. Identifiez précisément ce qui peut bloquer votre dossier — et comment y remédier.
+            </p>
+
+            <!-- Trust bullets -->
+            <div class="flex flex-wrap gap-4 mb-8">
+              {[
+                { icon: '✓', label: 'Gratuit' },
+                { icon: '✓', label: 'Instantané' },
+                { icon: '✓', label: 'Sans engagement' },
+                { icon: '🔒', label: 'Données privées' },
+              ].map(item => (
+                <span class="flex items-center gap-1.5 text-sm text-gray-500 dark:text-slate-400">
+                  <span class="text-green-600 dark:text-green-400 font-bold text-xs">{item.icon}</span>
+                  {item.label}
+                </span>
+              ))}
+            </div>
+
+            <!-- Social proof tags -->
+            <div class="flex flex-wrap gap-2">
+              <span class="badge badge-gray">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Critères HCSF intégrés
+              </span>
+              <span class="badge badge-gray">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Méthodologie bancaire
+              </span>
+              <span class="badge badge-gray">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                Analyse impartiale
+              </span>
+            </div>
+          </div>
+
+          <!-- Right: Simulator -->
+          <div>
+            <Simulator client:load />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ FEATURES / TRUST BAR ══════════════════════════════════════════ -->
+    <section class="py-16 border-y border-gray-100 dark:border-slate-800 bg-white dark:bg-slate-900 transition-colors duration-200">
+      <div class="container-main">
+        <div class="text-center mb-10">
+          <span class="section-label mb-3 flex justify-center">
+            <span>Ce que vous obtenez</span>
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Diagnostic professionnel complet</h2>
+          <p class="text-gray-500 dark:text-slate-400 mt-2 max-w-xl mx-auto">
+            Basé sur les mêmes critères utilisés par les établissements bancaires pour évaluer votre dossier.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {[
+            {
+              icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>`,
+              title: 'Analyse DMP',
+              desc: 'Taux d\'endettement, reste à vivre, stabilité des revenus — les 3 axes clés évalués par les banques.',
+            },
+            {
+              icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+              title: 'Pas de pub',
+              desc: 'Aucun partenariat bancaire, aucune revente de données. Votre diagnostic reste confidentiel.',
+            },
+            {
+              icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
+              title: 'Simulation optimisée',
+              desc: 'Identifiez les leviers d\'amélioration concrets pour renforcer votre dossier avant de déposer une demande.',
+            },
+          ].map(feat => (
+            <div class="card hover:shadow-card-md transition-shadow duration-200">
+              <div class="w-10 h-10 bg-gray-100 dark:bg-slate-700 rounded-xl flex items-center justify-center mb-4 text-gray-600 dark:text-slate-300" set:html={feat.icon}></div>
+              <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-2">{feat.title}</h3>
+              <p class="text-sm text-gray-500 dark:text-slate-400 leading-relaxed">{feat.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ HOW IT WORKS ═══════════════════════════════════════════════════ -->
+    <section class="py-16 bg-gray-50 dark:bg-slate-800/50 transition-colors duration-200">
+      <div class="container-main">
+        <div class="text-center mb-10">
+          <span class="section-label mb-3 flex justify-center">
+            <span>Processus</span>
+          </span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Comment ça fonctionne</h2>
+          <p class="text-gray-500 dark:text-slate-400 mt-2">Trois étapes pour comprendre et améliorer votre situation.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {[
+            {
+              step: '01',
+              title: 'Renseignez vos données',
+              desc: 'Revenus, charges, apport et comportement bancaire. Aucune donnée personnelle collectée.',
+            },
+            {
+              step: '02',
+              title: 'Obtenez votre diagnostic',
+              desc: 'Notre moteur analyse votre profil selon les critères HCSF et les pratiques bancaires actuelles.',
+            },
+            {
+              step: '03',
+              title: 'Agissez sur les leviers',
+              desc: 'Chaque risque identifié est accompagné d\'une explication claire et d\'actions concrètes.',
+            },
+          ].map(step => (
+            <div class="relative">
+              <div class="card h-full">
+                <div class="text-3xl font-black text-gray-100 dark:text-slate-700 mb-3 leading-none">{step.step}</div>
+                <h3 class="text-base font-semibold text-gray-900 dark:text-white mb-2">{step.title}</h3>
+                <p class="text-sm text-gray-500 dark:text-slate-400 leading-relaxed">{step.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ BLOG PREVIEW ═══════════════════════════════════════════════════ -->
+    <section class="py-16 bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-800 transition-colors duration-200">
+      <div class="container-main">
+        <div class="flex items-end justify-between mb-8">
+          <div>
+            <span class="section-label mb-2 flex">Ressources</span>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Comprendre le crédit immobilier</h2>
+          </div>
+          <a href="/blog" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+            Tous les articles
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {[
+            {
+              href: '/blog/refus-pret-immobilier-causes',
+              cat: 'Guide',
+              title: 'Refus de prêt immobilier : les causes fréquentes',
+              desc: 'Comprendre pourquoi une banque refuse un dossier et les leviers pour y remédier.',
+            },
+            {
+              href: '/blog/decouvert-bancaire-credit-immobilier',
+              cat: 'Analyse',
+              title: 'Découvert bancaire : impact réel sur un crédit immobilier',
+              desc: 'Ce que voit vraiment la banque quand elle examine vos relevés.',
+            },
+            {
+              href: '/blog/taux-endettement-regle-35-pourcent',
+              cat: 'Réglementation',
+              title: 'Taux d\'endettement : la règle des 35% expliquée',
+              desc: 'La réglementation HCSF et ses implications concrètes pour votre dossier.',
+            },
+          ].map(post => (
+            <a href={post.href} class="card hover:shadow-card-md transition-shadow duration-200 group flex flex-col">
+              <div class="badge badge-gray mb-3 w-fit">{post.cat}</div>
+              <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-gray-600 dark:group-hover:text-slate-300 transition-colors leading-snug">{post.title}</h3>
+              <p class="text-sm text-gray-500 dark:text-slate-400 leading-relaxed flex-1">{post.desc}</p>
+              <div class="flex items-center gap-1 mt-3 text-xs font-medium text-gray-900 dark:text-slate-200">
+                Lire l'article
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CTA BANNER ═════════════════════════════════════════════════════ -->
+    <section class="py-16 bg-gray-900 text-white">
+      <div class="container-main text-center">
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Prêt à optimiser votre dossier&nbsp;?</h2>
+        <p class="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
+          Obtenez une analyse complète et personnalisée. Maximisez vos chances d'acceptation bancaire.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 justify-center">
+          <a href="/premium" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-gray-900 font-semibold text-sm rounded-xl hover:bg-gray-100 transition-colors">
+            Démarrer mon diagnostic Premium
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <p class="text-xs text-gray-600 mt-5">
+          Outil d'information pédagogique — Aucune garantie d'obtention de financement
+        </p>
+      </div>
+    </section>
+
+    <Footer />
+  </div>
+</BaseLayout>

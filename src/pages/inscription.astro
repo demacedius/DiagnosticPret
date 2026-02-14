@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { SignUp } from '@clerk/astro/components';
+---
+
+<BaseLayout
+  title="Créer un compte | DossierPrêt"
+  description="Créez votre compte DossierPrêt pour accéder à votre diagnostic personnalisé."
+  noindex={true}
+>
+  <div class="min-h-screen flex flex-col">
+    <Navbar currentPath="/inscription" />
+
+    <main class="flex-1 flex items-center justify-center py-16 px-4 bg-gray-50 dark:bg-slate-900 transition-colors duration-200">
+      <div class="w-full max-w-md">
+        <div class="text-center mb-8">
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Créer un compte</h1>
+          <p class="text-gray-500 dark:text-slate-400 mt-1 text-sm">Accédez à votre diagnostic personnalisé</p>
+        </div>
+        <SignUp />
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

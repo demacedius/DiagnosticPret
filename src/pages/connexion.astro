@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import { SignIn } from '@clerk/astro/components';
+---
+
+<BaseLayout
+  title="Connexion | DossierPrêt"
+  description="Connectez-vous à votre espace DossierPrêt."
+  noindex={true}
+>
+  <div class="min-h-screen flex flex-col">
+    <Navbar currentPath="/connexion" />
+
+    <main class="flex-1 flex items-center justify-center py-16 px-4 bg-gray-50 dark:bg-slate-900 transition-colors duration-200">
+      <div class="w-full max-w-md">
+        <div class="text-center mb-8">
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Bienvenue</h1>
+          <p class="text-gray-500 dark:text-slate-400 mt-1 text-sm">Connectez-vous pour accéder à votre espace</p>
+        </div>
+        <SignIn />
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>
