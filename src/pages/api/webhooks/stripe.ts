@@ -56,7 +56,7 @@ export const POST: APIRoute = async ({ request }) => {
     if (!clerkUserId) {
       const email = session.customer_details?.email;
       if (!email) {
-        console.error('[webhook/stripe] Impossible d'identifier l'utilisateur : ni clerkUserId ni email');
+        console.error("[webhook/stripe] Impossible d'identifier l'utilisateur : ni clerkUserId ni email");
         return new Response('User unidentifiable', { status: 400 });
       }
 
