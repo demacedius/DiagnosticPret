@@ -5,6 +5,7 @@
   type Priorite = 'bloquant' | 'important' | 'conseil';
   interface ActionItem { priorite: Priorite; titre: string; detail: string; }
   interface Simulation { taux: number; mensualite: number; coutTotal: number; tauxEndettement: number; }
+  interface RoadmapMilestone { mois: number; titre: string; items: string[]; type: 'now' | 'mid' | 'final'; }
 
   // ─── Props optionnels (courtier) ──────────────────────────────────
   let { dossierId = undefined, onResult = undefined }: {
@@ -44,7 +45,9 @@
   let hcsfOk         = $state(false);
   let scoreGlobal    = $state(0);
   let actions        = $state<ActionItem[]>([]);
-  let simulations    = $state<Simulation[]>([]);
+  let simulations       = $state<Simulation[]>([]);
+  let delaiMois         = $state('');
+  let roadmapMilestones = $state<RoadmapMilestone[]>([]);
 
   // ─── Helpers ──────────────────────────────────────────────────────
   function calcMensualite(p: number, tauxAnnuel: number, dureeAns: number): number {
@@ -250,6 +253,101 @@
 
     actions = acts;
 
+    // ── Roadmap ────────────────────────────────────────────────────
+    const delai = parseInt(delaiMois) || 0;
+    if (delai > 0) {
+      const apportCible10  = m / 9; // apport needed to hit 10 %
+      const manqueApport   = Math.max(0, apportCible10 - a);
+      const épargne        = manqueApport > 0 ? Math.ceil(manqueApport / delai) : 0;
+
+      // Score projeté si actions appliquées
+      const curApScore  = apPct >= 20 ? 20 : apPct >= 10 ? 12 : apPct >= 5 ? 5 : 0;
+      const apFinal     = a + épargne * delai;
+      const apPctFinal  = (apFinal / (m + apFinal)) * 100;
+      const projApScore = apPctFinal >= 20 ? 20 : apPctFinal >= 10 ? 12 : apPctFinal >= 5 ? 5 : 0;
+      const scoreProjete = Math.min(100, score + (projApScore - curApScore) + (decouvert === 'oui' ? 15 : 0));
+
+      const q1 = delai <= 6 ? Math.max(1, Math.round(delai / 3)) : 3;
+      const q2 = Math.round(delai / 2);
+      const q3 = Math.max(q1 + 1, delai - 3);
+      const rm: RoadmapMilestone[] = [];
+
+      // M+0 : Actions immédiates
+      const m0: string[] = ["Consultez un courtier pour une première évaluation gratuite de votre dossier"];
+      if (decouvert === 'oui') m0.push("Régularisez votre solde bancaire dès maintenant — 3 relevés sains sont requis avant tout dépôt");
+      if (contrat === 'interim') m0.push("Ciblez un poste en CDI : votre statut actuel rend l'obtention d'un prêt quasi-impossible");
+      else if (contrat === 'cdd' && anciennete !== 'plus2ans') m0.push("Négociez une titularisation en CDI ou patientez jusqu'à 2 ans d'ancienneté");
+      if (épargne > 0) m0.push(`Épargnez ${fmt(épargne)} €/mois sur un Livret A ou PEL dédié pour atteindre ${fmt(Math.round(apportCible10))} € d'apport`);
+      rm.push({ mois: 0, titre: 'Actions immédiates', items: m0, type: 'now' });
+
+      // Q1 : Préparation administrative
+      const mq1: string[] = [];
+      if (decouvert === 'oui') mq1.push(`${q1 >= 3 ? '3' : q1} mois de relevés bancaires sains atteints — dossier assaini`);
+      mq1.push("Rassemblez les documents socle : 3 bulletins de salaire, dernier avis d'imposition, relevés bancaires");
+      if (contrat === 'independant') mq1.push("Préparez vos 2 derniers bilans comptables + déclarations de revenus (exigés par toutes les banques)");
+      if (taux > 35) {
+        const mensMax33 = r * 0.33 - c;
+        if (mensMax33 > 0) mq1.push(`Réduisez votre projet à ${fmt(Math.round(maxMontantFromMens(mensMax33, t, d)))} € max pour passer sous le seuil HCSF de 35 %`);
+      }
+      rm.push({ mois: q1, titre: 'Préparation administrative', items: mq1, type: 'mid' });
+
+      // Q2 : Mi-parcours (seulement si délai >= 8 et créneau disponible)
+      if (delai >= 8 && q2 > q1 && q2 < q3) {
+        const mq2: string[] = [];
+        if (épargne > 0) {
+          const apAuMi = Math.round(a + épargne * q2);
+          mq2.push(`Épargne accumulée : ${fmt(apAuMi)} € sur ${fmt(Math.round(apportCible10))} € visés`);
+        }
+        mq2.push("Affinez votre projet : zone géographique, surface, neuf ou ancien, budget définitif");
+        mq2.push("Vérifiez votre éligibilité au PTZ (primo-accédant, plafonds de revenus)");
+        rm.push({ mois: q2, titre: 'Point mi-parcours', items: mq2, type: 'mid' });
+      }
+
+      // Q3 : Recherche active
+      if (q3 > q1 && q3 < delai) {
+        const mq3: string[] = [
+          "Lancez les visites — réactivité clé sur les biens correspondant à vos critères",
+          "Obtenez 2-3 simulations de financement (banques + courtier) pour comparer les offres",
+        ];
+        if (taux > 30 && taux <= 35) {
+          const mensMax30 = r * 0.30 - c;
+          if (mensMax30 > 0) mq3.push(`Ciblez des biens jusqu'à ${fmt(Math.round(maxMontantFromMens(mensMax30, t, d)))} € pour passer sous 30 % d'endettement`);
+        }
+        mq3.push("Renseignez-vous sur les aides locales : Action Logement, subventions régionales");
+        rm.push({ mois: q3, titre: 'Recherche active du bien', items: mq3, type: 'mid' });
+      }
+
+      // M+(délai-1) : Constitution du dossier
+      const mDossier = delai - 1;
+      if (mDossier > q3 && mDossier > 0) {
+        rm.push({
+          mois: mDossier,
+          titre: 'Constitution du dossier complet',
+          items: [
+            "3 derniers bulletins de salaire + contrat de travail",
+            "3 derniers relevés bancaires de tous vos comptes",
+            "2 derniers avis d'imposition",
+            `Justificatif d'apport : ${fmt(Math.round(a + épargne * delai))} € sur Livret A ou compte épargne`,
+            "Compromis de vente signé avec le vendeur",
+          ],
+          type: 'mid',
+        });
+      }
+
+      // M+délai : Objectif final
+      const mFinal: string[] = [];
+      if (scoreProjete > score) mFinal.push(`Score projeté : ${scoreProjete}/100 (contre ${score}/100 aujourd'hui)`);
+      if (épargne > 0) mFinal.push(`Apport visé : ${fmt(Math.round(a + épargne * delai))} €`);
+      mFinal.push("Dépôt du dossier de financement — réponse banque sous 3-4 semaines");
+      mFinal.push("Réception de l'offre de prêt → délai légal de réflexion de 10 jours");
+      mFinal.push("Signature de l'acte authentique chez le notaire");
+      rm.push({ mois: delai, titre: 'Objectif achat', items: mFinal, type: 'final' });
+
+      roadmapMilestones = rm;
+    } else {
+      roadmapMilestones = [];
+    }
+
     // ── Simulations ───────────────────────────────────────────────
     simulations = [3.5, 4.0, 4.5, 5.0].map((tx) => {
       const ms  = calcMensualite(m, tx, d);
@@ -284,6 +382,7 @@
     duree = '20'; tauxInteret = '4.0';
     contrat = 'cdi'; anciennete = 'plus2ans';
     decouvert = 'non'; nbEnfants = '0';
+    delaiMois = ''; roadmapMilestones = [];
   }
 
   // ─── Derived style helpers ────────────────────────────────────────
@@ -471,6 +570,25 @@
               </div>
               {#if errors.duree}<p class="text-xs text-red-500 mt-1" transition:fade={{ duration: 150 }}>{errors.duree}</p>{/if}
             </div>
+
+            <!-- Délai cible -->
+            <div class="sm:col-span-2">
+              <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
+                Dans combien de mois souhaitez-vous acheter ?
+                <span class="ml-1 font-normal text-gray-400 dark:text-slate-500">(optionnel — génère une roadmap personnalisée)</span>
+              </label>
+              <div class="flex flex-wrap gap-2">
+                {#each [['', 'Non défini'], ['6', '6 mois'], ['12', '12 mois'], ['18', '18 mois'], ['24', '24 mois']] as [val, label]}
+                  <button type="button" onclick={() => (delaiMois = val)}
+                    class="flex-1 min-w-[80px] py-3 px-4 text-sm font-medium rounded-lg border transition-all duration-150
+                      {delaiMois === val
+                        ? 'bg-gray-900 dark:bg-slate-100 text-white dark:text-slate-900 border-gray-900 dark:border-slate-100'
+                        : 'bg-white dark:bg-slate-800 text-gray-600 dark:text-slate-400 border-gray-200 dark:border-slate-600 hover:border-gray-300 dark:hover:border-slate-500'}">
+                    {label}
+                  </button>
+                {/each}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -648,6 +766,51 @@
                 </div>
               </div>
             {/each}
+          </div>
+        </div>
+      {/if}
+
+      <!-- Roadmap vers l'achat -->
+      {#if roadmapMilestones.length > 0}
+        <div class="card print-section">
+          <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-0.5">Roadmap vers l'achat</h3>
+          <p class="text-xs text-gray-400 dark:text-slate-500 mb-6">Objectif dans {delaiMois} mois · jalons personnalisés selon votre situation</p>
+
+          <div class="relative">
+            <!-- Ligne verticale -->
+            <div class="absolute left-[15px] top-4 bottom-4 w-px bg-gray-100 dark:bg-slate-700/60"></div>
+
+            <div class="space-y-7">
+              {#each roadmapMilestones as step}
+                <div class="relative flex gap-4">
+                  <!-- Badge mois -->
+                  <div class="flex-shrink-0 w-8 h-8 rounded-full border-2 flex items-center justify-center z-10
+                    {step.type === 'now'   ? 'bg-gray-900 dark:bg-slate-100 border-gray-900 dark:border-slate-100' :
+                     step.type === 'final' ? 'bg-green-500 dark:bg-green-500 border-green-500' :
+                                             'bg-white dark:bg-slate-800 border-gray-300 dark:border-slate-600'}">
+                    <span class="text-xs font-bold leading-none
+                      {step.type === 'now'   ? 'text-white dark:text-slate-900' :
+                       step.type === 'final' ? 'text-white' :
+                                               'text-gray-500 dark:text-slate-400'}">
+                      {step.mois === 0 ? 'J0' : `+${step.mois}`}
+                    </span>
+                  </div>
+
+                  <!-- Contenu -->
+                  <div class="flex-1 min-w-0 pb-1">
+                    <p class="text-sm font-semibold text-gray-900 dark:text-white mb-2">{step.titre}</p>
+                    <ul class="space-y-1.5">
+                      {#each step.items as item}
+                        <li class="flex items-start gap-2 text-sm text-gray-600 dark:text-slate-300 leading-snug">
+                          <span class="text-gray-300 dark:text-slate-600 mt-0.5 flex-shrink-0 select-none">›</span>
+                          {item}
+                        </li>
+                      {/each}
+                    </ul>
+                  </div>
+                </div>
+              {/each}
+            </div>
           </div>
         </div>
       {/if}
