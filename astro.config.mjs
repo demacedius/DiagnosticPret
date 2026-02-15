@@ -9,8 +9,9 @@ import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://www.dossierpret.fr',
+  site: 'https://dossierpret.fr',
   output: 'server',
+  security: { checkOrigin: false },
   adapter: node({ mode: 'standalone' }),
   integrations: [
     clerk(),
