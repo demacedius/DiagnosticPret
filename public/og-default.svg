@@ -2,7 +2,7 @@
   <!-- Background -->
   <rect width="1200" height="630" fill="#0f172a"/>
 
-  <!-- Subtle grid pattern -->
+  <!-- Subtle grid -->
   <defs>
     <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
       <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#1e293b" stroke-width="1"/>
@@ -10,27 +10,41 @@
   </defs>
   <rect width="1200" height="630" fill="url(#grid)"/>
 
-  <!-- Amber accent top-left -->
-  <rect x="80" y="80" width="48" height="6" rx="3" fill="#f59e0b"/>
+  <!-- Logo icon (white, scaled from 400x400 viewBox, placed top-left) -->
+  <g transform="translate(80, 72) scale(0.16)">
+    <path d="M120 272V130.262C120 126.142 123.116 122.739 127.235 122.799C147.355 123.093 202.5 130.05 202.5 197.5C202.5 264.159 148.64 276.958 127.957 279.416C123.569 279.937 120 276.418 120 272Z" fill="white"/>
+    <path d="M230.5 198.54V126.355C230.5 124.524 231.722 122.94 233.521 122.6C246.079 120.228 293.5 114.332 293.5 160.544C293.5 206.486 246.632 203.907 233.745 202.33C231.838 202.096 230.5 200.461 230.5 198.54Z" fill="white"/>
+  </g>
 
-  <!-- Score circle (decorative) -->
-  <circle cx="950" cy="315" r="180" fill="none" stroke="#1e293b" stroke-width="2"/>
-  <circle cx="950" cy="315" r="140" fill="none" stroke="#f59e0b" stroke-width="3" stroke-dasharray="660 220" stroke-dashoffset="165" stroke-linecap="round" transform="rotate(-90 950 315)"/>
-  <text x="950" y="298" text-anchor="middle" fill="white" font-family="system-ui, -apple-system, sans-serif" font-size="72" font-weight="800">78</text>
-  <text x="950" y="338" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="500">/100</text>
-  <text x="950" y="370" text-anchor="middle" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="16" font-weight="600">SCORE DOSSIER</text>
+  <!-- Brand name -->
+  <text x="144" y="100" fill="white" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="600" fill-opacity="0.9">DossierPrêt</text>
 
-  <!-- Main text -->
-  <text x="80" y="175" fill="white" font-family="system-ui, -apple-system, sans-serif" font-size="22" font-weight="500" fill-opacity="0.5">DossierPrêt</text>
+  <!-- Amber accent line -->
+  <rect x="80" y="148" width="52" height="5" rx="2.5" fill="#f59e0b"/>
 
-  <text x="80" y="270" fill="white" font-family="system-ui, -apple-system, sans-serif" font-size="62" font-weight="800" letter-spacing="-1">Votre dossier</text>
-  <text x="80" y="345" fill="white" font-family="system-ui, -apple-system, sans-serif" font-size="62" font-weight="800" letter-spacing="-1">prêt à convaincre</text>
-  <text x="80" y="420" fill="white" font-family="system-ui, -apple-system, sans-serif" font-size="62" font-weight="800" letter-spacing="-1">la banque.</text>
+  <!-- Score circle (right side) -->
+  <circle cx="960" cy="315" r="175" fill="none" stroke="#1e293b" stroke-width="2"/>
+  <circle cx="960" cy="315" r="140" fill="none" stroke="#f59e0b" stroke-width="4" stroke-dasharray="659 220" stroke-dashoffset="165" stroke-linecap="round" transform="rotate(-90 960 315)"/>
+  <text x="960" y="295" text-anchor="middle" fill="white" font-family="system-ui, -apple-system, sans-serif" font-size="80" font-weight="800">78</text>
+  <text x="960" y="336" text-anchor="middle" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="22">/100</text>
+  <text x="960" y="370" text-anchor="middle" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="15" font-weight="700" letter-spacing="2">SCORE DOSSIER</text>
 
-  <!-- Subtitle -->
-  <text x="80" y="490" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="24" font-weight="400">Analyse HCSF · Score /100 · Plan d'action · Simulations</text>
+  <!-- Tags -->
+  <rect x="80" y="165" width="118" height="32" rx="8" fill="#1e293b"/>
+  <text x="139" y="185" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500">Analyse HCSF</text>
 
-  <!-- URL badge -->
-  <rect x="80" y="530" width="260" height="44" rx="22" fill="#1e293b"/>
-  <text x="210" y="557" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="500">dossierpret.fr</text>
+  <rect x="208" y="165" width="90" height="32" rx="8" fill="#1e293b"/>
+  <text x="253" y="185" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500">Score /100</text>
+
+  <rect x="308" y="165" width="110" height="32" rx="8" fill="#1e293b"/>
+  <text x="363" y="185" text-anchor="middle" fill="#94a3b8" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="500">Plan d'action</text>
+
+  <!-- Main headline -->
+  <text x="80" y="290" fill="white" font-family="system-ui, -apple-system, sans-serif" font-size="68" font-weight="800" letter-spacing="-1.5">Votre dossier prêt</text>
+  <text x="80" y="370" fill="white" font-family="system-ui, -apple-system, sans-serif" font-size="68" font-weight="800" letter-spacing="-1.5">à convaincre</text>
+  <text x="80" y="450" fill="#f59e0b" font-family="system-ui, -apple-system, sans-serif" font-size="68" font-weight="800" letter-spacing="-1.5">la banque.</text>
+
+  <!-- URL -->
+  <rect x="80" y="510" width="240" height="42" rx="21" fill="#1e293b"/>
+  <text x="200" y="536" text-anchor="middle" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="17" font-weight="500">dossierpret.fr</text>
 </svg>
