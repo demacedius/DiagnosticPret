@@ -12,7 +12,7 @@ async function wwwRedirect({ request }: { request: Request }, next: () => Promis
   const url = new URL(request.url);
   if (url.hostname.startsWith('www.')) {
     url.hostname = url.hostname.slice(4);
-    return Response.redirect(url.toString(), 301);
+    return Response.redirect(url.toString(), 308);
   }
   return next();
 }
