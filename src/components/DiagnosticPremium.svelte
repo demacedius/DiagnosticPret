@@ -62,6 +62,14 @@
     return n.toFixed(1).replace('.', ',') + '\u00a0%';
   }
 
+  /** Back-calculate max borrowable amount from a target monthly payment */
+  function maxMontantFromMens(mensMax: number, tauxAnnuel: number, dureeAns: number): number {
+    const r = tauxAnnuel / 100 / 12;
+    const n = dureeAns * 12;
+    if (r === 0) return mensMax * n;
+    return mensMax * (Math.pow(1 + r, n) - 1) / (r * Math.pow(1 + r, n));
+  }
+
   // ─── Validation ───────────────────────────────────────────────────
   function validate(): boolean {
     const errs: Record<string, string> = {};
@@ -144,33 +152,51 @@
     const acts: ActionItem[] = [];
 
     // Bloquants
-    if (taux > 35) acts.push({
-      priorite: 'bloquant',
-      titre: `Taux d'endettement à ${fmtPct(taux)} — refus HCSF probable`,
-      detail: `La règle HCSF fixe le plafond à 35\u00a0% des revenus nets. Avec une mensualité de ${fmt(mens)}\u00a0€ et ${fmt(c)}\u00a0€ de charges, votre taux dépasse la limite. Réduisez le montant emprunté, allongez la durée, ou apportez davantage.`,
-    });
+    if (taux > 35) {
+      const mensMax33 = r * 0.33 - c;
+      const montantMax33 = mensMax33 > 0 ? Math.round(maxMontantFromMens(mensMax33, t, d)) : 0;
+      const reductionNeeded = Math.max(0, Math.round(m - montantMax33));
+      acts.push({
+        priorite: 'bloquant',
+        titre: `Taux d'endettement à ${fmtPct(taux)} — refus HCSF probable`,
+        detail: `La règle HCSF fixe le plafond à 35\u00a0% des revenus nets. Avec une mensualité de ${fmt(mens)}\u00a0€ et ${fmt(c)}\u00a0€ de charges existantes, votre taux dépasse la limite.${montantMax33 > 0 ? ` Pour passer sous 35\u00a0%, vous devriez emprunter au maximum ${fmt(montantMax33)}\u00a0€ (soit ${fmt(reductionNeeded)}\u00a0€ de moins que votre projet actuel).` : ' Réduisez le montant emprunté ou augmentez significativement votre apport.'}`,
+      });
+    }
     if (d > 25) acts.push({
       priorite: 'bloquant',
       titre: `Durée de ${d}\u00a0ans — dépasse la limite HCSF`,
       detail: 'La durée maximale autorisée est 25\u00a0ans (27\u00a0ans pour un achat sur plan VEFA). Au-delà, les banques ne peuvent légalement accorder le prêt.',
     });
-    if (apPct < 5) acts.push({
-      priorite: 'bloquant',
-      titre: `Apport insuffisant (${fmtPct(apPct)} du prix total)`,
-      detail: `Votre apport couvre moins de 5\u00a0% du bien. Les banques refusent quasi-systématiquement en dessous de ce seuil. L'apport minimum recommandé est de 10\u00a0% afin de couvrir les frais de notaire (~7-8\u00a0%) et de garantie (~1-2\u00a0%).`,
-    });
+    if (apPct < 5) {
+      const apportPour10 = m / 9;
+      const manquePour10 = Math.max(0, Math.round(apportPour10 - a));
+      acts.push({
+        priorite: 'bloquant',
+        titre: `Apport insuffisant (${fmtPct(apPct)} du prix total)`,
+        detail: `Votre apport couvre moins de 5\u00a0% du bien. Les banques refusent quasi-systématiquement en dessous de ce seuil. Il vous manque ${fmt(manquePour10)}\u00a0€ pour atteindre 10\u00a0% du prix total — le minimum pour couvrir les frais de notaire (~7-8\u00a0%) et de garantie (~1-2\u00a0%).`,
+      });
+    }
 
     // Importants
-    if (taux > 30 && taux <= 35) acts.push({
-      priorite: 'important',
-      titre: `Taux d'endettement à ${fmtPct(taux)} — zone orange`,
-      detail: `Vous êtes dans la zone 30-35\u00a0%. La banque peut accorder une dérogation HCSF (quota de 20\u00a0% des dossiers), mais ce n'est pas acquis. Réduire le montant de 5-10\u00a0% améliorerait significativement vos chances.`,
-    });
-    if (apPct >= 5 && apPct < 10) acts.push({
-      priorite: 'important',
-      titre: `Apport à ${fmtPct(apPct)} — en dessous du seuil recommandé`,
-      detail: `Un apport de 10\u00a0% est le minimum conseillé pour couvrir les frais annexes. Avec ${fmt(a)}\u00a0€, une partie des frais devra être financée par le prêt, ce qui fragilise le dossier.`,
-    });
+    if (taux > 30 && taux <= 35) {
+      const mensMax30 = r * 0.30 - c;
+      const montantPour30 = mensMax30 > 0 ? Math.round(maxMontantFromMens(mensMax30, t, d)) : 0;
+      const reductionPour30 = Math.max(0, Math.round(m - montantPour30));
+      acts.push({
+        priorite: 'important',
+        titre: `Taux d'endettement à ${fmtPct(taux)} — zone orange`,
+        detail: `Vous êtes dans la zone 30-35\u00a0%. La banque peut accorder une dérogation HCSF (quota de 20\u00a0% des dossiers), mais ce n'est pas acquis.${montantPour30 > 0 && reductionPour30 > 0 ? ` En réduisant votre emprunt de ${fmt(reductionPour30)}\u00a0€ (→\u00a0${fmt(montantPour30)}\u00a0€), votre taux passerait sous 30\u00a0%.` : ''}`,
+      });
+    }
+    if (apPct >= 5 && apPct < 10) {
+      const apportPour10 = m / 9;
+      const manquePour10 = Math.max(0, Math.round(apportPour10 - a));
+      acts.push({
+        priorite: 'important',
+        titre: `Apport à ${fmtPct(apPct)} — en dessous du seuil recommandé`,
+        detail: `Un apport de 10\u00a0% est le minimum conseillé pour couvrir les frais annexes (notaire, garantie). Il vous manque ${fmt(manquePour10)}\u00a0€ pour atteindre ce seuil, ce qui fragilise le dossier.`,
+      });
+    }
     if (decouvert === 'oui') acts.push({
       priorite: 'important',
       titre: 'Découvert fréquent — signal négatif fort',
@@ -181,23 +207,36 @@
       titre: `Contrat ${contrat === 'interim' ? 'intérim' : 'CDD'} — stabilité insuffisante`,
       detail: 'Les banques exigent généralement un CDI ou une ancienneté significative. En intérim ou CDD court, le dossier est quasi-systématiquement refusé sauf co-emprunteur en CDI ou dossier exceptionnel.',
     });
-    if (reste < 400) acts.push({
-      priorite: 'important',
-      titre: `Reste à vivre faible (${fmt(reste)}\u00a0€/mois)`,
-      detail: "Un reste à vivre inférieur à 400\u00a0€ après mensualité et charges courantes est un signal d'alerte. Les banques estiment généralement un minimum de 800-1\u202f000\u00a0€ par foyer.",
-    });
+    if (reste < 400) {
+      const mensMaxRAV = r - c - 800;
+      const montantPourRAV = mensMaxRAV > 0 ? Math.round(maxMontantFromMens(mensMaxRAV, t, d)) : 0;
+      acts.push({
+        priorite: 'important',
+        titre: `Reste à vivre faible (${fmt(reste)}\u00a0€/mois)`,
+        detail: `Un reste à vivre inférieur à 400\u00a0€ est un signal d'alerte fort. Les banques estiment généralement un minimum de 800-1\u202f000\u00a0€ par foyer.${montantPourRAV > 0 ? ` Pour disposer de 800\u00a0€/mois de reste à vivre, votre mensualité ne devrait pas dépasser ${fmt(mensMaxRAV)}\u00a0€ (emprunt max. ${fmt(montantPourRAV)}\u00a0€).` : ''}`,
+      });
+    }
 
     // Conseils
-    if (apPct >= 10 && apPct < 20) acts.push({
-      priorite: 'conseil',
-      titre: `Apport à ${fmtPct(apPct)} — bon, mais 20\u00a0% serait optimal`,
-      detail: "Un apport de 20\u00a0% ou plus permet de négocier un meilleur taux d'intérêt (gain de 0,1 à 0,3\u00a0%) et améliore la perception du dossier.",
-    });
-    if (taux <= 25) acts.push({
-      priorite: 'conseil',
-      titre: `Excellent taux d'endettement (${fmtPct(taux)}) — marge idéale`,
-      detail: 'Votre taux est bien en dessous du plafond réglementaire. Point fort majeur : vous pouvez envisager un montant légèrement plus élevé si le projet évolue.',
-    });
+    if (apPct >= 10 && apPct < 20) {
+      const apportPour20 = m / 4;
+      const manquePour20 = Math.max(0, Math.round(apportPour20 - a));
+      acts.push({
+        priorite: 'conseil',
+        titre: `Apport à ${fmtPct(apPct)} — bon, mais 20\u00a0% serait optimal`,
+        detail: `Un apport de 20\u00a0% ou plus permet de négocier un meilleur taux d'intérêt (gain de 0,1 à 0,3\u00a0%) et améliore la perception du dossier. Il vous manque ${fmt(manquePour20)}\u00a0€ pour atteindre ce seuil optimal.`,
+      });
+    }
+    if (taux <= 25) {
+      const mensMax30 = r * 0.30 - c;
+      const montantMax30 = mensMax30 > 0 ? Math.round(maxMontantFromMens(mensMax30, t, d)) : m;
+      const margeSupp = Math.max(0, montantMax30 - m);
+      acts.push({
+        priorite: 'conseil',
+        titre: `Excellent taux d'endettement (${fmtPct(taux)}) — marge idéale`,
+        detail: `Votre taux est bien en dessous du plafond réglementaire. Votre profil vous permettrait d'emprunter jusqu'à ${fmt(montantMax30)}\u00a0€ en restant sous 30\u00a0%${margeSupp > 0 ? ` (${fmt(margeSupp)}\u00a0€ de marge par rapport à votre projet actuel)` : ''}.`,
+      });
+    }
     if (contrat === 'cdi' && anciennete === 'plus2ans') acts.push({
       priorite: 'conseil',
       titre: 'CDI titulaire > 2\u00a0ans — profil emploi solide',
@@ -270,10 +309,26 @@
 
 <svelte:head>
   <style>
+    .print-only { display: none; }
     @media print {
-      header, footer, .no-print { display: none !important; }
-      body { background: white !important; }
-      .print-section { break-inside: avoid; }
+      @page { margin: 18mm 14mm; }
+      html { color-scheme: light !important; }
+      header, footer, nav, .no-print { display: none !important; }
+      body {
+        background: white !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .print-only { display: block !important; }
+      .print-section {
+        break-inside: avoid;
+        margin-bottom: 12px;
+      }
+      .card {
+        background: white !important;
+        box-shadow: none !important;
+        border: 1px solid #e5e7eb !important;
+      }
     }
   </style>
 </svelte:head>
@@ -313,14 +368,18 @@
             <!-- Charges -->
             <div>
               <label for="dp-charges" class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-1.5">
-                Charges mensuelles (loyer, crédits en cours…)
+                Autres charges mensuelles
               </label>
               <div class="relative">
-                <input id="dp-charges" type="number" min="0" step="100" placeholder="900"
+                <input id="dp-charges" type="number" min="0" step="100" placeholder="500"
                   bind:value={charges}
                   class="input-field pr-8 {errors.charges ? 'border-red-400 focus:ring-red-400' : ''}" />
                 <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-slate-500 text-sm pointer-events-none">€</span>
               </div>
+              <p class="text-xs text-gray-400 dark:text-slate-500 mt-1.5 leading-relaxed">
+                Crédits en cours (voiture, conso…), pensions alimentaires.<br>
+                <span class="text-gray-500 dark:text-slate-400">Résidence principale : n'incluez pas le loyer actuel — il disparaît à l'achat.</span>
+              </p>
               {#if errors.charges}<p class="text-xs text-red-500 mt-1" transition:fade={{ duration: 150 }}>{errors.charges}</p>{/if}
             </div>
 
@@ -487,6 +546,23 @@
   <!-- ─── RESULTS ──────────────────────────────────────────────────── -->
   {:else}
     <div id="resultats-premium" transition:slide={{ duration: 300, axis: 'y' }} class="space-y-5">
+
+      <!-- En-tête impression uniquement -->
+      <div class="print-only" style="border-bottom: 2px solid #1f2937; padding-bottom: 12px; margin-bottom: 4px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <div style="font-size: 20px; font-weight: 900; color: #111; letter-spacing: -0.5px;">DossierPrêt</div>
+            <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">dossierpret.fr — Rapport de diagnostic immobilier</div>
+          </div>
+          <div style="text-align: right; font-size: 11px; color: #6b7280;">
+            Généré le {new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}
+          </div>
+        </div>
+        <div style="margin-top: 10px; display: flex; gap: 20px; align-items: center; font-size: 12px;">
+          <span style="font-weight: 700; color: #111;">Score : {scoreGlobal}/100 — {sc.label}</span>
+          <span style="font-weight: 600; color: {hcsfOk ? '#059669' : '#dc2626'};">{hcsfOk ? '✓ Conforme HCSF' : '✗ Non conforme HCSF'}</span>
+        </div>
+      </div>
 
       <!-- Score global -->
       <div class="card print-section">
