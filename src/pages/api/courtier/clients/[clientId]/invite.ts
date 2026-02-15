@@ -6,13 +6,11 @@ export const POST: APIRoute = async ({ locals, params, request }) => {
   const { userId } = locals.auth();
   if (!userId) return new Response('Unauthorized', { status: 401 });
 
-  const token = await locals.auth().getToken({ template: 'supabase' });
-  if (!token) return new Response('Token error', { status: 500 });
 
   const origin = new URL(request.url).origin;
 
   try {
-    const supabase = createServerSupabaseClient(token);
+    const supabase = createServerSupabaseClient();
     const inviteToken = await generateInviteToken(params.clientId!, supabase);
     const inviteUrl = `${origin}/courtier/invitation/${inviteToken}`;
 

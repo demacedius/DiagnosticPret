@@ -6,11 +6,9 @@ export const GET: APIRoute = async ({ locals, params }) => {
   const { userId } = locals.auth();
   if (!userId) return new Response('Unauthorized', { status: 401 });
 
-  const token = await locals.auth().getToken({ template: 'supabase' });
-  if (!token) return new Response('Token error', { status: 500 });
 
   try {
-    const supabase = createServerSupabaseClient(token);
+    const supabase = createServerSupabaseClient();
     const dossier = await getDossier(params.dossierId!, supabase);
     const diagnostics = await getDiagnostics(params.dossierId!, supabase);
     return new Response(JSON.stringify({ ...dossier, diagnostics }), {
@@ -27,8 +25,6 @@ export const PATCH: APIRoute = async ({ locals, params, request }) => {
   const { userId } = locals.auth();
   if (!userId) return new Response('Unauthorized', { status: 401 });
 
-  const token = await locals.auth().getToken({ template: 'supabase' });
-  if (!token) return new Response('Token error', { status: 500 });
 
   let body: { statut?: string; titre?: string };
   try {
@@ -40,7 +36,7 @@ export const PATCH: APIRoute = async ({ locals, params, request }) => {
   const validStatuts = ['en_attente', 'en_cours', 'accorde', 'refuse'];
 
   try {
-    const supabase = createServerSupabaseClient(token);
+    const supabase = createServerSupabaseClient();
 
     if (body.statut) {
       if (!validStatuts.includes(body.statut)) {

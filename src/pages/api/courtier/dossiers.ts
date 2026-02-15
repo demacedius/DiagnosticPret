@@ -6,8 +6,6 @@ export const POST: APIRoute = async ({ locals, request }) => {
   const { userId } = locals.auth();
   if (!userId) return new Response('Unauthorized', { status: 401 });
 
-  const token = await locals.auth().getToken({ template: 'supabase' });
-  if (!token) return new Response('Token error', { status: 500 });
 
   let body: { clientId?: string; titre?: string };
   try {
@@ -19,7 +17,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
   if (!body.clientId) return new Response('clientId requis', { status: 400 });
 
   try {
-    const supabase = createServerSupabaseClient(token);
+    const supabase = createServerSupabaseClient();
     const dossier = await createDossier(
       userId,
       body.clientId,

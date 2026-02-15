@@ -7,8 +7,6 @@ export const POST: APIRoute = async ({ locals, request }) => {
   const { userId } = locals.auth();
   if (!userId) return new Response('Unauthorized', { status: 401 });
 
-  const token = await locals.auth().getToken({ template: 'supabase' });
-  if (!token) return new Response('Token error', { status: 500 });
 
   let body: { dossierId?: string; result?: DiagnosticResult; inputs?: DiagnosticInput };
   try {
@@ -22,7 +20,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
   }
 
   try {
-    const supabase = createServerSupabaseClient(token);
+    const supabase = createServerSupabaseClient();
 
     // Vérifier que le courtier est bien propriétaire du dossier
     const dossier = await getDossier(body.dossierId, supabase);

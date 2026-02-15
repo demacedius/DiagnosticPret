@@ -14,8 +14,7 @@ const user = await Astro.locals.currentUser();
 if (!isPro(user)) return Astro.redirect('/premium?upgrade=pro');
 
 const { clientId, dossierId } = Astro.params;
-const token = await Astro.locals.auth().getToken({ template: 'supabase' });
-const supabase = createServerSupabaseClient(token!);
+const supabase = createServerSupabaseClient();
 
 let client, dossier;
 try {

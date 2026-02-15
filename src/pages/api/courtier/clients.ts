@@ -6,11 +6,9 @@ export const GET: APIRoute = async ({ locals }) => {
   const { userId } = locals.auth();
   if (!userId) return new Response('Unauthorized', { status: 401 });
 
-  const token = await locals.auth().getToken({ template: 'supabase' });
-  if (!token) return new Response('Token error', { status: 500 });
 
   try {
-    const supabase = createServerSupabaseClient(token);
+    const supabase = createServerSupabaseClient();
     const clients = await getClients(userId, supabase);
     return new Response(JSON.stringify(clients), {
       status: 200,
@@ -26,8 +24,6 @@ export const POST: APIRoute = async ({ locals, request }) => {
   const { userId } = locals.auth();
   if (!userId) return new Response('Unauthorized', { status: 401 });
 
-  const token = await locals.auth().getToken({ template: 'supabase' });
-  if (!token) return new Response('Token error', { status: 500 });
 
   let body: { nom?: string; email?: string };
   try {
@@ -41,7 +37,7 @@ export const POST: APIRoute = async ({ locals, request }) => {
   }
 
   try {
-    const supabase = createServerSupabaseClient(token);
+    const supabase = createServerSupabaseClient();
     const client = await createClient(userId, body.nom.trim(), body.email?.trim() || null, supabase);
     return new Response(JSON.stringify(client), {
       status: 201,

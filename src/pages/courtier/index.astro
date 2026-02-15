@@ -13,8 +13,7 @@ if (!userId) return Astro.redirect('/connexion');
 const user = await Astro.locals.currentUser();
 if (!isPro(user)) return Astro.redirect('/premium?upgrade=pro');
 
-const token = await Astro.locals.auth().getToken({ template: 'supabase' });
-const supabase = createServerSupabaseClient(token!);
+const supabase = createServerSupabaseClient();
 
 const clients = await getClients(userId, supabase);
 
