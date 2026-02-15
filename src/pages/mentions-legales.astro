@@ -13,47 +13,92 @@ import Footer from '../components/Footer.astro';
     <Navbar />
     <main class="flex-1 py-12 sm:py-16">
       <div class="max-w-2xl mx-auto px-4 sm:px-6">
-        <h1 class="text-3xl font-bold text-gray-900 mb-8">Mentions légales</h1>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-10">Mentions légales</h1>
 
-        <div class="prose prose-gray prose-sm sm:prose max-w-none space-y-8">
+        <div class="prose prose-gray sm:prose-lg max-w-none
+          dark:prose-invert
+          prose-headings:font-semibold prose-headings:text-gray-900
+          prose-p:text-gray-600 prose-p:leading-relaxed
+          prose-a:text-gray-900 prose-a:underline
+          dark:prose-headings:text-white
+          dark:prose-p:text-slate-300
+          dark:prose-a:text-slate-200">
+
           <section>
             <h2>Éditeur du site</h2>
-            <p>DossierPrêt est un outil de simulation et d'information en matière de crédit immobilier.</p>
-            <p>Pour toute question : <a href="mailto:contact@dossierpret.fr">contact@dossierpret.fr</a></p>
+            <p>Le site <a href="https://www.dossierpret.fr">www.dossierpret.fr</a> est édité par :</p>
+            <p>
+              Anthony Macedo<br />
+              Entrepreneur individuel<br />
+              SIRET : 800 524 969 00030<br /><br />
+              Adresse :<br />
+              28B rue de Schalbach<br />
+              67320 Hirschland<br />
+              France<br /><br />
+              Email : <a href="mailto:contact@dossierpret.fr">contact@dossierpret.fr</a>
+            </p>
+          </section>
+
+          <section>
+            <h2>Directeur de la publication</h2>
+            <p>Anthony Macedo</p>
           </section>
 
           <section>
             <h2>Hébergement</h2>
-            <p>Ce site est hébergé sur une infrastructure sécurisée. Les données ne sont pas stockées côté serveur.</p>
+            <p>Le site est hébergé par :</p>
+            <p>
+              Railway Corp.<br />
+              548 Market St PMB 78514<br />
+              San Francisco, CA 94104<br />
+              United States<br /><br />
+              Site web : <a href="https://railway.app" target="_blank" rel="noopener">https://railway.app</a>
+            </p>
+          </section>
+
+          <section>
+            <h2>Nom de domaine</h2>
+            <p>Le nom de domaine dossierpret.fr est enregistré auprès de :</p>
+            <p>
+              Infomaniak Network SA<br />
+              Rue Eugène-Marziano 25<br />
+              1227 Les Acacias — Suisse<br />
+              <a href="https://www.infomaniak.com" target="_blank" rel="noopener">www.infomaniak.com</a>
+            </p>
           </section>
 
           <section>
             <h2>Propriété intellectuelle</h2>
-            <p>L'ensemble du contenu de ce site (textes, graphiques, logo, structure) est protégé par le droit d'auteur. Toute reproduction, même partielle, est interdite sans autorisation préalable.</p>
+            <p>L'ensemble du contenu du site (textes, graphiques, logo, structure, code) est protégé par le droit d'auteur.</p>
+            <p>Toute reproduction, représentation ou diffusion, même partielle, est interdite sans autorisation préalable.</p>
           </section>
 
           <section>
             <h2>Limitation de responsabilité</h2>
-            <p>DossierPrêt est un <strong>outil d'information et de simulation pédagogique</strong>. Il ne constitue pas un conseil financier, bancaire ou juridique.</p>
-            <p>Les résultats fournis par l'outil sont basés sur des critères standardisés et ne tiennent pas compte de toutes les spécificités individuelles ou des politiques propres à chaque établissement bancaire.</p>
-            <p><strong>Aucune garantie d'obtention de financement</strong> ne peut être tirée des résultats de la simulation.</p>
+            <p>DossierPrêt est un outil d'information et de simulation pédagogique.</p>
+            <p>Il ne constitue pas un conseil financier, bancaire ou juridique.</p>
+            <p>Les résultats fournis sont indicatifs et ne garantissent pas l'obtention d'un financement.</p>
             <p>DossierPrêt ne remplace pas l'avis d'un professionnel (courtier, conseiller bancaire, notaire).</p>
           </section>
 
           <section>
             <h2>Absence de partenariat bancaire</h2>
-            <p>DossierPrêt n'est partenaire d'aucun établissement bancaire, organisme de crédit ou intermédiaire en opérations de banque. Aucune commission n'est perçue sur les dossiers de financement.</p>
+            <p>DossierPrêt n'est partenaire d'aucun établissement bancaire ou organisme de crédit.</p>
+            <p>Aucune commission n'est perçue sur les dossiers de financement.</p>
           </section>
 
           <section>
             <h2>Données personnelles</h2>
-            <p>Les données saisies dans le simulateur ne sont pas collectées ni stockées. Voir notre <a href="/politique-confidentialite">Politique de confidentialité</a>.</p>
+            <p>Les données saisies dans le simulateur ne sont pas collectées ni stockées.</p>
+            <p>Pour plus d'informations, consultez la <a href="/politique-confidentialite">Politique de confidentialité</a>.</p>
           </section>
 
           <section>
             <h2>Droit applicable</h2>
-            <p>Ce site est soumis au droit français. Tout litige relatif à son utilisation relève de la compétence exclusive des tribunaux français.</p>
+            <p>Le site est soumis au droit français.</p>
+            <p>Tout litige relève des tribunaux compétents selon la législation française.</p>
           </section>
+
         </div>
       </div>
     </main>
