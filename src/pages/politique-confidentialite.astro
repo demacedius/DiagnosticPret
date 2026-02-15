@@ -6,69 +6,100 @@ import Footer from '../components/Footer.astro';
 
 <BaseLayout
   title="Politique de confidentialité | DossierPrêt"
-  description="Politique de confidentialité de DossierPrêt — comment nous traitons (ou ne traitons pas) vos données personnelles."
+  description="Politique de confidentialité de DossierPrêt — comment nous traitons vos données personnelles conformément au RGPD."
   noindex={true}
 >
   <div class="min-h-screen flex flex-col">
     <Navbar />
     <main class="flex-1 py-12 sm:py-16">
       <div class="max-w-2xl mx-auto px-4 sm:px-6">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Politique de confidentialité</h1>
-        <p class="text-sm text-gray-500 mb-8">Dernière mise à jour : décembre 2024</p>
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Politique de confidentialité</h1>
+        <p class="text-sm text-gray-400 dark:text-slate-500 mb-10">Dernière mise à jour : Février 2026</p>
 
-        <div class="prose prose-gray prose-sm sm:prose max-w-none">
+        <div class="prose prose-gray sm:prose-lg max-w-none
+          dark:prose-invert
+          prose-headings:font-semibold prose-headings:text-gray-900
+          prose-p:text-gray-600 prose-p:leading-relaxed
+          prose-a:text-gray-900 prose-a:underline
+          prose-li:text-gray-600
+          dark:prose-headings:text-white
+          dark:prose-p:text-slate-300
+          dark:prose-li:text-slate-300
+          dark:prose-a:text-slate-200">
+
           <section>
-            <h2>Résumé</h2>
-            <p>DossierPrêt est conçu avec une philosophie de <strong>confidentialité maximale</strong> :</p>
+            <h2>1. Introduction</h2>
+            <p>DossierPrêt accorde une importance particulière à la protection de la vie privée.</p>
+            <p>La présente Politique de confidentialité décrit la manière dont les données personnelles sont traitées lors de l'utilisation du site <a href="https://www.dossierpret.fr">www.dossierpret.fr</a>.</p>
+          </section>
+
+          <section>
+            <h2>2. Responsable du traitement</h2>
+            <p>Les données personnelles sont traitées par :</p>
+            <p>
+              Anthony Macedo<br />
+              Entrepreneur individuel<br />
+              28B rue de Schalbach<br />
+              67320 Hirschland — France<br />
+              Email : <a href="mailto:contact@dossierpret.fr">contact@dossierpret.fr</a>
+            </p>
+          </section>
+
+          <section>
+            <h2>3. Données traitées</h2>
+
+            <h3>Simulateur / Diagnostic</h3>
+            <p>Les informations saisies dans les outils de simulation sont traitées exclusivement dans le navigateur de l'utilisateur.</p>
+            <p>Elles ne sont ni collectées, ni transmises, ni stockées.</p>
+
+            <h3>Contact</h3>
+            <p>En cas de contact par email :</p>
             <ul>
-              <li>Les données que vous saisissez dans le simulateur <strong>ne sont pas envoyées à nos serveurs</strong></li>
-              <li>Les calculs s'effectuent entièrement dans votre navigateur</li>
-              <li>Nous n'utilisons <strong>aucun cookie de traçage</strong> ni aucun outil d'analytics</li>
-              <li>Aucune donnée personnelle n'est revendue ou transmise à des tiers</li>
+              <li>Nom / email éventuellement fournis</li>
+              <li>Utilisation uniquement pour répondre à la demande</li>
+            </ul>
+            <p>Durée maximale de conservation : 12 mois — Base légale : intérêt légitime</p>
+
+            <h3>Logs techniques</h3>
+            <p>Des logs techniques peuvent être conservés à des fins de :</p>
+            <ul>
+              <li>Sécurité</li>
+              <li>Prévention des abus</li>
+              <li>Diagnostic technique</li>
+            </ul>
+            <p>Durée maximale : 12 mois</p>
+          </section>
+
+          <section>
+            <h2>4. Cookies</h2>
+            <p>DossierPrêt n'utilise aucun cookie publicitaire ou de traçage.</p>
+            <p>Des cookies strictement nécessaires peuvent être utilisés pour :</p>
+            <ul>
+              <li>Session utilisateur</li>
+              <li>Sécurité</li>
+              <li>Fonctionnement du site</li>
             </ul>
           </section>
 
           <section>
-            <h2>Données collectées</h2>
-            <h3>Simulateur</h3>
-            <p>Les données financières que vous saisissez (revenus, charges, apport, comportement bancaire) sont traitées localement dans votre navigateur. Elles ne sont ni stockées, ni transmises.</p>
-
-            <h3>Formulaires de contact</h3>
-            <p>Si vous nous contactez par email, vos coordonnées sont utilisées uniquement pour répondre à votre demande et ne sont pas conservées au-delà de 12 mois.</p>
-
-            <h3>Données de navigation</h3>
-            <p>Ce site ne dépose aucun cookie de traçage. Des logs de serveur (adresse IP anonymisée, pages visitées) peuvent être conservés à des fins de sécurité pendant 12 mois maximum.</p>
+            <h2>5. Sécurité</h2>
+            <p>DossierPrêt met en œuvre des mesures techniques et organisationnelles appropriées afin de garantir la sécurité des informations.</p>
           </section>
 
           <section>
-            <h2>Vos droits (RGPD)</h2>
-            <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez des droits suivants :</p>
+            <h2>6. Vos droits (RGPD)</h2>
+            <p>Conformément au RGPD :</p>
             <ul>
-              <li>Droit d'accès à vos données</li>
+              <li>Droit d'accès</li>
               <li>Droit de rectification</li>
               <li>Droit à l'effacement</li>
-              <li>Droit à la limitation du traitement</li>
-              <li>Droit à la portabilité</li>
               <li>Droit d'opposition</li>
+              <li>Droit à la limitation</li>
             </ul>
-            <p>Pour exercer ces droits : <a href="mailto:contact@dossierpret.fr">contact@dossierpret.fr</a></p>
+            <p>Contact : <a href="mailto:contact@dossierpret.fr">contact@dossierpret.fr</a></p>
+            <p>Réclamation possible auprès de la CNIL : <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a></p>
           </section>
 
-          <section>
-            <h2>Cookies</h2>
-            <p>DossierPrêt n'utilise pas de cookies à des fins publicitaires ou de traçage. Des cookies strictement fonctionnels peuvent être utilisés pour le bon fonctionnement du site (session utilisateur). Ces cookies ne nécessitent pas de consentement explicite selon la réglementation CNIL.</p>
-          </section>
-
-          <section>
-            <h2>Tiers</h2>
-            <p>Aucun réseau publicitaire, pixel de conversion ou outil de suivi tiers n'est intégré sur ce site. Les polices de caractères sont auto-hébergées.</p>
-          </section>
-
-          <section>
-            <h2>Contact DPO</h2>
-            <p>Pour toute question relative à la protection des données : <a href="mailto:contact@dossierpret.fr">contact@dossierpret.fr</a></p>
-            <p>Vous pouvez également adresser une réclamation à la CNIL : <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a></p>
-          </section>
         </div>
       </div>
     </main>

@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="Conditions Générales de Vente | DossierPrêt"
+  description="Conditions générales de vente de DossierPrêt."
+  noindex={true}
+>
+  <div class="min-h-screen flex flex-col">
+    <Navbar />
+    <main class="flex-1 py-12 sm:py-16">
+      <div class="max-w-2xl mx-auto px-4 sm:px-6">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Conditions Générales de Vente</h1>
+        <p class="text-sm text-gray-400 dark:text-slate-500 mb-10">Version en vigueur : Février 2026</p>
+
+        <div class="prose prose-gray sm:prose-lg max-w-none
+          dark:prose-invert
+          prose-headings:font-semibold prose-headings:text-gray-900
+          prose-p:text-gray-600 prose-p:leading-relaxed
+          prose-a:text-gray-900 prose-a:underline
+          prose-li:text-gray-600
+          dark:prose-headings:text-white
+          dark:prose-p:text-slate-300
+          dark:prose-li:text-slate-300
+          dark:prose-a:text-slate-200">
+
+          <section>
+            <h2>1. Services payants</h2>
+            <p>Certains services sont proposés sous forme d'abonnement :</p>
+            <ul>
+              <li>Premium</li>
+              <li>Pro</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>2. Prix</h2>
+            <p>Les prix sont indiqués en euros TTC.</p>
+            <p>DossierPrêt se réserve le droit de modifier les prix.</p>
+          </section>
+
+          <section>
+            <h2>3. Paiement</h2>
+            <p>Le paiement est traité via Stripe.</p>
+          </section>
+
+          <section>
+            <h2>4. Abonnement</h2>
+            <ul>
+              <li>Renouvellement automatique</li>
+              <li>Résiliation à tout moment</li>
+              <li>Période commencée due</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>5. Droit de rétractation</h2>
+            <p>Conformément au Code de la consommation :</p>
+            <ul>
+              <li>Délai de 14 jours</li>
+            </ul>
+            <p>En cas d'exécution immédiate :</p>
+            <p>L'utilisateur accepte expressément de renoncer au droit de rétractation.</p>
+          </section>
+
+          <section>
+            <h2>6. Responsabilité</h2>
+            <p>Responsabilité limitée aux montants payés.</p>
+          </section>
+
+          <section>
+            <h2>7. Disponibilité</h2>
+            <p>Pas de garantie d'accès ininterrompu.</p>
+          </section>
+
+          <section>
+            <h2>8. Droit applicable</h2>
+            <p>Droit français.</p>
+          </section>
+
+        </div>
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

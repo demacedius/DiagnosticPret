@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+import { SignedIn, SignedOut } from '@clerk/astro/components';
+
+const { token } = Astro.params;
+const { userId } = Astro.locals.auth();
+
+let linked = false;
+let error = '';
+let clientNom = '';
+
+if (userId && token) {
+  try {
+    const res = await fetch(new URL(`/api/courtier/invitation/${token}`, Astro.request.url), {
+      method: 'POST',
+      headers: { cookie: Astro.request.headers.get('cookie') || '' },
+    });
+    if (res.ok) {
+      linked = true;
+    } else if (res.status === 409) {
+      error = 'Cette invitation a déjà été utilisée.';
+    } else {
+      error = 'Invitation invalide ou expirée.';
+    }
+  } catch {
+    error = 'Une erreur est survenue.';
+  }
+}
+---
+
+<BaseLayout title="Invitation courtier | DossierPrêt" description="Rejoignez l'espace de votre courtier." noindex={true}>
+  <div class="min-h-screen flex flex-col">
+    <Navbar />
+
+    <main class="flex-1 flex items-center justify-center py-16 px-4 bg-gray-50 dark:bg-slate-900">
+      <div class="w-full max-w-md text-center">
+
+        {linked ? (
+          <div>
+            <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="text-green-600 dark:text-green-400"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Compte lié avec succès</h1>
+            <p class="text-sm text-gray-500 dark:text-slate-400 mb-6">Votre compte a été associé à votre courtier. Vous pouvez désormais accéder à votre espace.</p>
+            <a href="/dashboard" class="inline-flex items-center gap-2 px-5 py-2.5 bg-gray-900 dark:bg-slate-100 text-white dark:text-slate-900 text-sm font-semibold rounded-lg hover:bg-gray-800 dark:hover:bg-white transition-colors">
+              Accéder à mon espace
+            </a>
+          </div>
+        ) : error ? (
+          <div>
+            <div class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="text-red-600 dark:text-red-400"><path d="M18 6 6 18M6 6l12 12"/></svg>
+            </div>
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Invitation invalide</h1>
+            <p class="text-sm text-gray-500 dark:text-slate-400">{error}</p>
+          </div>
+        ) : (
+          <div>
+            <div class="w-16 h-16 bg-gray-100 dark:bg-slate-800 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-gray-600 dark:text-slate-400"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <h1 class="text-xl font-bold text-gray-900 dark:text-white mb-2">Invitation de votre courtier</h1>
+            <p class="text-sm text-gray-500 dark:text-slate-400 mb-6">
+              Connectez-vous ou créez un compte pour rejoindre l'espace de votre courtier.
+            </p>
+            <SignedOut>
+              <div class="flex flex-col sm:flex-row gap-3 justify-center">
+                <a href={`/connexion?redirect_url=/courtier/invitation/${token}`}
+                  class="px-5 py-2.5 text-sm font-semibold text-white bg-gray-900 dark:bg-slate-100 dark:text-slate-900 rounded-lg hover:bg-gray-800 dark:hover:bg-white transition-colors">
+                  Se connecter
+                </a>
+                <a href={`/inscription?redirect_url=/courtier/invitation/${token}`}
+                  class="px-5 py-2.5 text-sm font-medium text-gray-600 dark:text-slate-400 border border-gray-200 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
+                  Créer un compte
+                </a>
+              </div>
+            </SignedOut>
+            <SignedIn>
+              <p class="text-sm text-gray-400 dark:text-slate-500">Traitement en cours…</p>
+            </SignedIn>
+          </div>
+        )}
+
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>

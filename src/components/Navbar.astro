@@ -1,11 +1,14 @@
 ---
 import ThemeToggle from './ThemeToggle.svelte';
 import { SignedIn, SignedOut, UserButton } from '@clerk/astro/components';
+import { isPro } from '../lib/subscription';
 
 interface Props {
   currentPath?: string;
 }
 const { currentPath = '/' } = Astro.props;
+const user = await Astro.locals.currentUser?.();
+const proUser = isPro(user ?? null);
 ---
 
 <header class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm border-b border-gray-100 dark:border-slate-800 transition-colors duration-200">
@@ -34,6 +37,11 @@ const { currentPath = '/' } = Astro.props;
           <a href="/dashboard" class={`btn-ghost text-sm ${currentPath === '/dashboard' ? 'text-gray-900 dark:text-white bg-gray-50 dark:bg-slate-800' : ''}`}>
             Mon espace
           </a>
+          {proUser && (
+            <a href="/courtier" class={`btn-ghost text-sm ${currentPath.startsWith('/courtier') ? 'text-gray-900 dark:text-white bg-gray-50 dark:bg-slate-800' : ''}`}>
+              Courtier
+            </a>
+          )}
         </SignedIn>
       </nav>
 
@@ -80,6 +88,9 @@ const { currentPath = '/' } = Astro.props;
       <SignedIn>
         <a href="/diagnostic" class="btn-ghost justify-start text-sm">Diagnostic</a>
         <a href="/dashboard" class="btn-ghost justify-start text-sm">Mon espace</a>
+        {proUser && (
+          <a href="/courtier" class="btn-ghost justify-start text-sm">Courtier</a>
+        )}
       </SignedIn>
       <SignedOut>
         <a href="/connexion" class="btn-ghost justify-start text-sm">Connexion</a>

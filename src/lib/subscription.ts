@@ -14,3 +14,7 @@ export function hasPremium(user: ClerkUser): boolean {
   const plan = getUserPlan(user);
   return plan === 'premium' || plan === 'pro';
 }
+
+export function isPro(user: ClerkUser): boolean {
+  return getUserPlan(user) === 'pro';
+}

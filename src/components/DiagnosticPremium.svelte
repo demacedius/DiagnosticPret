@@ -6,6 +6,20 @@
   interface ActionItem { priorite: Priorite; titre: string; detail: string; }
   interface Simulation { taux: number; mensualite: number; coutTotal: number; tauxEndettement: number; }
 
+  // ─── Props optionnels (courtier) ──────────────────────────────────
+  let { dossierId = undefined, onResult = undefined }: {
+    dossierId?: string;
+    onResult?: (result: {
+      scoreGlobal: number; tauxEndettement: number; mensualite: number;
+      resteAVivre: number; apportPct: number; hcsfOk: boolean;
+      actions: ActionItem[]; simulations: Simulation[];
+    }, inputs: {
+      revenus: number; charges: number; montant: number; apport: number;
+      duree: number; tauxInteret: number; contrat: string;
+      anciennete: string; decouvert: string; nbEnfants: number;
+    }) => void;
+  } = $props();
+
   // ─── Form state ───────────────────────────────────────────────────
   let revenus     = $state('');
   let charges     = $state('');
@@ -214,6 +228,14 @@
     setTimeout(() => {
       document.getElementById('resultats-premium')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
+    if (onResult && dossierId) {
+      onResult(
+        { scoreGlobal, tauxEndettement, mensualite, resteAVivre, apportPct: apportPct, hcsfOk, actions, simulations },
+        { revenus: parseFloat(revenus), charges: parseFloat(charges), montant: parseFloat(montant),
+          apport: parseFloat(apport), duree: parseInt(duree), tauxInteret: parseFloat(tauxInteret),
+          contrat, anciennete, decouvert, nbEnfants: parseInt(nbEnfants) || 0 }
+      );
+    }
   }
 
   function reset() {

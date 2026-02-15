@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+import StatusBadge from '../../../components/courtier/StatusBadge.svelte';
+import ScoreChart from '../../../components/courtier/ScoreChart.svelte';
+import { isPro } from '../../../lib/subscription';
+import { createServerSupabaseClient } from '../../../lib/supabase';
+import { getClient, getDossiers, getDiagnostics } from '../../../lib/courtier';
+import type { CourtierDossier, CourtierDiagnostic } from '../../../lib/courtier-types';
+
+const { userId } = Astro.locals.auth();
+if (!userId) return Astro.redirect('/connexion');
+
+const user = await Astro.locals.currentUser();
+if (!isPro(user)) return Astro.redirect('/premium?upgrade=pro');
+
+const { clientId } = Astro.params;
+const token = await Astro.locals.auth().getToken({ template: 'supabase' });
+const supabase = createServerSupabaseClient(token!);
+
+let client, dossiers: CourtierDossier[] = [];
+try {
+  client = await getClient(clientId!, supabase);
+  dossiers = await getDossiers(clientId!, supabase);
+} catch {
+  return Astro.redirect('/courtier/clients');
+}
+
+// Récupérer le dernier diagnostic de chaque dossier pour la courbe
+const allDiags: CourtierDiagnostic[] = [];
+for (const d of dossiers) {
+  const diags = await getDiagnostics(d.id, supabase);
+  if (diags.length > 0) allDiags.push(diags[0]);
+}
+
+const scorePoints = allDiags
+  .map(d => ({ created_at: d.created_at, score_global: d.score_global }))
+  .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
+---
+
+<BaseLayout title={`${client.nom} | DossierPrêt`} description="Détail client." noindex={true}>
+  <div class="min-h-screen flex flex-col">
+    <Navbar currentPath="/courtier" />
+
+    <main class="flex-1 py-12 bg-gray-50 dark:bg-slate-900 transition-colors duration-200">
+      <div class="container-main max-w-3xl">
+
+        <a href="/courtier/clients" class="text-xs text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 transition-colors mb-4 block">← Clients</a>
+
+        <!-- Header client -->
+        <div class="card mb-6">
+          <div class="flex items-start justify-between">
+            <div>
+              <h1 class="text-xl font-bold text-gray-900 dark:text-white">{client.nom}</h1>
+              {client.email && <p class="text-sm text-gray-400 dark:text-slate-500 mt-0.5">{client.email}</p>}
+              <p class="text-xs text-gray-300 dark:text-slate-600 mt-1">
+                Client depuis le {new Date(client.created_at).toLocaleDateString('fr-FR')}
+              </p>
+            </div>
+            <div class="flex gap-2">
+              <button
+                id="invite-btn"
+                data-client-id={client.id}
+                class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-gray-600 dark:text-slate-400 border border-gray-200 dark:border-slate-600 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors"
+              >
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+                Lien d'invitation
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Courbe score -->
+        {scorePoints.length > 0 && (
+          <div class="card mb-6">
+            <h2 class="text-sm font-semibold text-gray-900 dark:text-white mb-4">Évolution du score</h2>
+            <ScoreChart client:load diagnostics={scorePoints} />
+          </div>
+        )}
+
+        <!-- Dossiers -->
+        <div class="card">
+          <div class="flex items-center justify-between mb-5">
+            <h2 class="text-sm font-semibold text-gray-900 dark:text-white">Dossiers ({dossiers.length})</h2>
+            <button
+              id="new-dossier-btn"
+              data-client-id={client.id}
+              class="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium text-white bg-gray-900 dark:bg-slate-100 dark:text-slate-900 rounded-lg hover:bg-gray-800 dark:hover:bg-white transition-colors"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+              Nouveau dossier
+            </button>
+          </div>
+
+          {dossiers.length === 0 ? (
+            <p class="text-sm text-gray-400 dark:text-slate-500 text-center py-6">
+              Aucun dossier. Créez-en un pour lancer un diagnostic.
+            </p>
+          ) : (
+            <div class="divide-y divide-gray-100 dark:divide-slate-700/50">
+              {dossiers.map(d => (
+                <a href={`/courtier/clients/${clientId}/dossiers/${d.id}`}
+                  class="flex items-center justify-between py-3.5 hover:bg-gray-50 dark:hover:bg-slate-700/30 -mx-2 px-2 rounded-lg transition-colors">
+                  <div class="flex items-center gap-3">
+                    <StatusBadge client:load statut={d.statut} />
+                    <span class="text-sm font-medium text-gray-900 dark:text-white">{d.titre}</span>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="text-xs text-gray-400 dark:text-slate-500 hidden sm:block">
+                      {new Date(d.created_at).toLocaleDateString('fr-FR')}
+                    </span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" class="text-gray-300 dark:text-slate-600"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
+
+<script>
+  // Nouveau dossier
+  document.getElementById('new-dossier-btn')?.addEventListener('click', async (e) => {
+    const clientId = (e.currentTarget as HTMLElement).dataset.clientId;
+    const titre = prompt('Titre du dossier (ex: Achat résidence principale)');
+    if (!titre) return;
+    const res = await fetch('/api/courtier/dossiers', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ clientId, titre }),
+    });
+    if (res.ok) window.location.reload();
+  });
+
+  // Lien d'invitation
+  document.getElementById('invite-btn')?.addEventListener('click', async (e) => {
+    const clientId = (e.currentTarget as HTMLElement).dataset.clientId;
+    const res = await fetch(`/api/courtier/clients/${clientId}/invite`, { method: 'POST' });
+    if (res.ok) {
+      const { inviteUrl } = await res.json();
+      await navigator.clipboard.writeText(inviteUrl).catch(() => {});
+      alert(`Lien copié :\n${inviteUrl}`);
+    }
+  });
+</script>

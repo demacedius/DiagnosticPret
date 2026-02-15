@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Navbar from '../../../../../../components/Navbar.astro';
+import Footer from '../../../../../../components/Footer.astro';
+import DiagnosticWrapper from '../../../../../../components/courtier/DiagnosticWrapper.svelte';
+import { isPro } from '../../../../../../lib/subscription';
+import { createServerSupabaseClient } from '../../../../../../lib/supabase';
+import { getClient, getDossier } from '../../../../../../lib/courtier';
+
+const { userId } = Astro.locals.auth();
+if (!userId) return Astro.redirect('/connexion');
+
+const user = await Astro.locals.currentUser();
+if (!isPro(user)) return Astro.redirect('/premium?upgrade=pro');
+
+const { clientId, dossierId } = Astro.params;
+const token = await Astro.locals.auth().getToken({ template: 'supabase' });
+const supabase = createServerSupabaseClient(token!);
+
+let client, dossier;
+try {
+  [client, dossier] = await Promise.all([
+    getClient(clientId!, supabase),
+    getDossier(dossierId!, supabase),
+  ]);
+} catch {
+  return Astro.redirect(`/courtier/clients/${clientId}`);
+}
+---
+
+<BaseLayout title={`Diagnostic — ${client.nom} | DossierPrêt`} description="Lancer un diagnostic pour ce dossier." noindex={true}>
+  <div class="min-h-screen flex flex-col">
+    <Navbar currentPath="/courtier" />
+
+    <main class="flex-1 py-12 bg-gray-50 dark:bg-slate-900 transition-colors duration-200">
+      <div class="container-main">
+
+        <a href={`/courtier/clients/${clientId}/dossiers/${dossierId}`} class="text-xs text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 transition-colors mb-4 block">
+          ← {dossier.titre}
+        </a>
+
+        <div class="mb-8">
+          <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Diagnostic — {client.nom}</h1>
+          <p class="text-sm text-gray-500 dark:text-slate-400 mt-1">Dossier : {dossier.titre}</p>
+        </div>
+
+        <DiagnosticWrapper client:load dossierId={dossierId} />
+
+      </div>
+    </main>
+    <Footer />
+  </div>
+</BaseLayout>
