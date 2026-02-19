@@ -7,6 +7,9 @@
   interface Criteria { label: string; pts: number; max: number; }
   interface Scenario { label: string; scoreAfter: number; delta: number; }
 
+  // ─── Props ────────────────────────────────────────────────────────
+  let { hasPremium = false }: { hasPremium?: boolean } = $props();
+
   // ─── Form state ───────────────────────────────────────────────────
   let revenus   = $state('');
   let charges   = $state('');
@@ -401,7 +404,7 @@
     </div>
 
     <!-- D: Bandeau dismissible ────────────────────────────────────── -->
-    {#if !bannerDismissed && score < 70}
+    {#if !hasPremium && !bannerDismissed && score < 70}
       <div transition:fade={{ duration: 200 }}
         class="flex items-center justify-between gap-3 px-4 py-3 bg-gray-900 dark:bg-slate-100 rounded-xl">
         <p class="text-xs font-medium text-white dark:text-slate-900 leading-snug">
@@ -422,6 +425,7 @@
     {/if}
 
     <!-- B+C: Aperçu Premium verrouillé ──────────────────────────── -->
+    {#if !hasPremium}
     <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-card overflow-hidden transition-colors duration-200">
 
       <!-- En-tête -->
@@ -579,6 +583,7 @@
         </p>
       </div>
     </div>
+    {/if}
 
     <!-- Disclaimer + Reset ─────────────────────────────────────── -->
     <p class="text-xs text-gray-400 dark:text-slate-500 text-center leading-relaxed">
