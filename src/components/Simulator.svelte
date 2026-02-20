@@ -424,8 +424,7 @@
       </div>
     {/if}
 
-    <!-- B+C: Aperçu Premium verrouillé ──────────────────────────── -->
-    {#if !hasPremium}
+    <!-- B+C: Analyse complète ──────────────────────────────────── -->
     <div class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-card overflow-hidden transition-colors duration-200">
 
       <!-- En-tête -->
@@ -434,9 +433,9 @@
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" class="text-gray-900 dark:text-slate-100">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
-          <span class="text-xs font-semibold text-gray-900 dark:text-slate-100 uppercase tracking-wider">Analyse complète Premium</span>
+          <span class="text-xs font-semibold text-gray-900 dark:text-slate-100 uppercase tracking-wider">Analyse {hasPremium ? 'complète' : 'complète Premium'}</span>
         </div>
-        <p class="text-xs text-gray-400 dark:text-slate-500">Débloquez l'analyse détaillée et le plan d'action chiffré</p>
+        <p class="text-xs text-gray-400 dark:text-slate-500">{hasPremium ? 'Votre analyse détaillée et le plan d\'action chiffré' : 'Débloquez l\'analyse détaillée et le plan d\'action chiffré'}</p>
       </div>
 
       <!-- 4 blocs verrouillés -->
@@ -444,8 +443,10 @@
 
         <!-- Bloc 1 : Décomposition du score -->
         <div class="relative rounded-xl border border-gray-100 dark:border-slate-700 overflow-hidden"
-          aria-label="Contenu Premium — Décomposition du score par critère">
-          <div class="p-4 select-none pointer-events-none" style="filter: blur(3px)" aria-hidden="true">
+          aria-label="{hasPremium ? 'Décomposition du score par critère' : 'Contenu Premium — Décomposition du score par critère'}">
+          <div class="p-4 {!hasPremium ? 'select-none pointer-events-none' : ''}"
+            style="{!hasPremium ? 'filter: blur(3px)' : ''}"
+            aria-hidden="{!hasPremium}">
             <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 mb-3">Décomposition du score par critère</p>
             <div class="space-y-2.5">
               {#each criteriaBreakdown as crit}
@@ -460,6 +461,7 @@
               {/each}
             </div>
           </div>
+          {#if !hasPremium}
           <div class="absolute inset-0 flex items-center justify-center
             bg-gradient-to-b from-white/10 via-white/65 to-white/95 dark:from-slate-800/10 dark:via-slate-800/65 dark:to-slate-800/95">
             <div class="text-center">
@@ -471,12 +473,15 @@
               <p class="text-xs font-semibold text-gray-700 dark:text-slate-300">Score par critère</p>
             </div>
           </div>
+          {/if}
         </div>
 
         <!-- Bloc 2 : Plan d'action complet -->
         <div class="relative rounded-xl border border-gray-100 dark:border-slate-700 overflow-hidden"
-          aria-label="Contenu Premium — Plan d'action personnalisé complet">
-          <div class="p-4 select-none pointer-events-none" style="filter: blur(3px)" aria-hidden="true">
+          aria-label="{hasPremium ? 'Plan d\'action personnalisé complet' : 'Contenu Premium — Plan d\'action personnalisé complet'}">
+          <div class="p-4 {!hasPremium ? 'select-none pointer-events-none' : ''}"
+            style="{!hasPremium ? 'filter: blur(3px)' : ''}"
+            aria-hidden="{!hasPremium}">
             <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 mb-3">Plan d'action personnalisé — {actions.length} points</p>
             <div class="space-y-2">
               {#each actions as action}
@@ -487,6 +492,7 @@
               {/each}
             </div>
           </div>
+          {#if !hasPremium}
           <div class="absolute inset-0 flex items-center justify-center
             bg-gradient-to-b from-white/10 via-white/65 to-white/95 dark:from-slate-800/10 dark:via-slate-800/65 dark:to-slate-800/95">
             <div class="text-center">
@@ -498,12 +504,15 @@
               <p class="text-xs font-semibold text-gray-700 dark:text-slate-300">Plan d'action · {actions.length} recommandations</p>
             </div>
           </div>
+          {/if}
         </div>
 
         <!-- Bloc 3 : Projection temporelle -->
         <div class="relative rounded-xl border border-gray-100 dark:border-slate-700 overflow-hidden"
-          aria-label="Contenu Premium — Projection temporelle">
-          <div class="p-4 select-none pointer-events-none" style="filter: blur(3px)" aria-hidden="true">
+          aria-label="{hasPremium ? 'Projection temporelle' : 'Contenu Premium — Projection temporelle'}">
+          <div class="p-4 {!hasPremium ? 'select-none pointer-events-none' : ''}"
+            style="{!hasPremium ? 'filter: blur(3px)' : ''}"
+            aria-hidden="{!hasPremium}">
             <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 mb-3">Projection temporelle</p>
             <div class="flex items-center gap-4">
               <div class="text-center flex-shrink-0">
@@ -516,6 +525,7 @@
               </div>
             </div>
           </div>
+          {#if !hasPremium}
           <div class="absolute inset-0 flex items-center justify-center
             bg-gradient-to-b from-white/10 via-white/65 to-white/95 dark:from-slate-800/10 dark:via-slate-800/65 dark:to-slate-800/95">
             <div class="text-center">
@@ -527,12 +537,15 @@
               <p class="text-xs font-semibold text-gray-700 dark:text-slate-300">Projection temporelle</p>
             </div>
           </div>
+          {/if}
         </div>
 
         <!-- Bloc 4 : Scénarios "Et si…" -->
         <div class="relative rounded-xl border border-gray-100 dark:border-slate-700 overflow-hidden"
-          aria-label="Contenu Premium — Scénarios d'optimisation">
-          <div class="p-4 select-none pointer-events-none" style="filter: blur(3px)" aria-hidden="true">
+          aria-label="{hasPremium ? 'Scénarios d\'optimisation' : 'Contenu Premium — Scénarios d\'optimisation'}">
+          <div class="p-4 {!hasPremium ? 'select-none pointer-events-none' : ''}"
+            style="{!hasPremium ? 'filter: blur(3px)' : ''}"
+            aria-hidden="{!hasPremium}">
             <p class="text-xs font-semibold text-gray-500 dark:text-slate-400 mb-3">Scénarios «&nbsp;Et si…&nbsp;»</p>
             {#if scenarios.length > 0}
               <div class="space-y-2">
@@ -550,6 +563,7 @@
               <p class="text-xs text-gray-400 dark:text-slate-500">3 scénarios d'optimisation de votre dossier simulés</p>
             {/if}
           </div>
+          {#if !hasPremium}
           <div class="absolute inset-0 flex items-center justify-center
             bg-gradient-to-b from-white/10 via-white/65 to-white/95 dark:from-slate-800/10 dark:via-slate-800/65 dark:to-slate-800/95">
             <div class="text-center">
@@ -561,10 +575,12 @@
               <p class="text-xs font-semibold text-gray-700 dark:text-slate-300">Scénarios d'optimisation</p>
             </div>
           </div>
+          {/if}
         </div>
       </div>
 
       <!-- C: CTA ──────────────────────────────────────────────────── -->
+      {#if !hasPremium}
       <div class="px-6 pb-6">
         <a href="/premium?upgrade=1"
           class="w-full flex items-center justify-center gap-2 py-3.5 bg-gray-900 dark:bg-slate-100 text-white dark:text-slate-900 font-semibold text-sm rounded-xl hover:bg-gray-800 dark:hover:bg-white active:scale-[0.99] transition-all duration-150 mb-3">
@@ -582,8 +598,8 @@
           Aucune donnée bancaire n'est stockée — outil pédagogique
         </p>
       </div>
+      {/if}
     </div>
-    {/if}
 
     <!-- Disclaimer + Reset ─────────────────────────────────────── -->
     <p class="text-xs text-gray-400 dark:text-slate-500 text-center leading-relaxed">
