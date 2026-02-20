@@ -7,6 +7,7 @@ import { hasPremium } from '../lib/subscription';
 
 const user = await Astro.locals.currentUser?.();
 const userHasPremium = hasPremium(user ?? null);
+const userId = user?.id ?? null;
 ---
 
 <BaseLayout
@@ -77,7 +78,7 @@ const userHasPremium = hasPremium(user ?? null);
 
           <!-- Right: Simulator -->
           <div>
-            <Simulator client:load hasPremium={userHasPremium} />
+            <Simulator client:load hasPremium={userHasPremium} userId={userId} />
           </div>
         </div>
       </div>

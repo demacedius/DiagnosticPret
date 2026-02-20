@@ -8,7 +8,7 @@
   interface Scenario { label: string; scoreAfter: number; delta: number; }
 
   // ─── Props ────────────────────────────────────────────────────────
-  let { hasPremium = false }: { hasPremium?: boolean } = $props();
+  let { hasPremium = false, userId = null }: { hasPremium?: boolean; userId?: string | null } = $props();
 
   // ─── Form state ───────────────────────────────────────────────────
   let revenus   = $state('');
@@ -177,11 +177,40 @@
   }
 
   // ─── Handlers ─────────────────────────────────────────────────────
+  async function saveDiagnostic() {
+    if (!userId) return; // Only save if user is logged in
+
+    try {
+      await fetch('/api/diagnostics/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          score,
+          tauxEndettement,
+          apportPct: parseFloat(apport) > 0 ? (parseFloat(apport) / (parseFloat(montant) + parseFloat(apport))) * 100 : 0,
+          resteAVivre: parseFloat(revenus) - parseFloat(charges) - mensualite,
+          mensualite,
+          hcsfOk,
+          revenus: parseFloat(revenus),
+          charges: parseFloat(charges),
+          montant: parseFloat(montant),
+          apport: parseFloat(apport),
+          decouvert,
+          diagnosticType: 'express',
+        }),
+      });
+    } catch (err) {
+      console.error('Failed to save diagnostic:', err);
+      // Silent fail - don't block user experience
+    }
+  }
+
   function handleSubmit() {
     if (!validate()) return;
     compute();
     submitted = true;
     bannerDismissed = false;
+    saveDiagnostic(); // Auto-save (async, non-blocking)
     setTimeout(() => {
       document.getElementById('sim-resultats')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
