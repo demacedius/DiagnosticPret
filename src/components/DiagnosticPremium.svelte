@@ -410,23 +410,127 @@
   <style>
     .print-only { display: none; }
     @media print {
-      @page { margin: 18mm 14mm; }
-      html { color-scheme: light !important; }
-      header, footer, nav, .no-print { display: none !important; }
+      @page {
+        margin: 20mm 15mm 25mm 15mm;
+        @bottom-center {
+          content: "Page " counter(page) " / " counter(pages);
+          font-size: 9px;
+          color: #6b7280;
+        }
+      }
+
+      html {
+        color-scheme: light !important;
+        font-size: 10pt;
+      }
+
+      header, footer, nav, .no-print {
+        display: none !important;
+      }
+
       body {
         background: white !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
+        color: #111 !important;
       }
-      .print-only { display: block !important; }
+
+      .print-only {
+        display: block !important;
+      }
+
+      .print-hide {
+        display: none !important;
+      }
+
       .print-section {
         break-inside: avoid;
-        margin-bottom: 12px;
+        margin-bottom: 16px;
+        page-break-inside: avoid;
       }
+
+      .print-page-break {
+        page-break-before: always;
+      }
+
       .card {
         background: white !important;
         box-shadow: none !important;
-        border: 1px solid #e5e7eb !important;
+        border: 1.5px solid #e5e7eb !important;
+        border-radius: 8px !important;
+        padding: 16px !important;
+      }
+
+      /* Header fixe sur chaque page */
+      .print-header {
+        position: running(header);
+        border-bottom: 2px solid #1f2937;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+      }
+
+      /* Page de garde */
+      .print-cover {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        page-break-after: always;
+      }
+
+      /* Synthèse exécutive */
+      .print-executive-summary {
+        background: #f9fafb !important;
+        border: 2px solid #1f2937 !important;
+        padding: 20px !important;
+        margin-bottom: 20px;
+        border-radius: 8px !important;
+      }
+
+      /* Typographie */
+      h1 { font-size: 24pt; font-weight: 900; color: #111; margin-bottom: 8px; }
+      h2 { font-size: 16pt; font-weight: 700; color: #111; margin-bottom: 12px; margin-top: 20px; }
+      h3 { font-size: 12pt; font-weight: 600; color: #374151; margin-bottom: 8px; }
+      p { font-size: 10pt; line-height: 1.6; color: #4b5563; }
+
+      /* Tableaux */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 12px 0;
+      }
+
+      th, td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      th {
+        background: #f9fafb;
+        font-weight: 600;
+        font-size: 9pt;
+        color: #374151;
+      }
+
+      td {
+        font-size: 10pt;
+        color: #111;
+      }
+
+      /* Footer */
+      .print-footer {
+        position: fixed;
+        bottom: 10mm;
+        left: 15mm;
+        right: 15mm;
+        text-align: center;
+        font-size: 8pt;
+        color: #9ca3af;
+        border-top: 1px solid #e5e7eb;
+        padding-top: 8px;
       }
     }
   </style>
@@ -665,20 +769,87 @@
   {:else}
     <div id="resultats-premium" transition:slide={{ duration: 300, axis: 'y' }} class="space-y-5">
 
-      <!-- En-tête impression uniquement -->
-      <div class="print-only" style="border-bottom: 2px solid #1f2937; padding-bottom: 12px; margin-bottom: 4px;">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-          <div>
-            <div style="font-size: 20px; font-weight: 900; color: #111; letter-spacing: -0.5px;">DossierPrêt</div>
-            <div style="font-size: 11px; color: #6b7280; margin-top: 2px;">dossierpret.fr — Rapport de diagnostic immobilier</div>
+      <!-- PAGE DE GARDE (impression uniquement) -->
+      <div class="print-only print-cover">
+        <div style="max-width: 600px;">
+          <div style="font-size: 48px; font-weight: 900; color: #111; letter-spacing: -1px; margin-bottom: 12px;">DossierPrêt</div>
+          <div style="font-size: 16px; color: #6b7280; margin-bottom: 40px;">Rapport de diagnostic immobilier</div>
+
+          <div style="background: {scoreGlobal >= 70 ? '#ecfdf5' : scoreGlobal >= 45 ? '#fffbeb' : '#fef2f2'}; border: 3px solid {scoreGlobal >= 70 ? '#10b981' : scoreGlobal >= 45 ? '#f59e0b' : '#ef4444'}; border-radius: 12px; padding: 32px; margin-bottom: 40px;">
+            <div style="font-size: 14px; color: #6b7280; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Score du dossier</div>
+            <div style="font-size: 72px; font-weight: 900; color: {scoreGlobal >= 70 ? '#059669' : scoreGlobal >= 45 ? '#d97706' : '#dc2626'}; line-height: 1;">{scoreGlobal}<span style="font-size: 36px; color: #9ca3af;">/100</span></div>
+            <div style="font-size: 18px; font-weight: 600; color: {scoreGlobal >= 70 ? '#059669' : scoreGlobal >= 45 ? '#d97706' : '#dc2626'}; margin-top: 8px;">{sc.label}</div>
           </div>
-          <div style="text-align: right; font-size: 11px; color: #6b7280;">
-            Généré le {new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}
+
+          <div style="font-size: 12px; color: #6b7280; margin-bottom: 8px;">
+            <strong>Généré le :</strong> {new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}
+          </div>
+          <div style="font-size: 12px; color: #6b7280;">
+            <strong>Conformité HCSF :</strong> {hcsfOk ? '✓ Conforme' : '✗ Non conforme'}
+          </div>
+
+          <div style="margin-top: 60px; font-size: 10px; color: #9ca3af; line-height: 1.6;">
+            Ce rapport est un outil pédagogique d'aide à la décision. Il ne constitue pas une garantie d'obtention de financement.<br>
+            Pour plus d'informations : <strong>dossierpret.fr</strong>
           </div>
         </div>
-        <div style="margin-top: 10px; display: flex; gap: 20px; align-items: center; font-size: 12px;">
-          <span style="font-weight: 700; color: #111;">Score : {scoreGlobal}/100 — {sc.label}</span>
-          <span style="font-weight: 600; color: {hcsfOk ? '#059669' : '#dc2626'};">{hcsfOk ? '✓ Conforme HCSF' : '✗ Non conforme HCSF'}</span>
+      </div>
+
+      <!-- SYNTHÈSE EXÉCUTIVE (impression uniquement) -->
+      <div class="print-only print-executive-summary print-page-break">
+        <h2 style="margin-top: 0;">Synthèse exécutive</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
+          <div>
+            <div style="font-size: 9px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Score global</div>
+            <div style="font-size: 24px; font-weight: 900; color: {scoreGlobal >= 70 ? '#059669' : scoreGlobal >= 45 ? '#d97706' : '#dc2626'};">{scoreGlobal}/100</div>
+          </div>
+          <div>
+            <div style="font-size: 9px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Taux d'endettement</div>
+            <div style="font-size: 24px; font-weight: 900; color: {tauxEndettement <= 35 ? '#059669' : '#dc2626'};">{fmtPct(tauxEndettement)}</div>
+          </div>
+          <div>
+            <div style="font-size: 9px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Apport personnel</div>
+            <div style="font-size: 24px; font-weight: 900; color: {apportPct >= 10 ? '#059669' : '#d97706'};">{fmtPct(apportPct)}</div>
+          </div>
+          <div>
+            <div style="font-size: 9px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Reste à vivre</div>
+            <div style="font-size: 24px; font-weight: 900; color: {resteAVivre >= 800 ? '#059669' : resteAVivre >= 400 ? '#d97706' : '#dc2626'};">{fmt(resteAVivre)}&nbsp;€</div>
+          </div>
+        </div>
+
+        <div style="background: white; border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 16px; margin-top: 16px;">
+          <h3 style="margin-top: 0; font-size: 11px; color: #374151;">Points clés du diagnostic</h3>
+          <ul style="margin: 0; padding-left: 20px; font-size: 10px; line-height: 1.8; color: #4b5563;">
+            <li><strong>Mensualité estimée :</strong> {fmt(mensualite)}&nbsp;€/mois</li>
+            <li><strong>Montant emprunté :</strong> {fmt(parseFloat(montant))}&nbsp;€ sur {duree}&nbsp;ans à {tauxInteret}&nbsp;%</li>
+            <li><strong>Apport :</strong> {fmt(parseFloat(apport))}&nbsp;€ ({fmtPct(apportPct)} du prix total)</li>
+            <li><strong>Découvert bancaire :</strong> {decouvert === 'oui' ? 'Oui — Signal négatif' : 'Non'}</li>
+            <li><strong>Situation professionnelle :</strong> {contrat === 'cdi' ? 'CDI' : contrat === 'cdd' ? 'CDD' : contrat === 'independant' ? 'Indépendant' : 'Autre'} — Ancienneté {anciennete === 'plus2ans' ? '> 2 ans' : anciennete === '1a2ans' ? '1-2 ans' : '< 1 an'}</li>
+          </ul>
+        </div>
+
+        <div style="background: {hcsfOk ? '#ecfdf5' : '#fef2f2'}; border: 1.5px solid {hcsfOk ? '#10b981' : '#ef4444'}; border-radius: 8px; padding: 16px; margin-top: 16px;">
+          <div style="font-weight: 600; font-size: 11px; color: {hcsfOk ? '#059669' : '#dc2626'}; margin-bottom: 6px;">
+            {hcsfOk ? '✓ Dossier conforme aux critères HCSF' : '✗ Dossier non conforme aux critères HCSF'}
+          </div>
+          <p style="margin: 0; font-size: 9px; color: #4b5563; line-height: 1.6;">
+            {hcsfOk
+              ? 'Votre dossier respecte les recommandations du Haut Conseil de Stabilité Financière (taux d\'endettement ≤ 35 %, durée ≤ 25 ans). Cela augmente significativement vos chances d\'acceptation.'
+              : 'Votre dossier dépasse les seuils recommandés par le HCSF. Les banques peuvent accorder des dérogations, mais cela réduit vos chances d\'acceptation. Consultez le plan d\'action pour corriger les points bloquants.'}
+          </p>
+        </div>
+      </div>
+
+      <!-- En-tête standard pour les pages suivantes -->
+      <div class="print-only print-header">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <div style="font-size: 14px; font-weight: 900; color: #111;">DossierPrêt — Rapport de diagnostic</div>
+            <div style="font-size: 9px; color: #6b7280;">Score : {scoreGlobal}/100 — {sc.label}</div>
+          </div>
+          <div style="text-align: right; font-size: 9px; color: #6b7280;">
+            {new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}
+          </div>
         </div>
       </div>
 
@@ -744,6 +915,9 @@
         {/each}
       </div>
 
+      <!-- Titre section print-only -->
+      <h2 class="print-only" style="margin-top: 24px; margin-bottom: 12px;">Analyse détaillée</h2>
+
       <!-- Plan d'action -->
       {#if actions.length > 0}
         <div class="card print-section">
@@ -768,6 +942,11 @@
             {/each}
           </div>
         </div>
+      {/if}
+
+      <!-- Titre section print-only -->
+      {#if roadmapMilestones.length > 0}
+      <h2 class="print-only" style="margin-top: 24px; margin-bottom: 12px;">Plan d'action temporel</h2>
       {/if}
 
       <!-- Roadmap vers l'achat -->
@@ -814,6 +993,9 @@
           </div>
         </div>
       {/if}
+
+      <!-- Titre section print-only -->
+      <h2 class="print-only" style="margin-top: 24px; margin-bottom: 12px;">Simulations de financement</h2>
 
       <!-- Simulations d'amortissement -->
       <div class="card print-section">
@@ -870,6 +1052,20 @@
       <p class="text-xs text-gray-400 dark:text-slate-500 text-center leading-relaxed">
         Outil d'information pédagogique basé sur les règles HCSF en vigueur. Aucune garantie d'obtention de financement. Ne remplace pas l'avis d'un courtier ou d'un conseiller bancaire.
       </p>
+
+      <!-- Footer PDF uniquement -->
+      <div class="print-only" style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e5e7eb; text-align: center;">
+        <div style="font-size: 10px; color: #6b7280; margin-bottom: 8px;">
+          <strong>DossierPrêt</strong> — Outil pédagogique d'aide à la décision pour votre projet immobilier
+        </div>
+        <div style="font-size: 9px; color: #9ca3af; line-height: 1.6; max-width: 600px; margin: 0 auto;">
+          Ce rapport est généré automatiquement sur la base des informations fournies. Il ne constitue pas un engagement de financement ni une garantie d'acceptation bancaire.
+          Pour un accompagnement personnalisé, consultez un courtier en crédit immobilier.
+        </div>
+        <div style="font-size: 9px; color: #9ca3af; margin-top: 12px;">
+          <strong>dossierpret.fr</strong> • Généré le {new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+        </div>
+      </div>
 
     </div>
   {/if}
