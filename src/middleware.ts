@@ -8,24 +8,10 @@ const isProtectedRoute = createRouteMatcher([
   '/courtier(.*)',
 ]);
 
-// Middleware pour forcer HTTPS et rediriger www vers non-www
-const httpsRedirect = async (context, next) => {
-  const url = new URL(context.request.url);
-  const forwardedProto = context.request.headers.get('x-forwarded-proto');
-
-  // En production, forcer HTTPS (vérifier le header X-Forwarded-Proto de Railway)
-  if (import.meta.env.PROD && forwardedProto === 'http') {
-    url.protocol = 'https:';
-    return Response.redirect(url.toString(), 301);
-  }
-
-  // Rediriger www vers non-www
-  if (url.hostname === 'www.dossierpret.fr') {
-    url.hostname = 'dossierpret.fr';
-    return Response.redirect(url.toString(), 301);
-  }
-
-  // Ajouter les headers de sécurité HSTS
+// Middleware pour ajouter les headers de sécurité
+const securityHeaders = async (context, next) => {
+  // Railway gère déjà les redirections HTTPS et www automatiquement
+  // On ajoute juste les headers de sécurité
   const response = await next();
 
   if (import.meta.env.PROD) {
@@ -44,4 +30,4 @@ const clerkAuth = clerkMiddleware((auth, context) => {
   }
 });
 
-export const onRequest = sequence(httpsRedirect, clerkAuth);
+export const onRequest = sequence(securityHeaders, clerkAuth);
