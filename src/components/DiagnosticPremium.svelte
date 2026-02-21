@@ -500,22 +500,19 @@
 
       /* ─── Page de garde (Cover) ────────────────────────────────── */
       .print-cover {
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        display: block;
         text-align: center;
         page-break-after: always;
-        background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%) !important;
-        padding: 40px;
+        padding: 80px 40px 60px 40px;
+        min-height: 250mm;
+        background: #ffffff !important;
       }
 
       .print-cover-logo {
         font-size: 20pt;
         font-weight: 900;
         color: #111827;
-        margin-bottom: 60px;
+        margin: 0 0 80px 0;
         letter-spacing: -0.02em;
       }
 
@@ -523,26 +520,26 @@
         font-size: 32pt;
         font-weight: 900;
         color: #111827;
-        margin-bottom: 16px;
+        margin: 0 0 16px 0;
         line-height: 1.2;
       }
 
       .print-cover-subtitle {
         font-size: 14pt;
         color: #6b7280;
-        margin-bottom: 80px;
+        margin: 0 0 60px 0;
         font-weight: 500;
       }
 
       .print-cover-score-container {
-        margin: 40px 0;
+        margin: 60px 0;
       }
 
       .print-cover-score {
         font-size: 72pt;
         font-weight: 900;
         line-height: 1;
-        margin-bottom: 8px;
+        margin: 0 0 12px 0;
       }
 
       .print-cover-score-label {
@@ -551,13 +548,11 @@
         text-transform: uppercase;
         letter-spacing: 0.1em;
         font-weight: 600;
+        margin: 0;
       }
 
       .print-cover-meta {
-        position: absolute;
-        bottom: 40px;
-        left: 0;
-        right: 0;
+        margin-top: 80px;
         text-align: center;
         font-size: 10pt;
         color: #9ca3af;
@@ -571,6 +566,7 @@
         padding: 24px !important;
         margin: 0 0 24px 0;
         page-break-inside: avoid;
+        break-inside: avoid;
       }
 
       .print-executive-title {
@@ -583,10 +579,14 @@
       }
 
       .print-kpi-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
         margin-top: 16px;
+        margin-bottom: 0;
+      }
+
+      .print-kpi-grid::after {
+        content: "";
+        display: table;
+        clear: both;
       }
 
       .print-kpi-item {
@@ -594,6 +594,17 @@
         border: 1px solid #e5e7eb !important;
         border-radius: 8px !important;
         padding: 14px !important;
+        margin-bottom: 12px;
+        width: 48%;
+        float: left;
+        margin-right: 2%;
+        box-sizing: border-box;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .print-kpi-item:nth-child(2n) {
+        margin-right: 0;
       }
 
       .print-kpi-label {
@@ -602,19 +613,24 @@
         text-transform: uppercase;
         letter-spacing: 0.05em;
         font-weight: 600;
-        margin-bottom: 6px;
+        margin: 0 0 6px 0;
+        display: block;
       }
 
       .print-kpi-value {
         font-size: 16pt;
         font-weight: 900;
         color: #111827;
-        margin-bottom: 2px;
+        margin: 0 0 4px 0;
+        display: block;
+        line-height: 1.2;
       }
 
       .print-kpi-sub {
         font-size: 8pt;
         color: #9ca3af;
+        margin: 0;
+        display: block;
       }
 
       /* ─── Header de page (après page de garde) ─────────────────── */
@@ -680,6 +696,15 @@
         border-radius: 10px !important;
         padding: 18px !important;
         margin-bottom: 14px;
+        width: 100%;
+        box-sizing: border-box;
+        clear: both;
+      }
+
+      .card::after {
+        content: "";
+        display: table;
+        clear: both;
       }
 
       /* ─── Tableaux professionnels ──────────────────────────────── */
@@ -839,6 +864,26 @@
         border-color: #bfdbfe !important;
       }
 
+      /* ─── Flex containers pour impression ──────────────────────── */
+      .flex {
+        display: block !important;
+      }
+
+      .flex::after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      .flex-1 {
+        width: 100% !important;
+      }
+
+      .flex > * {
+        display: block;
+        margin-bottom: 8px;
+      }
+
       /* ─── Optimisations d'impression ───────────────────────────── */
       img {
         max-width: 100%;
@@ -854,19 +899,79 @@
         content: none !important;
       }
 
+      /* Reset des transforms et transitions */
+      * {
+        transform: none !important;
+        transition: none !important;
+        animation: none !important;
+      }
+
       /* ─── Grid responsive pour impression ──────────────────────── */
       .grid {
-        display: grid;
+        display: block !important;
+        overflow: hidden;
       }
 
-      .print-grid-2 {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+      .grid::after {
+        content: "";
+        display: table;
+        clear: both;
       }
 
-      .print-grid-4 {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 10px;
+      .grid > * {
+        float: left;
+        box-sizing: border-box;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* Grids Tailwind 2 colonnes */
+      .grid-cols-1 > *, .grid-cols-2 > *, .sm\:grid-cols-2 > * {
+        width: 48%;
+        margin-right: 4%;
+        margin-bottom: 12px;
+      }
+
+      .grid-cols-1 > *:nth-child(2n), .grid-cols-2 > *:nth-child(2n), .sm\:grid-cols-2 > *:nth-child(2n) {
+        margin-right: 0;
+      }
+
+      /* Grids Tailwind 4 colonnes */
+      .grid-cols-4 > *, .sm\:grid-cols-4 > * {
+        width: 23%;
+        margin-right: 2.66%;
+        margin-bottom: 10px;
+      }
+
+      .grid-cols-4 > *:nth-child(4n), .sm\:grid-cols-4 > *:nth-child(4n) {
+        margin-right: 0;
+      }
+
+      /* Espacement des grids */
+      .gap-3, .gap-4 {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      /* Helper print grids */
+      .print-grid-2 > * {
+        width: 48%;
+        margin-right: 4%;
+        margin-bottom: 12px;
+      }
+
+      .print-grid-2 > *:nth-child(2n) {
+        margin-right: 0;
+      }
+
+      .print-grid-4 > * {
+        width: 23%;
+        margin-right: 2.66%;
+        margin-bottom: 10px;
+      }
+
+      .print-grid-4 > *:nth-child(4n) {
+        margin-right: 0;
       }
 
       /* ─── Spacing utilitaires ──────────────────────────────────── */
@@ -1130,14 +1235,14 @@
           <div class="print-cover-score-label">{sc.label}</div>
         </div>
 
-        <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 500px;">
-          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; text-align: left;">
+        <div style="margin: 40px auto 0 auto; max-width: 500px; overflow: hidden;">
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; text-align: left; width: 48%; float: left; margin-right: 4%; box-sizing: border-box;">
             <div style="font-size: 8pt; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Conformité HCSF</div>
             <div style="font-size: 13pt; font-weight: 700; color: {hcsfOk ? '#059669' : '#dc2626'};">
               {hcsfOk ? '✓ Conforme' : '✗ Non conforme'}
             </div>
           </div>
-          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; text-align: left;">
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; text-align: left; width: 48%; float: left; box-sizing: border-box;">
             <div style="font-size: 8pt; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Taux d'endettement</div>
             <div style="font-size: 13pt; font-weight: 700; color: {tauxEndettement <= 35 ? '#059669' : '#dc2626'};">
               {fmtPct(tauxEndettement)}
