@@ -25,12 +25,12 @@ CREATE TABLE IF NOT EXISTS user_diagnostics (
   nb_enfants INTEGER DEFAULT 0,
 
   -- Metadata
-  diagnostic_type TEXT DEFAULT 'express', -- 'express' or 'premium'
-
-  -- Indexes
-  INDEX idx_user_diagnostics_user_id (user_id),
-  INDEX idx_user_diagnostics_created_at (created_at DESC)
+  diagnostic_type TEXT DEFAULT 'express' -- 'express' or 'premium'
 );
+
+-- Create indexes separately (not in table definition)
+CREATE INDEX IF NOT EXISTS idx_user_diagnostics_user_id ON user_diagnostics (user_id);
+CREATE INDEX IF NOT EXISTS idx_user_diagnostics_created_at ON user_diagnostics (created_at DESC);
 
 -- Enable RLS
 ALTER TABLE user_diagnostics ENABLE ROW LEVEL SECURITY;
