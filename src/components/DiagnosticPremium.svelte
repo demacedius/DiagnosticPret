@@ -8,8 +8,9 @@
   interface RoadmapMilestone { mois: number; titre: string; items: string[]; type: 'now' | 'mid' | 'final'; }
 
   // ─── Props optionnels (courtier) ──────────────────────────────────
-  let { dossierId = undefined, onResult = undefined }: {
+  let { dossierId = undefined, onResult = undefined, userId = null }: {
     dossierId?: string;
+    userId?: string | null;
     onResult?: (result: {
       scoreGlobal: number; tauxEndettement: number; mensualite: number;
       resteAVivre: number; apportPct: number; hcsfOk: boolean;
@@ -358,10 +359,44 @@
   }
 
   // ─── Handlers ─────────────────────────────────────────────────────
+  async function saveDiagnostic() {
+    if (!userId) return; // Only save if user is logged in
+
+    try {
+      await fetch('/api/diagnostics/save', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          score: scoreGlobal,
+          tauxEndettement,
+          apportPct,
+          resteAVivre,
+          mensualite,
+          hcsfOk,
+          revenus: parseFloat(revenus),
+          charges: parseFloat(charges),
+          montant: parseFloat(montant),
+          apport: parseFloat(apport),
+          duree: parseInt(duree),
+          tauxInteret: parseFloat(tauxInteret),
+          contrat,
+          anciennete,
+          decouvert,
+          nbEnfants: parseInt(nbEnfants),
+          diagnosticType: 'premium',
+        }),
+      });
+    } catch (err) {
+      console.error('Failed to save diagnostic:', err);
+      // Silent fail - don't block user experience
+    }
+  }
+
   function handleSubmit() {
     if (!validate()) return;
     compute();
     submitted = true;
+    saveDiagnostic(); // Auto-save (async, non-blocking)
     setTimeout(() => {
       document.getElementById('resultats-premium')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
