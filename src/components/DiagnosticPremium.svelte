@@ -445,18 +445,27 @@
   <style>
     .print-only { display: none; }
     @media print {
+      /* ─── Configuration de la page ─────────────────────────────── */
       @page {
-        margin: 20mm 15mm 25mm 15mm;
-        @bottom-center {
-          content: "Page " counter(page) " / " counter(pages);
-          font-size: 9px;
-          color: #6b7280;
-        }
+        size: A4;
+        margin: 18mm 15mm 22mm 15mm;
       }
 
+      @page:first {
+        margin: 0;
+      }
+
+      /* ─── Base et reset ────────────────────────────────────────── */
       html {
         color-scheme: light !important;
         font-size: 10pt;
+        line-height: 1.5;
+      }
+
+      * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        color-adjust: exact;
       }
 
       header, footer, nav, .no-print {
@@ -465,9 +474,9 @@
 
       body {
         background: white !important;
-        -webkit-print-color-adjust: exact;
-        print-color-adjust: exact;
-        color: #111 !important;
+        color: #111827 !important;
+        margin: 0;
+        padding: 0;
       }
 
       .print-only {
@@ -478,33 +487,18 @@
         display: none !important;
       }
 
+      /* ─── Gestion des sauts de page ────────────────────────────── */
       .print-section {
         break-inside: avoid;
-        margin-bottom: 16px;
         page-break-inside: avoid;
+        margin-bottom: 18px;
       }
 
       .print-page-break {
         page-break-before: always;
       }
 
-      .card {
-        background: white !important;
-        box-shadow: none !important;
-        border: 1.5px solid #e5e7eb !important;
-        border-radius: 8px !important;
-        padding: 16px !important;
-      }
-
-      /* Header fixe sur chaque page */
-      .print-header {
-        position: running(header);
-        border-bottom: 2px solid #1f2937;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-      }
-
-      /* Page de garde */
+      /* ─── Page de garde (Cover) ────────────────────────────────── */
       .print-cover {
         height: 100vh;
         display: flex;
@@ -513,60 +507,378 @@
         align-items: center;
         text-align: center;
         page-break-after: always;
+        background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%) !important;
+        padding: 40px;
       }
 
-      /* Synthèse exécutive */
+      .print-cover-logo {
+        font-size: 20pt;
+        font-weight: 900;
+        color: #111827;
+        margin-bottom: 60px;
+        letter-spacing: -0.02em;
+      }
+
+      .print-cover-title {
+        font-size: 32pt;
+        font-weight: 900;
+        color: #111827;
+        margin-bottom: 16px;
+        line-height: 1.2;
+      }
+
+      .print-cover-subtitle {
+        font-size: 14pt;
+        color: #6b7280;
+        margin-bottom: 80px;
+        font-weight: 500;
+      }
+
+      .print-cover-score-container {
+        margin: 40px 0;
+      }
+
+      .print-cover-score {
+        font-size: 72pt;
+        font-weight: 900;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .print-cover-score-label {
+        font-size: 12pt;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-weight: 600;
+      }
+
+      .print-cover-meta {
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 10pt;
+        color: #9ca3af;
+      }
+
+      /* ─── Synthèse exécutive ────────────────────────────────────── */
       .print-executive-summary {
-        background: #f9fafb !important;
-        border: 2px solid #1f2937 !important;
-        padding: 20px !important;
-        margin-bottom: 20px;
-        border-radius: 8px !important;
+        background: #f8fafc !important;
+        border: 2px solid #111827 !important;
+        border-radius: 12px !important;
+        padding: 24px !important;
+        margin: 0 0 24px 0;
+        page-break-inside: avoid;
       }
 
-      /* Typographie */
-      h1 { font-size: 24pt; font-weight: 900; color: #111; margin-bottom: 8px; }
-      h2 { font-size: 16pt; font-weight: 700; color: #111; margin-bottom: 12px; margin-top: 20px; }
-      h3 { font-size: 12pt; font-weight: 600; color: #374151; margin-bottom: 8px; }
-      p { font-size: 10pt; line-height: 1.6; color: #4b5563; }
+      .print-executive-title {
+        font-size: 18pt;
+        font-weight: 800;
+        color: #111827;
+        margin: 0 0 20px 0;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #e5e7eb;
+      }
 
-      /* Tableaux */
+      .print-kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      .print-kpi-item {
+        background: white !important;
+        border: 1px solid #e5e7eb !important;
+        border-radius: 8px !important;
+        padding: 14px !important;
+      }
+
+      .print-kpi-label {
+        font-size: 8pt;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      .print-kpi-value {
+        font-size: 16pt;
+        font-weight: 900;
+        color: #111827;
+        margin-bottom: 2px;
+      }
+
+      .print-kpi-sub {
+        font-size: 8pt;
+        color: #9ca3af;
+      }
+
+      /* ─── Header de page (après page de garde) ─────────────────── */
+      .print-page-header {
+        display: none;
+        border-bottom: 2px solid #e5e7eb;
+        padding-bottom: 12px;
+        margin-bottom: 24px;
+      }
+
+      @page:not(:first) {
+        @top-center {
+          content: element(running-header);
+        }
+      }
+
+      /* ─── Typographie hiérarchique ─────────────────────────────── */
+      h1 {
+        font-size: 24pt;
+        font-weight: 900;
+        color: #111827;
+        margin: 0 0 12px 0;
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+      }
+
+      h2 {
+        font-size: 16pt;
+        font-weight: 800;
+        color: #111827;
+        margin: 28px 0 14px 0;
+        padding-top: 8px;
+        border-top: 2px solid #e5e7eb;
+        line-height: 1.3;
+      }
+
+      h2:first-of-type {
+        margin-top: 0;
+        border-top: none;
+        padding-top: 0;
+      }
+
+      h3 {
+        font-size: 12pt;
+        font-weight: 700;
+        color: #1f2937;
+        margin: 16px 0 10px 0;
+        line-height: 1.4;
+      }
+
+      p {
+        font-size: 10pt;
+        line-height: 1.6;
+        color: #374151;
+        margin: 0 0 10px 0;
+      }
+
+      /* ─── Cards et containers ──────────────────────────────────── */
+      .card {
+        background: white !important;
+        box-shadow: none !important;
+        border: 1.5px solid #e5e7eb !important;
+        border-radius: 10px !important;
+        padding: 18px !important;
+        margin-bottom: 14px;
+      }
+
+      /* ─── Tableaux professionnels ──────────────────────────────── */
       table {
         width: 100%;
         border-collapse: collapse;
-        margin: 12px 0;
+        margin: 14px 0;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        overflow: hidden;
       }
 
-      th, td {
-        padding: 8px;
-        text-align: left;
-        border-bottom: 1px solid #e5e7eb;
+      thead {
+        background: #f8fafc !important;
       }
 
       th {
-        background: #f9fafb;
-        font-weight: 600;
+        padding: 10px 12px;
+        text-align: left;
+        border-bottom: 2px solid #e5e7eb;
+        font-weight: 700;
         font-size: 9pt;
-        color: #374151;
+        color: #1f2937;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
       }
 
       td {
+        padding: 10px 12px;
         font-size: 10pt;
-        color: #111;
+        color: #111827;
+        border-bottom: 1px solid #f3f4f6;
       }
 
-      /* Footer */
+      tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      tbody tr:nth-child(even) {
+        background: #f9fafb !important;
+      }
+
+      /* ─── Badges et labels ─────────────────────────────────────── */
+      .print-badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 8pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .print-badge-success {
+        background: #d1fae5 !important;
+        color: #065f46 !important;
+      }
+
+      .print-badge-warning {
+        background: #fef3c7 !important;
+        color: #92400e !important;
+      }
+
+      .print-badge-danger {
+        background: #fee2e2 !important;
+        color: #991b1b !important;
+      }
+
+      /* ─── Listes et puces ──────────────────────────────────────── */
+      ul, ol {
+        margin: 10px 0;
+        padding-left: 20px;
+      }
+
+      li {
+        font-size: 10pt;
+        line-height: 1.6;
+        color: #374151;
+        margin-bottom: 6px;
+      }
+
+      /* ─── Footer de page ───────────────────────────────────────── */
       .print-footer {
-        position: fixed;
-        bottom: 10mm;
-        left: 15mm;
-        right: 15mm;
+        margin-top: 40px;
+        padding-top: 16px;
+        border-top: 2px solid #e5e7eb;
         text-align: center;
+      }
+
+      .print-footer-brand {
+        font-size: 10pt;
+        color: #1f2937;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .print-footer-disclaimer {
+        font-size: 8pt;
+        color: #6b7280;
+        line-height: 1.5;
+        max-width: 600px;
+        margin: 0 auto 10px auto;
+      }
+
+      .print-footer-meta {
         font-size: 8pt;
         color: #9ca3af;
-        border-top: 1px solid #e5e7eb;
-        padding-top: 8px;
+        margin-top: 10px;
       }
+
+      /* ─── Couleurs pour impression ─────────────────────────────── */
+      .text-green-600, .text-green-700, .text-green-800 {
+        color: #059669 !important;
+      }
+
+      .text-red-600, .text-red-700, .text-red-800 {
+        color: #dc2626 !important;
+      }
+
+      .text-amber-600, .text-amber-700, .text-amber-800 {
+        color: #d97706 !important;
+      }
+
+      .text-blue-600, .text-blue-700 {
+        color: #2563eb !important;
+      }
+
+      .bg-green-50, .bg-green-100 {
+        background: #d1fae5 !important;
+      }
+
+      .bg-red-50, .bg-red-100 {
+        background: #fee2e2 !important;
+      }
+
+      .bg-amber-50, .bg-amber-100 {
+        background: #fef3c7 !important;
+      }
+
+      .bg-blue-50, .bg-blue-100 {
+        background: #dbeafe !important;
+      }
+
+      .border-green-100, .border-green-200 {
+        border-color: #a7f3d0 !important;
+      }
+
+      .border-red-100, .border-red-200 {
+        border-color: #fecaca !important;
+      }
+
+      .border-amber-100, .border-amber-200 {
+        border-color: #fde68a !important;
+      }
+
+      .border-blue-100, .border-blue-200 {
+        border-color: #bfdbfe !important;
+      }
+
+      /* ─── Optimisations d'impression ───────────────────────────── */
+      img {
+        max-width: 100%;
+        page-break-inside: avoid;
+      }
+
+      a {
+        color: #111827 !important;
+        text-decoration: none !important;
+      }
+
+      a[href]:after {
+        content: none !important;
+      }
+
+      /* ─── Grid responsive pour impression ──────────────────────── */
+      .grid {
+        display: grid;
+      }
+
+      .print-grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .print-grid-4 {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+      }
+
+      /* ─── Spacing utilitaires ──────────────────────────────────── */
+      .print-mt-0 { margin-top: 0 !important; }
+      .print-mt-1 { margin-top: 8px !important; }
+      .print-mt-2 { margin-top: 16px !important; }
+      .print-mt-3 { margin-top: 24px !important; }
+
+      .print-mb-0 { margin-bottom: 0 !important; }
+      .print-mb-1 { margin-bottom: 8px !important; }
+      .print-mb-2 { margin-bottom: 16px !important; }
+      .print-mb-3 { margin-bottom: 24px !important; }
     }
   </style>
 </svelte:head>
@@ -806,71 +1118,126 @@
 
       <!-- PAGE DE GARDE (impression uniquement) -->
       <div class="print-only print-cover">
-        <div style="max-width: 600px;">
-          <div style="font-size: 48px; font-weight: 900; color: #111; letter-spacing: -1px; margin-bottom: 12px;">DossierPrêt</div>
-          <div style="font-size: 16px; color: #6b7280; margin-bottom: 40px;">Rapport de diagnostic immobilier</div>
+        <div class="print-cover-logo">DossierPrêt</div>
 
-          <div style="background: {scoreGlobal >= 70 ? '#ecfdf5' : scoreGlobal >= 45 ? '#fffbeb' : '#fef2f2'}; border: 3px solid {scoreGlobal >= 70 ? '#10b981' : scoreGlobal >= 45 ? '#f59e0b' : '#ef4444'}; border-radius: 12px; padding: 32px; margin-bottom: 40px;">
-            <div style="font-size: 14px; color: #6b7280; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Score du dossier</div>
-            <div style="font-size: 72px; font-weight: 900; color: {scoreGlobal >= 70 ? '#059669' : scoreGlobal >= 45 ? '#d97706' : '#dc2626'}; line-height: 1;">{scoreGlobal}<span style="font-size: 36px; color: #9ca3af;">/100</span></div>
-            <div style="font-size: 18px; font-weight: 600; color: {scoreGlobal >= 70 ? '#059669' : scoreGlobal >= 45 ? '#d97706' : '#dc2626'}; margin-top: 8px;">{sc.label}</div>
-          </div>
+        <div class="print-cover-title">Diagnostic Immobilier</div>
+        <div class="print-cover-subtitle">Analyse HCSF complète de votre dossier emprunteur</div>
 
-          <div style="font-size: 12px; color: #6b7280; margin-bottom: 8px;">
-            <strong>Généré le :</strong> {new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric' })}
+        <div class="print-cover-score-container">
+          <div class="print-cover-score" style="color: {scoreGlobal >= 70 ? '#059669' : scoreGlobal >= 45 ? '#d97706' : '#dc2626'};">
+            {scoreGlobal}<span style="font-size: 32pt; color: #9ca3af;">/100</span>
           </div>
-          <div style="font-size: 12px; color: #6b7280;">
-            <strong>Conformité HCSF :</strong> {hcsfOk ? '✓ Conforme' : '✗ Non conforme'}
-          </div>
+          <div class="print-cover-score-label">{sc.label}</div>
+        </div>
 
-          <div style="margin-top: 60px; font-size: 10px; color: #9ca3af; line-height: 1.6;">
-            Ce rapport est un outil pédagogique d'aide à la décision. Il ne constitue pas une garantie d'obtention de financement.<br>
-            Pour plus d'informations : <strong>dossierpret.fr</strong>
+        <div style="margin-top: 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; max-width: 500px;">
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; text-align: left;">
+            <div style="font-size: 8pt; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Conformité HCSF</div>
+            <div style="font-size: 13pt; font-weight: 700; color: {hcsfOk ? '#059669' : '#dc2626'};">
+              {hcsfOk ? '✓ Conforme' : '✗ Non conforme'}
+            </div>
+          </div>
+          <div style="background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 14px; text-align: left;">
+            <div style="font-size: 8pt; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Taux d'endettement</div>
+            <div style="font-size: 13pt; font-weight: 700; color: {tauxEndettement <= 35 ? '#059669' : '#dc2626'};">
+              {fmtPct(tauxEndettement)}
+            </div>
+          </div>
+        </div>
+
+        <div class="print-cover-meta">
+          <div style="font-size: 9pt; color: #6b7280; margin-bottom: 6px;">
+            <strong>Généré le</strong> {new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
+          </div>
+          <div style="font-size: 8pt; color: #9ca3af;">
+            dossierpret.fr — Outil pédagogique d'aide à la décision
           </div>
         </div>
       </div>
 
       <!-- SYNTHÈSE EXÉCUTIVE (impression uniquement) -->
       <div class="print-only print-executive-summary print-page-break">
-        <h2 style="margin-top: 0;">Synthèse exécutive</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px;">
-          <div>
-            <div style="font-size: 9px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Score global</div>
-            <div style="font-size: 24px; font-weight: 900; color: {scoreGlobal >= 70 ? '#059669' : scoreGlobal >= 45 ? '#d97706' : '#dc2626'};">{scoreGlobal}/100</div>
+        <div class="print-executive-title">Synthèse exécutive</div>
+
+        <!-- KPIs principaux -->
+        <div class="print-kpi-grid">
+          <div class="print-kpi-item">
+            <div class="print-kpi-label">Score global</div>
+            <div class="print-kpi-value" style="color: {scoreGlobal >= 70 ? '#059669' : scoreGlobal >= 45 ? '#d97706' : '#dc2626'};">
+              {scoreGlobal}/100
+            </div>
+            <div class="print-kpi-sub">{sc.label}</div>
           </div>
-          <div>
-            <div style="font-size: 9px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Taux d'endettement</div>
-            <div style="font-size: 24px; font-weight: 900; color: {tauxEndettement <= 35 ? '#059669' : '#dc2626'};">{fmtPct(tauxEndettement)}</div>
+
+          <div class="print-kpi-item">
+            <div class="print-kpi-label">Taux d'endettement</div>
+            <div class="print-kpi-value" style="color: {tauxEndettement <= 35 ? '#059669' : '#dc2626'};">
+              {fmtPct(tauxEndettement)}
+            </div>
+            <div class="print-kpi-sub">Max HCSF : 35 %</div>
           </div>
-          <div>
-            <div style="font-size: 9px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Apport personnel</div>
-            <div style="font-size: 24px; font-weight: 900; color: {apportPct >= 10 ? '#059669' : '#d97706'};">{fmtPct(apportPct)}</div>
+
+          <div class="print-kpi-item">
+            <div class="print-kpi-label">Apport personnel</div>
+            <div class="print-kpi-value" style="color: {apportPct >= 10 ? '#059669' : '#d97706'};">
+              {fmtPct(apportPct)}
+            </div>
+            <div class="print-kpi-sub">{fmt(parseFloat(apport))}&nbsp;€</div>
           </div>
-          <div>
-            <div style="font-size: 9px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Reste à vivre</div>
-            <div style="font-size: 24px; font-weight: 900; color: {resteAVivre >= 800 ? '#059669' : resteAVivre >= 400 ? '#d97706' : '#dc2626'};">{fmt(resteAVivre)}&nbsp;€</div>
+
+          <div class="print-kpi-item">
+            <div class="print-kpi-label">Reste à vivre</div>
+            <div class="print-kpi-value" style="color: {resteAVivre >= 800 ? '#059669' : resteAVivre >= 400 ? '#d97706' : '#dc2626'};">
+              {fmt(resteAVivre)}&nbsp;€
+            </div>
+            <div class="print-kpi-sub">Après mensualité</div>
+          </div>
+
+          <div class="print-kpi-item">
+            <div class="print-kpi-label">Mensualité estimée</div>
+            <div class="print-kpi-value" style="color: #111827;">
+              {fmt(mensualite)}&nbsp;€
+            </div>
+            <div class="print-kpi-sub">{duree} ans à {tauxInteret} %</div>
+          </div>
+
+          <div class="print-kpi-item">
+            <div class="print-kpi-label">Montant emprunté</div>
+            <div class="print-kpi-value" style="color: #111827;">
+              {Math.round(parseFloat(montant) / 1000)}&nbsp;k€
+            </div>
+            <div class="print-kpi-sub">{fmt(parseFloat(montant))}&nbsp;€</div>
+          </div>
+
+          <div class="print-kpi-item">
+            <div class="print-kpi-label">Type de contrat</div>
+            <div class="print-kpi-value" style="color: #111827; font-size: 13pt;">
+              {contrat === 'cdi' ? 'CDI' : contrat === 'cdd' ? 'CDD' : contrat === 'independant' ? 'Indép.' : 'Autre'}
+            </div>
+            <div class="print-kpi-sub">
+              {anciennete === 'plus2ans' ? '> 2 ans' : anciennete === '1a2ans' ? '1-2 ans' : '< 1 an'}
+            </div>
+          </div>
+
+          <div class="print-kpi-item">
+            <div class="print-kpi-label">Découvert bancaire</div>
+            <div class="print-kpi-value" style="color: {decouvert === 'oui' ? '#dc2626' : '#059669'}; font-size: 13pt;">
+              {decouvert === 'oui' ? 'Oui' : 'Non'}
+            </div>
+            <div class="print-kpi-sub">3 derniers mois</div>
           </div>
         </div>
 
-        <div style="background: white; border: 1.5px solid #e5e7eb; border-radius: 8px; padding: 16px; margin-top: 16px;">
-          <h3 style="margin-top: 0; font-size: 11px; color: #374151;">Points clés du diagnostic</h3>
-          <ul style="margin: 0; padding-left: 20px; font-size: 10px; line-height: 1.8; color: #4b5563;">
-            <li><strong>Mensualité estimée :</strong> {fmt(mensualite)}&nbsp;€/mois</li>
-            <li><strong>Montant emprunté :</strong> {fmt(parseFloat(montant))}&nbsp;€ sur {duree}&nbsp;ans à {tauxInteret}&nbsp;%</li>
-            <li><strong>Apport :</strong> {fmt(parseFloat(apport))}&nbsp;€ ({fmtPct(apportPct)} du prix total)</li>
-            <li><strong>Découvert bancaire :</strong> {decouvert === 'oui' ? 'Oui — Signal négatif' : 'Non'}</li>
-            <li><strong>Situation professionnelle :</strong> {contrat === 'cdi' ? 'CDI' : contrat === 'cdd' ? 'CDD' : contrat === 'independant' ? 'Indépendant' : 'Autre'} — Ancienneté {anciennete === 'plus2ans' ? '> 2 ans' : anciennete === '1a2ans' ? '1-2 ans' : '< 1 an'}</li>
-          </ul>
-        </div>
-
-        <div style="background: {hcsfOk ? '#ecfdf5' : '#fef2f2'}; border: 1.5px solid {hcsfOk ? '#10b981' : '#ef4444'}; border-radius: 8px; padding: 16px; margin-top: 16px;">
-          <div style="font-weight: 600; font-size: 11px; color: {hcsfOk ? '#059669' : '#dc2626'}; margin-bottom: 6px;">
-            {hcsfOk ? '✓ Dossier conforme aux critères HCSF' : '✗ Dossier non conforme aux critères HCSF'}
+        <!-- Verdict HCSF -->
+        <div style="background: {hcsfOk ? '#d1fae5' : '#fee2e2'}; border: 2px solid {hcsfOk ? '#059669' : '#dc2626'}; border-radius: 10px; padding: 18px; margin-top: 20px;">
+          <div style="font-weight: 700; font-size: 11pt; color: {hcsfOk ? '#065f46' : '#991b1b'}; margin-bottom: 8px; display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 16pt;">{hcsfOk ? '✓' : '✗'}</span>
+            {hcsfOk ? 'Dossier conforme aux critères HCSF' : 'Dossier non conforme aux critères HCSF'}
           </div>
-          <p style="margin: 0; font-size: 9px; color: #4b5563; line-height: 1.6;">
+          <p style="margin: 0; font-size: 9pt; color: {hcsfOk ? '#047857' : '#7f1d1d'}; line-height: 1.6;">
             {hcsfOk
-              ? 'Votre dossier respecte les recommandations du Haut Conseil de Stabilité Financière (taux d\'endettement ≤ 35 %, durée ≤ 25 ans). Cela augmente significativement vos chances d\'acceptation.'
-              : 'Votre dossier dépasse les seuils recommandés par le HCSF. Les banques peuvent accorder des dérogations, mais cela réduit vos chances d\'acceptation. Consultez le plan d\'action pour corriger les points bloquants.'}
+              ? 'Votre dossier respecte les recommandations du Haut Conseil de Stabilité Financière (taux d\'endettement ≤ 35 %, durée ≤ 25 ans). Cela augmente significativement vos chances d\'acceptation bancaire.'
+              : 'Votre dossier dépasse les seuils recommandés par le HCSF. Les banques peuvent accorder des dérogations (20 % des dossiers), mais vos chances d\'acceptation sont réduites. Consultez le plan d\'action ci-dessous pour corriger les points bloquants.'}
           </p>
         </div>
       </div>
@@ -1089,15 +1456,14 @@
       </p>
 
       <!-- Footer PDF uniquement -->
-      <div class="print-only" style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #e5e7eb; text-align: center;">
-        <div style="font-size: 10px; color: #6b7280; margin-bottom: 8px;">
-          <strong>DossierPrêt</strong> — Outil pédagogique d'aide à la décision pour votre projet immobilier
+      <div class="print-only print-footer">
+        <div class="print-footer-brand">
+          DossierPrêt — Diagnostic immobilier intelligent
         </div>
-        <div style="font-size: 9px; color: #9ca3af; line-height: 1.6; max-width: 600px; margin: 0 auto;">
-          Ce rapport est généré automatiquement sur la base des informations fournies. Il ne constitue pas un engagement de financement ni une garantie d'acceptation bancaire.
-          Pour un accompagnement personnalisé, consultez un courtier en crédit immobilier.
+        <div class="print-footer-disclaimer">
+          Ce rapport est généré automatiquement sur la base des informations fournies. Il ne constitue pas un engagement de financement ni une garantie d'acceptation bancaire. Les calculs sont basés sur les règles HCSF en vigueur et des estimations de taux du marché. Pour un accompagnement personnalisé et une étude de financement complète, consultez un courtier en crédit immobilier agréé.
         </div>
-        <div style="font-size: 9px; color: #9ca3af; margin-top: 12px;">
+        <div class="print-footer-meta">
           <strong>dossierpret.fr</strong> • Généré le {new Date().toLocaleDateString('fr-FR', { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' })}
         </div>
       </div>
