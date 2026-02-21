@@ -11,9 +11,10 @@ const isProtectedRoute = createRouteMatcher([
 // Middleware pour forcer HTTPS et rediriger www vers non-www
 const httpsRedirect = async (context, next) => {
   const url = new URL(context.request.url);
+  const forwardedProto = context.request.headers.get('x-forwarded-proto');
 
-  // En production, forcer HTTPS
-  if (import.meta.env.PROD && url.protocol === 'http:') {
+  // En production, forcer HTTPS (vérifier le header X-Forwarded-Proto de Railway)
+  if (import.meta.env.PROD && forwardedProto === 'http') {
     url.protocol = 'https:';
     return Response.redirect(url.toString(), 301);
   }
