@@ -28,13 +28,20 @@ const defaultSchema = [
     '@type': 'Organization',
     name: 'DossierPrêt',
     url: siteUrl,
-    description: 'Outil de diagnostic bancaire pour votre dossier de prêt immobilier.',
+    description: 'Outil de diagnostic bancaire pour analyser votre dossier de prêt immobilier selon les critères HCSF.',
+    areaServed: 'FR',
+    knowsLanguage: 'fr',
   },
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'DossierPrêt',
     url: siteUrl,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: `${siteUrl}/blog?q={search_term_string}`,
+      'query-input': 'required name=search_term_string',
+    },
   },
 ];
 

@@ -11,8 +11,8 @@ const userId = user?.id ?? null;
 ---
 
 <BaseLayout
-  title="DossierPrêt — Évaluez les risques de refus de votre prêt immobilier"
-  description="Analysez votre profil bancaire en 30 secondes. Identifiez les facteurs qui peuvent entraîner un refus de prêt immobilier et découvrez comment les corriger."
+  title="Diagnostic Prêt Immobilier Gratuit — DossierPrêt"
+  description="Analysez votre profil bancaire selon les critères HCSF en 30 secondes. Identifiez ce qui peut entraîner un refus de prêt immobilier et les leviers pour y remédier."
 >
   <div class="min-h-screen flex flex-col">
     <Navbar currentPath="/" />
@@ -132,7 +132,7 @@ const userId = user?.id ?? null;
           <span class="section-label mb-3 flex justify-center">
             <span>Processus</span>
           </span>
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Comment ça fonctionne</h2>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Comment analyser votre dossier prêt immobilier&nbsp;?</h2>
           <p class="text-gray-500 dark:text-slate-400 mt-2">Trois étapes pour comprendre et améliorer votre situation.</p>
         </div>
 
@@ -189,16 +189,28 @@ const userId = user?.id ?? null;
               desc: 'Comprendre pourquoi une banque refuse un dossier et les leviers pour y remédier.',
             },
             {
-              href: '/blog/decouvert-bancaire-credit-immobilier',
-              cat: 'Analyse',
-              title: 'Découvert bancaire : impact réel sur un crédit immobilier',
-              desc: 'Ce que voit vraiment la banque quand elle examine vos relevés.',
-            },
-            {
               href: '/blog/taux-endettement-regle-35-pourcent',
               cat: 'Réglementation',
               title: 'Taux d\'endettement : la règle des 35% expliquée',
               desc: 'La réglementation HCSF et ses implications concrètes pour votre dossier.',
+            },
+            {
+              href: '/blog/apport-combien-faut-il',
+              cat: 'Guide',
+              title: 'Apport : combien faut-il vraiment ?',
+              desc: 'Le montant d\'apport attendu par les banques et les solutions si vous n\'atteignez pas le seuil.',
+            },
+            {
+              href: '/blog/credit-conso-pret-immobilier',
+              cat: 'Guide',
+              title: 'Crédit conso et prêt immobilier : ce que les banques regardent',
+              desc: 'Comment un crédit à la consommation influence votre taux d\'endettement et vos chances d\'accord.',
+            },
+            {
+              href: '/blog/decouvert-bancaire-credit-immobilier',
+              cat: 'Analyse',
+              title: 'Découvert bancaire : impact réel sur un crédit immobilier',
+              desc: 'Ce que voit vraiment la banque quand elle examine vos relevés.',
             },
           ].map(post => (
             <a href={post.href} class="card hover:shadow-card-md transition-shadow duration-200 group flex flex-col">

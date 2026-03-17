@@ -5,11 +5,59 @@ import Footer from '../components/Footer.astro';
 import PricingToggle from '../components/PricingToggle.svelte';
 
 const upgrade = Astro.url.searchParams.get('upgrade') === '1';
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: "Est-ce que mon diagnostic influence l'attribution du prêt ?",
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Non. DossierPrêt est un outil d'analyse pédagogique indépendant. Il n'a aucun lien avec les banques et n'apparaît pas dans les bases de données bancaires.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Avez-vous accès à mes données bancaires ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Non. Vous saisissez vous-même vos données et elles ne sont pas stockées ni transmises. Votre diagnostic reste entièrement confidentiel.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Mon résultat est-il garanti ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Non. Il s'agit d'une simulation basée sur des critères standards. Les décisions bancaires réelles dépendent de nombreux autres facteurs propres à chaque établissement.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Puis-je annuler mon abonnement ?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Le plan Premium est un accès unique par rapport. Il n'y a pas d'abonnement pour ce plan. Le plan Pro peut être annulé à tout moment.",
+      },
+    },
+    {
+      '@type': 'Question',
+      name: "Quelle est la différence avec un simulateur de prêt ?",
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: "Un simulateur de prêt calcule des mensualités. DossierPrêt analyse votre profil bancaire pour identifier les risques de refus — pas le montant que vous pouvez emprunter.",
+      },
+    },
+  ],
+};
 ---
 
 <BaseLayout
-  title="Premium — Diagnostic personnalisé complet | DossierPrêt"
-  description="Obtenez un diagnostic approfondi de votre dossier immobilier. Analyse complète, plan d'action prioritaire et simulations d'amortisation."
+  title="Analyse Complète Dossier Prêt Immobilier — DossierPrêt"
+  description="Obtenez une analyse approfondie de votre profil emprunteur selon les critères HCSF. Identification des risques de refus, plan d'action prioritaire et simulations personnalisées."
+  schema={faqSchema}
 >
   <div class="min-h-screen flex flex-col">
     <Navbar currentPath="/premium" />
@@ -37,7 +85,7 @@ const upgrade = Astro.url.searchParams.get('upgrade') === '1';
           Analyse complète de votre<br class="hidden sm:block" /> dossier bancaire
         </h1>
         <p class="text-lg text-gray-500 dark:text-slate-400 max-w-xl mx-auto">
-          Analyse complète de votre dossier bancaire — plus d'action prioritaire
+          Analyse complète de votre dossier bancaire — plan d'action prioritaire inclus.
         </p>
       </div>
     </section>
@@ -173,7 +221,7 @@ const upgrade = Astro.url.searchParams.get('upgrade') === '1';
         <p class="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
           Obtenez votre analyse complète et personnalisée. Maximisez vos chances d'acceptation bancaire.
         </p>
-        <a href="/" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-gray-900 font-semibold text-sm rounded-xl hover:bg-gray-100 transition-colors">
+        <a href="/diagnostic" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-gray-900 font-semibold text-sm rounded-xl hover:bg-gray-100 transition-colors">
           Démarrer mon diagnostic Premium
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
