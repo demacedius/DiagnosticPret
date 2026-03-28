@@ -11,8 +11,8 @@ const userId = user?.id ?? null;
 ---
 
 <BaseLayout
-  title="Diagnostic Prêt Immobilier Gratuit — DossierPrêt"
-  description="Analysez votre profil bancaire selon les critères HCSF en 30 secondes. Identifiez ce qui peut entraîner un refus de prêt immobilier et les leviers pour y remédier."
+  title="Diagnostic prêt immobilier gratuit — Testez votre dossier | DossierPrêt"
+  description="Votre dossier de prêt immobilier peut-il être refusé ? Analysez votre profil en 2 minutes selon les critères bancaires. Gratuit, instantané, sans inscription."
 >
   <div class="min-h-screen flex flex-col">
     <Navbar currentPath="/" />
@@ -41,7 +41,7 @@ const userId = user?.id ?? null;
 
             <!-- Subhead -->
             <p class="text-lg text-gray-500 dark:text-slate-400 leading-relaxed mb-8 max-w-lg">
-              Analysez votre profil selon les critères bancaires standards. Identifiez précisément ce qui peut bloquer votre dossier — et comment y remédier.
+              Testez votre profil en 2 minutes selon les critères des banques. Découvrez ce qui pourrait bloquer votre prêt immobilier — avant de déposer votre dossier.
             </p>
 
             <!-- Trust bullets -->
@@ -63,15 +63,15 @@ const userId = user?.id ?? null;
             <div class="flex flex-wrap gap-2">
               <span class="badge badge-gray">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Critères HCSF intégrés
+                Critères bancaires HCSF
               </span>
               <span class="badge badge-gray">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Méthodologie bancaire
+                Sans rendez-vous ni inscription
               </span>
               <span class="badge badge-gray">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Analyse impartiale
+                Résultat en 2 minutes
               </span>
             </div>
           </div>
@@ -91,9 +91,9 @@ const userId = user?.id ?? null;
           <span class="section-label mb-3 flex justify-center">
             <span>Ce que vous obtenez</span>
           </span>
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Diagnostic professionnel complet</h2>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Ce que vous découvrez en 2 minutes</h2>
           <p class="text-gray-500 dark:text-slate-400 mt-2 max-w-xl mx-auto">
-            Basé sur les mêmes critères utilisés par les établissements bancaires pour évaluer votre dossier.
+            Tout ce qu'une banque regarde quand elle analyse votre dossier de prêt immobilier.
           </p>
         </div>
 
@@ -101,18 +101,18 @@ const userId = user?.id ?? null;
           {[
             {
               icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>`,
-              title: 'Analyse DMP',
-              desc: 'Taux d\'endettement, reste à vivre, stabilité des revenus — les 3 axes clés évalués par les banques.',
+              title: 'Votre taux d\'endettement décortiqué',
+              desc: 'Taux d\'endettement, reste à vivre, stabilité des revenus : vous savez exactement où vous en êtes face aux critères des banques.',
             },
             {
               icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
-              title: 'Pas de pub',
-              desc: 'Aucun partenariat bancaire, aucune revente de données. Votre diagnostic reste confidentiel.',
+              title: 'Zéro conflit d\'intérêts',
+              desc: 'Aucun partenariat bancaire, aucune revente de données. Votre diagnostic reste confidentiel et impartial.',
             },
             {
               icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
-              title: 'Simulation optimisée',
-              desc: 'Identifiez les leviers d\'amélioration concrets pour renforcer votre dossier avant de déposer une demande.',
+              title: 'Des actions concrètes, pas juste un score',
+              desc: 'On vous dit exactement quoi corriger — et dans quel ordre — pour améliorer vos chances avant de déposer votre dossier de prêt.',
             },
           ].map(feat => (
             <div class="card hover:shadow-card-md transition-shadow duration-200">
@@ -130,28 +130,28 @@ const userId = user?.id ?? null;
       <div class="container-main">
         <div class="text-center mb-10">
           <span class="section-label mb-3 flex justify-center">
-            <span>Processus</span>
+            <span>Comment ça marche</span>
           </span>
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Comment analyser votre dossier prêt immobilier&nbsp;?</h2>
-          <p class="text-gray-500 dark:text-slate-400 mt-2">Trois étapes pour comprendre et améliorer votre situation.</p>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Votre diagnostic prêt immobilier en 3 étapes</h2>
+          <p class="text-gray-500 dark:text-slate-400 mt-2">2 minutes suffisent pour savoir si votre profil emprunteur tient la route.</p>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {[
             {
               step: '01',
-              title: 'Renseignez vos données',
-              desc: 'Revenus, charges, apport et comportement bancaire. Aucune donnée personnelle collectée.',
+              title: 'Renseignez vos chiffres',
+              desc: 'Revenus, charges, apport, comportement bancaire. On ne vous demande pas votre nom — juste vos chiffres.',
             },
             {
               step: '02',
-              title: 'Obtenez votre diagnostic',
-              desc: 'Notre moteur analyse votre profil selon les critères HCSF et les pratiques bancaires actuelles.',
+              title: 'Recevez votre diagnostic',
+              desc: 'Notre analyse compare votre profil aux critères réels utilisés par les banques pour accepter ou refuser un prêt immobilier.',
             },
             {
               step: '03',
               title: 'Agissez sur les leviers',
-              desc: 'Chaque risque identifié est accompagné d\'une explication claire et d\'actions concrètes.',
+              desc: 'Chaque point de blocage identifié vient avec une explication claire et des actions concrètes pour corriger votre dossier.',
             },
           ].map(step => (
             <div class="relative">
@@ -230,13 +230,13 @@ const userId = user?.id ?? null;
     <!-- ═══ CTA BANNER ═════════════════════════════════════════════════════ -->
     <section class="py-16 bg-gray-900 text-white">
       <div class="container-main text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Prêt à optimiser votre dossier&nbsp;?</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Envie de savoir si votre banque va dire oui&nbsp;?</h2>
         <p class="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
-          Obtenez une analyse complète et personnalisée. Maximisez vos chances d'acceptation bancaire.
+          Obtenez une analyse complète de votre profil emprunteur. Sans rendez-vous, sans engagement.
         </p>
         <div class="flex flex-col sm:flex-row gap-3 justify-center">
           <a href="/premium" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-gray-900 font-semibold text-sm rounded-xl hover:bg-gray-100 transition-colors">
-            Démarrer mon diagnostic Premium
+            Voir l'analyse complète de mon dossier
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
         </div>

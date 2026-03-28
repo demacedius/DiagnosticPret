@@ -2,9 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
-import PricingToggle from '../components/PricingToggle.svelte';
-
 const upgrade = Astro.url.searchParams.get('upgrade') === '1';
+
+const STRIPE_PREMIUM = 'https://buy.stripe.com/8x2fZh9eQ3yQ4Vs6kweQM04';
 
 const faqSchema = {
   '@context': 'https://schema.org',
@@ -20,7 +20,7 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'Avez-vous accès à mes données bancaires ?',
+      name: 'Est-ce que vous voyez mes informations bancaires ?',
       acceptedAnswer: {
         '@type': 'Answer',
         text: "Non. Vous saisissez vous-même vos données et elles ne sont pas stockées ni transmises. Votre diagnostic reste entièrement confidentiel.",
@@ -55,8 +55,8 @@ const faqSchema = {
 ---
 
 <BaseLayout
-  title="Analyse Complète Dossier Prêt Immobilier — DossierPrêt"
-  description="Obtenez une analyse approfondie de votre profil emprunteur selon les critères HCSF. Identification des risques de refus, plan d'action prioritaire et simulations personnalisées."
+  title="Conseils personnalisés pour votre prêt immobilier — DossierPrêt Premium"
+  description="Obtenez un plan d'action personnalisé pour votre dossier de prêt immobilier. Identifiez ce qui peut bloquer votre prêt et comment y remédier. Accès immédiat, à partir de 16€."
   schema={faqSchema}
 >
   <div class="min-h-screen flex flex-col">
@@ -79,21 +79,66 @@ const faqSchema = {
       <div class="container-main text-center">
         <div class="inline-flex items-center gap-2 badge badge-dark mb-5">
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" fill="white"/></svg>
-          Diagnostic personnalisé
+          Analyse complète · Plan d'action
         </div>
         <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 dark:text-white tracking-tight mb-4">
-          Analyse complète de votre<br class="hidden sm:block" /> dossier bancaire
+          Sachez exactement pourquoi<br class="hidden sm:block" /> votre banque pourrait refuser votre prêt
         </h1>
         <p class="text-lg text-gray-500 dark:text-slate-400 max-w-xl mx-auto">
-          Analyse complète de votre dossier bancaire — plan d'action prioritaire inclus.
+          Un rapport détaillé avec les blocages identifiés et les actions concrètes pour améliorer votre dossier — avant de déposer.
         </p>
       </div>
     </section>
 
-    <!-- Pricing tiers (interactive toggle) -->
-    <section class="py-12 bg-gray-50 dark:bg-slate-800/50 transition-colors duration-200">
-      <div class="container-main">
-        <PricingToggle client:load />
+    <!-- Pricing — one-shot -->
+    <section class="py-16 bg-gray-50 dark:bg-slate-800/50 transition-colors duration-200">
+      <div class="container-main flex justify-center">
+        <div class="relative w-full max-w-sm">
+          <!-- Badge recommandé -->
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2">
+            <span class="inline-flex items-center gap-1 px-3 py-1 bg-amber-400 text-amber-900 text-xs font-bold rounded-full shadow-sm whitespace-nowrap">
+              ✦ Accès complet
+            </span>
+          </div>
+
+          <div class="bg-gray-900 text-white rounded-2xl shadow-2xl ring-1 ring-gray-800 p-8 pt-10 flex flex-col items-center text-center">
+            <!-- Prix -->
+            <div class="flex items-end gap-1.5 mb-1">
+              <span class="text-5xl font-black leading-none">19€</span>
+              <span class="text-base text-white/40 mb-1">accès unique</span>
+            </div>
+            <p class="text-sm text-white/50 mb-8">Un seul paiement · Pas d'abonnement</p>
+
+            <!-- Features -->
+            <ul class="space-y-3 w-full text-left mb-8">
+              {[
+                'Analyse détaillée de chaque critère bancaire',
+                'Les blocages identifiés et classés par priorité',
+                "Plan d'action concret pour corriger votre dossier",
+                'Simulations selon vos scénarios',
+                'Rapport PDF téléchargeable',
+                'Résultat confidentiel — aucune donnée partagée',
+              ].map(feature => (
+                <li class="flex items-start gap-2.5 text-sm text-white/80">
+                  <svg class="flex-shrink-0 mt-0.5 text-white" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <!-- CTA -->
+            <a
+              href={STRIPE_PREMIUM}
+              class="w-full text-center py-3.5 px-4 rounded-xl text-sm font-semibold bg-white text-gray-900 hover:bg-gray-100 transition-colors"
+            >
+              Obtenir mon analyse complète
+            </a>
+
+            <p class="text-xs text-white/30 mt-4">Paiement sécurisé via Stripe</p>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -101,9 +146,9 @@ const faqSchema = {
     <section class="py-16 bg-white dark:bg-slate-900 border-t border-gray-100 dark:border-slate-800 transition-colors duration-200">
       <div class="container-main">
         <div class="text-center mb-10">
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Ce qui est inclus dans le Premium</h2>
+          <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Ce que vous obtenez avec le Premium</h2>
           <p class="text-gray-500 dark:text-slate-400 mt-2 max-w-xl mx-auto">
-            Un diagnostic complet pour identifier vos chances d'acceptation bancaire.
+            Tout ce qu'il faut pour déposer votre dossier de prêt immobilier en sachant exactement où vous en êtes.
           </p>
         </div>
 
@@ -111,33 +156,33 @@ const faqSchema = {
           {[
             {
               icon: '📊',
-              title: 'Analyse complète à titre HCSF',
-              desc: 'Évaluation exhaustive de tous les paramètres réglementaires : ratio d\'endettement, apport, stabilité — plus les éventuels points de blocage.',
+              title: 'Analyse ligne par ligne de votre profil',
+              desc: 'Chaque paramètre évalué en détail : taux d\'endettement, apport, stabilité des revenus, reste à vivre — avec les points qui peuvent bloquer votre dossier.',
             },
             {
               icon: '🎯',
-              title: 'Identification précise des signaux de risque',
-              desc: 'Identification des points négatifs les plus impactants pour votre dossier, avec hiérarchisation par priorité.',
+              title: 'On vous dit exactement ce qui peut bloquer',
+              desc: 'Les signaux négatifs les plus impactants sont mis en avant et classés par priorité. Vous savez immédiatement sur quoi agir en premier.',
             },
             {
               icon: '📋',
-              title: "Plan d'action priorité",
-              desc: 'Recommandations concrètes et actionnables pour améliorer votre profil avant de soumettre votre demande.',
+              title: 'Un plan d\'action clair et priorisé',
+              desc: 'Des recommandations concrètes et actionnables pour corriger votre profil avant de soumettre votre demande de prêt immobilier.',
             },
             {
               icon: '📈',
-              title: "Simulations d'amortisation (optionnel)",
-              desc: 'Projections et scénarios optimisés selon différentes configurations de prêt.',
+              title: 'Simulations selon votre situation',
+              desc: 'Projections et scénarios optimisés selon différentes configurations : durée du prêt, montant d\'apport, remboursement anticipé.',
             },
             {
               icon: '🔒',
-              title: 'Très confidentiel',
-              desc: 'Aucune donnée transmise à des tiers. Votre analyse reste strictement privée et sécurisée.',
+              title: 'Vos données restent les vôtres',
+              desc: 'Aucune donnée transmise à des tiers. Votre analyse reste strictement privée — on ne vend rien, on ne partage rien.',
             },
             {
               icon: '⚡',
-              title: 'Aucun impact sur votre banque',
-              desc: "Contrairement à une demande de crédit, notre diagnostic n'est pas inscrit dans les bases de données bancaires.",
+              title: 'Invisible pour votre banque',
+              desc: "Contrairement à une demande de crédit formelle, notre diagnostic n'est pas inscrit dans les bases de données bancaires. Aucun impact sur votre dossier.",
             },
           ].map(feat => (
             <div class="card hover:shadow-card-md transition-shadow duration-200">
@@ -174,7 +219,7 @@ const faqSchema = {
       <div class="container-main max-w-2xl">
         <div class="text-center mb-10">
           <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Questions fréquentes</h2>
-          <p class="text-gray-500 dark:text-slate-400 mt-2">Tout ce vous devez savoir sur DossierPrêt.</p>
+          <p class="text-gray-500 dark:text-slate-400 mt-2">Tout ce que vous devez savoir avant de commencer.</p>
         </div>
 
         <div class="space-y-3">
@@ -184,7 +229,7 @@ const faqSchema = {
               a: "Non. DossierPrêt est un outil d'analyse pédagogique indépendant. Il n'a aucun lien avec les banques et n'apparaît pas dans les bases de données bancaires.",
             },
             {
-              q: 'Avez-vous accès à mes données bancaires ?',
+              q: 'Est-ce que vous voyez mes informations bancaires ?',
               a: "Non. Vous saisissez vous-même vos données et elles ne sont pas stockées ni transmises. Votre diagnostic reste entièrement confidentiel.",
             },
             {
@@ -193,7 +238,7 @@ const faqSchema = {
             },
             {
               q: 'Puis-je annuler mon abonnement ?',
-              a: "Le plan Premium est un accès unique par rapport. Il n'y a pas d'abonnement pour ce plan. Le plan Pro peut être annulé à tout moment.",
+              a: "Le plan Premium est un accès unique. Il n'y a pas d'abonnement pour ce plan. Le plan Pro peut être annulé à tout moment depuis votre espace client.",
             },
             {
               q: 'Quelle est la différence avec un simulateur de prêt ?',
@@ -217,14 +262,15 @@ const faqSchema = {
     <!-- CTA Banner -->
     <section class="py-16 bg-gray-900 text-white">
       <div class="container-main text-center">
-        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Prêt à optimiser votre dossier&nbsp;?</h2>
+        <h2 class="text-3xl sm:text-4xl font-bold mb-4">Obtenez votre analyse complète maintenant</h2>
         <p class="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
-          Obtenez votre analyse complète et personnalisée. Maximisez vos chances d'acceptation bancaire.
+          Un rapport complet sur votre profil emprunteur, des actions concrètes pour l'améliorer, un accès immédiat.
         </p>
         <a href="/diagnostic" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-gray-900 font-semibold text-sm rounded-xl hover:bg-gray-100 transition-colors">
-          Démarrer mon diagnostic Premium
+          Accéder à mon diagnostic complet
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
+        <p class="text-xs text-gray-500 mt-4">Paiement sécurisé · Accès immédiat · Sans abonnement</p>
       </div>
     </section>
 
