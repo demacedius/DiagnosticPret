@@ -36,10 +36,10 @@ const faqSchema = {
     },
     {
       '@type': 'Question',
-      name: 'Puis-je annuler mon abonnement ?',
+      name: "C'est quoi exactement l'accès Premium ?",
       acceptedAnswer: {
         '@type': 'Answer',
-        text: "Le plan Premium est un accès unique par rapport. Il n'y a pas d'abonnement pour ce plan. Le plan Pro peut être annulé à tout moment.",
+        text: "C'est un accès unique à 19€ — un seul paiement, pas d'abonnement. Vous accédez au diagnostic complet immédiatement après le paiement.",
       },
     },
     {
@@ -56,7 +56,7 @@ const faqSchema = {
 
 <BaseLayout
   title="Conseils personnalisés pour votre prêt immobilier — DossierPrêt Premium"
-  description="Obtenez un plan d'action personnalisé pour votre dossier de prêt immobilier. Identifiez ce qui peut bloquer votre prêt et comment y remédier. Accès immédiat, à partir de 16€."
+  description="Obtenez un plan d'action personnalisé pour votre dossier de prêt immobilier. Identifiez ce qui peut bloquer votre prêt et comment y remédier. 19€, accès immédiat."
   schema={faqSchema}
 >
   <div class="min-h-screen flex flex-col">
@@ -68,7 +68,7 @@ const faqSchema = {
         <div class="container-main py-3 flex items-center gap-3">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-amber-600 dark:text-amber-400 flex-shrink-0"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
           <p class="text-sm text-amber-800 dark:text-amber-300">
-            <strong>Accès Premium requis</strong> — choisissez un plan ci-dessous pour accéder au diagnostic complet.
+            <strong>Accès Premium requis</strong> — complétez votre achat ci-dessous pour accéder au diagnostic complet.
           </p>
         </div>
       </div>
@@ -237,8 +237,8 @@ const faqSchema = {
               a: "Non. Il s'agit d'une simulation basée sur des critères standards. Les décisions bancaires réelles dépendent de nombreux autres facteurs propres à chaque établissement.",
             },
             {
-              q: 'Puis-je annuler mon abonnement ?',
-              a: "Le plan Premium est un accès unique. Il n'y a pas d'abonnement pour ce plan. Le plan Pro peut être annulé à tout moment depuis votre espace client.",
+              q: "C'est quoi exactement l'accès Premium ?",
+              a: "C'est un accès unique à 19€ — un seul paiement, pas d'abonnement. Vous accédez au diagnostic complet immédiatement après le paiement.",
             },
             {
               q: 'Quelle est la différence avec un simulateur de prêt ?',
@@ -266,8 +266,8 @@ const faqSchema = {
         <p class="text-gray-400 text-lg mb-8 max-w-xl mx-auto">
           Un rapport complet sur votre profil emprunteur, des actions concrètes pour l'améliorer, un accès immédiat.
         </p>
-        <a href="/diagnostic" class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-gray-900 font-semibold text-sm rounded-xl hover:bg-gray-100 transition-colors">
-          Accéder à mon diagnostic complet
+        <a href={STRIPE_PREMIUM} class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white text-gray-900 font-semibold text-sm rounded-xl hover:bg-gray-100 transition-colors">
+          Obtenir mon analyse complète — 19€
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
         <p class="text-xs text-gray-500 mt-4">Paiement sécurisé · Accès immédiat · Sans abonnement</p>
