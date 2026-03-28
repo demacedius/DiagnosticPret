@@ -1,0 +1,151 @@
+---
+title: "Mon dossier de prêt immobilier peut-il être refusé ? Les vrais critères bancaires"
+description: "Comment savoir si ta banque va accepter ton dossier de prêt immobilier ? Voici les critères exacts qu'elle évalue — et comment anticiper un refus avant de déposer."
+pubDate: "2026-03-28"
+category: "Guide"
+readingTime: "7 min"
+slug: "mon-dossier-pret-immobilier-peut-il-etre-refuse"
+---
+
+La question que presque personne ne pose à voix haute, mais que tout le monde se pose : **est-ce que la banque va dire oui ?**
+
+Un refus de prêt immobilier, c'est plus qu'une déception. C'est un compromis de vente menacé, des frais engagés, et parfois un bien qu'on perd au profit d'un autre acheteur. Comprendre exactement ce que la banque évalue — avant de déposer — c'est la meilleure façon d'éviter cette situation.
+
+---
+
+## La réalité des refus en France
+
+En 2024, environ 15 à 20% des demandes de prêt immobilier ont été refusées selon les réseaux de courtiers. Ce chiffre masque une réalité plus contrastée : certains profils sont refusés à 50%, d'autres passent quasi systématiquement.
+
+La bonne nouvelle : la plupart des refus sont **anticipables et évitables** si tu sais ce que la banque cherche.
+
+---
+
+## Les 6 critères que la banque évalue dans ton dossier
+
+### 1. Le taux d'endettement — la règle des 35%
+
+C'est le critère le plus connu. Depuis 2022, le HCSF impose aux banques de ne pas accorder de prêt si le taux d'endettement dépasse **35% des revenus nets, assurance emprunteur comprise**.
+
+**Comment le calculer :**
+```
+(Mensualité prêt + Assurance + Autres crédits en cours) ÷ Revenus nets × 100
+```
+
+Si le résultat dépasse 35%, ton dossier est à risque sur ce critère. Ce n'est pas automatiquement bloquant — les banques ont une marge de dérogation de 20% de leur production, prioritairement pour les primo-accédants — mais ça fragilise significativement le dossier.
+
+---
+
+### 2. Le reste à vivre — ce que la plupart oublient
+
+Le taux d'endettement ne suffit pas à la banque. Elle regarde aussi ce qu'il te reste **en euros absolus** après avoir payé toutes tes charges de crédit. C'est le **reste à vivre**.
+
+Les seuils varient selon les banques, mais une référence courante :
+- Personne seule : 700 à 900 €/mois minimum
+- Couple sans enfant : 1 000 à 1 200 €/mois
+- Par enfant supplémentaire : +200 à 300 €
+
+Un taux d'endettement à 34% avec des revenus de 2 500€ laisse moins de 1 650€ de reste à vivre — certaines banques trouvent ça limite. À l'inverse, un taux à 36% avec des revenus de 6 000€ laisse 3 840€ — souvent accepté en dérogation.
+
+---
+
+### 3. La stabilité professionnelle — bien au-delà du CDI
+
+La banque veut savoir si tu seras encore capable de rembourser dans 20 ans. Ça passe par l'analyse de ta situation professionnelle.
+
+**Ce que la banque regarde :**
+- **Type de contrat** : CDI = stabilité maximale, fonctionnaire = idéal, CDD/intérim = risque
+- **Ancienneté dans le poste** : moins de 6 mois d'ancienneté (ou encore en période d'essai) = refus probable
+- **Secteur d'activité** : certains secteurs sont jugés plus stables que d'autres
+- **Pour les indépendants** : les 2 à 3 derniers bilans comptables, avec une tendance positive
+
+**La nuance importante :** un CDI dans une petite entreprise fragile inquiète parfois plus qu'un CDD dans la fonction publique. La banque ne regarde pas que le type de contrat.
+
+---
+
+### 4. L'apport personnel — le signal de confiance
+
+L'apport n'est pas qu'une question de montant. C'est un signal que tu sais épargner, que tu es engagé dans ton projet, et que la banque ne prend pas 100% du risque.
+
+**Les seuils généralement attendus :**
+- 10% du prix du bien = minimum pour la plupart des banques (couvre les frais de notaire)
+- 20% = dossier solide, conditions souvent meilleures
+- 30%+ = excellent, marge de négociation sur le taux
+
+**Le cas sans apport :** possible, mais réservé à des profils très solides (revenus élevés, CDI confirmé, jeune primo-accédant avec potentiel). De plus en plus rare depuis 2022.
+
+---
+
+### 5. Le comportement bancaire — tes relevés parlent pour toi
+
+C'est le critère le moins anticipé — et l'un des plus décisifs. La banque demande tes **3 à 6 derniers relevés de compte** et les analyse ligne par ligne.
+
+**Ce qui fait pencher la balance positivement :**
+- Virements de salaire réguliers au même montant
+- Épargne régulière (même modeste)
+- Aucun découvert sur la période
+- Prélèvements qui passent tous à date fixe
+
+**Ce qui fragilise le dossier :**
+- Découverts fréquents, même autorisés
+- Incidents de paiement (prélèvement rejeté, chèque refusé)
+- Virements vers plateformes de jeux ou crypto
+- Crédits à la consommation non déclarés
+
+---
+
+### 6. La cohérence du projet immobilier
+
+La banque évalue aussi **le bien que tu achètes**. Un bien trop cher par rapport au marché local, une passoire thermique (DPE F ou G) dans une zone à risque, ou un prix manifestement surévalué peut fragiliser un dossier par ailleurs solide.
+
+Depuis 2025, le DPE est intégré dans l'analyse du risque. Un bien classé F ou G peut se voir imposer des conditions supplémentaires (apport majoré, travaux obligatoires inclus dans le financement).
+
+---
+
+## Les profils les plus souvent refusés
+
+Sur la base des tendances observées par les réseaux de courtiers, voici les profils qui essuient le plus de refus :
+
+**Profil à risque élevé :**
+- CDD ou intérim avec moins de 2 ans d'ancienneté dans le secteur
+- Taux d'endettement supérieur à 38%
+- Relevés avec plusieurs découverts dans les 3 derniers mois
+- Aucun apport et revenus sous 2 000€/mois
+
+**Profil à risque modéré (négociable) :**
+- CDI récent (moins de 6 mois hors période d'essai)
+- Taux d'endettement entre 35 et 38% avec bon reste à vivre
+- Un crédit conso en cours mais en fin de remboursement
+- Quelques découverts isolés mais tendance positive récente
+
+**Profil solide :**
+- CDI confirmé + ancienneté de 2 ans ou plus
+- Taux d'endettement sous 33%
+- Apport de 10% minimum
+- Relevés sans incidents sur 6 mois
+- Épargne résiduelle après apport
+
+---
+
+## Ce qu'une banque ne te dit pas quand elle refuse
+
+Les banques ont légalement peu d'obligation de motivation détaillée sur un refus. Dans la pratique, tu obtiens souvent une réponse vague ("dossier ne correspond pas à nos critères actuels").
+
+Ce que ça cache souvent :
+- **Un scoring interne** que tu ne verras jamais — chaque banque a son propre algorithme
+- **Des objectifs commerciaux du moment** — une banque qui a déjà atteint son quota mensuel de primo-accédants sera moins souple
+- **Un critère très précis** qui a tout fait basculer — découvert un mois, crédit non déclaré, incohérence dans les justificatifs
+
+C'est pourquoi il est presque toujours utile de tenter plusieurs banques ou de passer par un courtier, qui connaît les politiques internes de chaque établissement.
+
+---
+
+## Anticipe le verdict avant de le subir
+
+Un refus de prêt à une semaine de la fin du délai de condition suspensive, c'est l'une des situations les plus stressantes dans un achat immobilier. C'est aussi l'une des plus évitables.
+
+Analyser ton profil **avant** de déposer, identifier les signaux qui pourraient bloquer ton dossier, et agir sur les leviers disponibles : c'est exactement ce pour quoi DossierPrêt existe.
+
+Le diagnostic prend 2 minutes. Le résultat est immédiat. Et tu repartes avec une vision claire de ce qui peut poser problème — et ce que tu peux faire.
+
+👉 [Analyser mon dossier gratuitement](https://www.dossierpret.fr)

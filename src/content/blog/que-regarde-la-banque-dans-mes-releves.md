@@ -1,0 +1,141 @@
+---
+title: "Que regarde la banque dans tes relevés de compte ?"
+description: "La banque examine tes relevés à la loupe avant d'accorder un prêt immobilier. Découvre exactement ce qu'elle cherche — et ce qui peut bloquer ton dossier."
+pubDate: "2026-03-28"
+category: "Analyse"
+readingTime: "6 min"
+slug: "que-regarde-la-banque-releves-compte"
+---
+
+Quand tu déposes un dossier de prêt immobilier, la banque ne regarde pas que ton salaire et ton apport. Elle plonge dans tes **3 à 6 derniers mois de relevés de compte** avec une attention presque chirurgicale. C'est là que se joue une grande partie de la décision — souvent sans que tu le saches.
+
+Voici exactement ce qu'un conseiller bancaire cherche dans tes relevés, signal par signal.
+
+---
+
+## Pourquoi la banque veut tes relevés ?
+
+La banque a besoin de vérifier deux choses que tu ne peux pas lui prouver autrement :
+
+1. **Tu gagnes bien ce que tu déclares** — les virements de salaire apparaissent chaque mois à date fixe
+2. **Tu sais gérer ton argent** — ton comportement financier au quotidien dit tout sur ta fiabilité comme emprunteur
+
+Un bon salaire avec des relevés chaotiques peut faire échouer un dossier. À l'inverse, des revenus modestes avec des comptes impeccables rassurent souvent la banque.
+
+---
+
+## Les 8 choses que la banque scrute dans tes relevés
+
+### 1. La régularité du virement de salaire
+
+La banque cherche un virement entrant **à date fixe, chaque mois, du même employeur**. Si tu es en CDI depuis plus d'un an, c'est le signal le plus rassurant qu'elle puisse trouver.
+
+Ce qu'elle note :
+- Le montant correspond-il à ce que tu as déclaré ?
+- L'employeur est-il toujours le même ?
+- Y a-t-il des mois sans virement ?
+
+Si tu es indépendant ou en CDD, les virements sont irréguliers par nature. La banque fera une **moyenne sur 2 à 3 ans** à partir de tes avis d'imposition — les relevés servent alors à vérifier que tu ne vis pas à crédit entre deux missions.
+
+---
+
+### 2. Les découverts — le signal rouge numéro un
+
+C'est le point qui coûte le plus de dossiers. Un découvert dit à la banque que **tu dépenses plus que tu ne gagnes** — exactement ce qu'elle ne veut pas financer.
+
+La distinction importante :
+
+| Situation | Ce que voit la banque |
+|---|---|
+| Découvert autorisé utilisé rarement | Signal négatif modéré |
+| Découvert autorisé utilisé tous les mois | Signal rouge — gestion limite |
+| Découvert non autorisé même une fois | Signal rouge vif — incident de paiement |
+| Jamais de découvert | Très bon signal |
+
+**Le conseil concret** : si tu as l'habitude d'utiliser ton découvert, arrête 4 à 6 mois avant de déposer ton dossier. Les banques regardent généralement les 3 derniers mois, parfois 6.
+
+---
+
+### 3. Les incidents de paiement
+
+Ce sont les opérations rejetées : prélèvement refusé, chèque sans provision, virement en retour. Un seul incident visible sur les relevés peut suffire à fragiliser ton dossier.
+
+La banque consulte aussi le **FICP** (Fichier national des Incidents de remboursement des Crédits aux Particuliers), géré par la Banque de France. Si tu y es inscrit, le refus est quasi automatique.
+
+---
+
+### 4. Les crédits à la consommation en cours
+
+Chaque prélèvement régulier vers Cetelem, Cofidis, Sofinco ou autre organisme de crédit est immédiatement repéré. La banque l'ajoute à tes charges pour calculer ton **taux d'endettement**.
+
+Ce que tu dois savoir : si un crédit conso se termine dans moins de 6 mois, certaines banques ne le comptent pas dans le calcul. C'est un levier d'optimisation concret si tu peux accélérer son remboursement.
+
+---
+
+### 5. Les virements vers des plateformes à risque
+
+C'est un point que très peu de gens anticipent. Les banques sont formées à repérer des virements vers :
+
+- Plateformes de jeux en ligne (Winamax, Betclic, PMU...)
+- Plateformes de crypto ou trading spéculatif
+- Applications de microcrédit (Cashper, Finfrog...)
+
+Aucune de ces transactions n'est illégale. Mais pour un banquier, elles signalent une **instabilité émotionnelle face à l'argent** — exactement le profil qu'il évite.
+
+---
+
+### 6. La capacité d'épargne
+
+La banque cherche à voir si tu mets de l'argent de côté chaque mois. Un virement automatique vers un Livret A ou un PEL juste après la réception du salaire est un signal très positif.
+
+Ce comportement dit deux choses :
+- Tu vis en dessous de tes moyens
+- Tu sais te discipliner — compétence directement liée au remboursement d'un prêt
+
+---
+
+### 7. Le niveau de dépenses courantes
+
+La banque ne juge pas tes goûts. Mais elle regarde si tes dépenses quotidiennes sont **cohérentes avec tes revenus déclarés**. Un train de vie manifestement au-dessus de tes moyens (achats fréquents de luxe, abonnements multiples coûteux, restaurants haut de gamme réguliers) peut alerter un conseiller sur ta capacité réelle à rembourser une mensualité chaque mois pendant 20 ans.
+
+---
+
+### 8. La régularité des charges fixes
+
+Loyer, assurance, abonnements, remboursements divers : la banque vérifie que tu les paies **à date fixe, sans retard, tous les mois**. Des prélèvements chaotiques ou des montants variables sans explication fragilisent le dossier.
+
+---
+
+## Ce que tu peux faire avant de déposer ton dossier
+
+La bonne nouvelle : tu as le contrôle sur presque tous ces signaux. Voici le plan concret pour préparer tes relevés sur les 3 à 6 mois qui précèdent ta demande.
+
+**À faire absolument :**
+
+- **Zéro découvert** — même autorisé, même un jour. Mets en place une alerte SMS dès que ton solde passe sous 200€.
+- **Rembourse un crédit conso si tu peux** — ça réduit ton taux d'endettement immédiatement.
+- **Mets en place un virement épargne automatique** — même 50€/mois, c'est un signal fort.
+- **Arrête ou réduis les plateformes de jeux/crypto** — pas pour toujours, juste pendant la période de dossier.
+- **Vérifie que tous tes prélèvements passent** — règle les éventuels problèmes de provision avant que la banque ne voie tes relevés.
+
+**À éviter dans les mois qui précèdent :**
+
+- Ouvrir de nouveaux crédits à la consommation
+- Faire des achats importants non planifiés
+- Changer de banque principale (ça casse la continuité des relevés)
+
+---
+
+## La règle d'or : la banque veut voir la régularité, pas la perfection
+
+Un conseiller bancaire a vu des milliers de dossiers. Il sait que tout le monde a eu un mois difficile. Ce qu'il cherche, c'est une **tendance** : tes finances vont-elles dans le bon sens ? Est-ce que les 3 derniers mois sont meilleurs que les 6 précédents ?
+
+Si tu as eu une période compliquée mais que tu l'as redressée, c'est une histoire que tu peux raconter. Ce qui ne passe pas, c'est un pattern négatif qui dure.
+
+---
+
+## Teste ton dossier avant que la banque ne le fasse
+
+Plutôt que d'attendre le verdict du conseiller, tu peux analyser ton profil dès maintenant selon les mêmes critères bancaires. DossierPrêt identifie les signaux qui peuvent bloquer ton dossier — et te dit exactement sur quoi agir.
+
+👉 [Lancer mon diagnostic gratuit](https://www.dossierpret.fr)

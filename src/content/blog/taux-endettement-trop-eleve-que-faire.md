@@ -1,0 +1,137 @@
+---
+title: "Taux d'endettement trop élevé : que faire avant de déposer ton dossier ?"
+description: "Ton taux d'endettement dépasse 35% ? Ce n'est pas forcément bloquant. Voici les leviers concrets pour le réduire — ou contourner la règle légalement."
+pubDate: "2026-03-28"
+category: "Guide"
+readingTime: "5 min"
+slug: "taux-endettement-trop-eleve-que-faire"
+---
+
+La règle des 35% est souvent présentée comme un mur infranchissable. En réalité, c'est une règle avec des nuances — et surtout, c'est une règle sur laquelle tu peux agir avant même de déposer ton dossier.
+
+Voici ce que tu dois savoir, et ce que tu peux faire concrètement si ton taux dépasse le seuil.
+
+---
+
+## C'est quoi exactement le taux d'endettement ?
+
+Le taux d'endettement, c'est le rapport entre **toutes tes charges de crédit** et **tes revenus nets mensuels**.
+
+La formule :
+
+```
+Taux d'endettement = (Charges mensuelles de crédit) ÷ (Revenus nets) × 100
+```
+
+**Ce qui compte dans les charges :**
+- La future mensualité du prêt immobilier (assurance comprise)
+- Les remboursements de crédits à la consommation en cours
+- Les pensions alimentaires versées
+- Les loyers si tu as un investissement locatif sans revenus locatifs compensatoires
+
+**Ce qui ne compte pas :**
+- Ton loyer actuel (si tu quittes le logement pour acheter)
+- Les abonnements, factures, dépenses courantes
+- Les crédits qui se terminent dans moins de 6 mois (selon les banques)
+
+**Exemple concret :**
+- Revenus nets : 2 800 €/mois
+- Crédit voiture : 180 €/mois
+- Mensualité prêt immo visée : 750 €
+- Taux d'endettement : (180 + 750) ÷ 2 800 × 100 = **33,2%** ✅
+
+---
+
+## Pourquoi 35% ? D'où vient ce chiffre ?
+
+Depuis janvier 2022, le **Haut Conseil de Stabilité Financière (HCSF)** impose aux banques de ne pas dépasser un taux d'endettement de 35% sur leurs nouveaux crédits immobiliers, assurance emprunteur comprise.
+
+Ce n'est pas une règle bancaire interne — c'est une norme réglementaire. Les banques qui la dépassent trop souvent s'exposent à des sanctions.
+
+**La nuance importante :** les banques peuvent déroger à cette règle sur **20% de leur production mensuelle de crédits**. Ces dérogations sont prioritairement accordées aux primo-accédants achetant leur résidence principale — exactement ta situation si tu lis cet article.
+
+Ce n'est pas gagné d'avance, mais c'est réel. Un bon dossier avec un taux à 36-37% peut passer.
+
+---
+
+## Les 5 leviers pour réduire ton taux d'endettement
+
+### Levier 1 — Allonger la durée du prêt
+
+C'est le levier le plus immédiat. Une durée plus longue = des mensualités plus faibles = un taux d'endettement plus bas.
+
+| Montant emprunté | Durée | Taux | Mensualité | Taux endettement (2 800€ revenus) |
+|---|---|---|---|---|
+| 180 000 € | 20 ans | 3,3% | 1 024 € | 36,6% ❌ |
+| 180 000 € | 25 ans | 3,5% | 898 € | 32,1% ✅ |
+
+Attention : une durée plus longue coûte plus cher en intérêts sur la durée totale. C'est un arbitrage à faire en connaissance de cause.
+
+---
+
+### Levier 2 — Rembourser un crédit à la consommation avant de déposer
+
+C'est souvent le levier le plus efficace et le moins anticipé. Chaque crédit conso remboursé avant le dépôt du dossier **réduit directement tes charges mensuelles**.
+
+**Exemple :**
+- Crédit voiture à 180€/mois, 8 mensualités restantes
+- Capital restant dû : ~1 400€
+- Si tu le soldes avec ton épargne : ton taux d'endettement baisse de 6,4 points
+
+Le calcul n'est pas toujours favorable (tu réduis ton apport), mais dans beaucoup de cas, c'est gagnant. À faire simuler avec un conseiller ou via notre outil.
+
+---
+
+### Levier 3 — Augmenter l'apport pour emprunter moins
+
+Moins tu empruntes, moins la mensualité est élevée, moins ton taux d'endettement est élevé. Si tu as de l'épargne disponible, augmenter l'apport peut débloquer un dossier limite.
+
+**À noter :** les banques apprécient aussi de voir que tu gardes une épargne résiduelle après apport. Mettre absolument tout en apport peut paradoxalement fragiliser ton dossier (tu n'as plus de filet de sécurité).
+
+---
+
+### Levier 4 — Intégrer les revenus locatifs si tu es investisseur
+
+Si tu possèdes déjà un bien mis en location, certaines banques intègrent **70% des loyers perçus** dans tes revenus pour le calcul. Ce n'est pas systématique — ça dépend de la politique interne de chaque établissement.
+
+Si c'est ton cas, c'est un argument à mettre en avant explicitement dans ton dossier.
+
+---
+
+### Levier 5 — Emprunter à deux
+
+Ajouter un co-emprunteur avec des revenus stables est souvent la solution la plus directe. Les revenus s'additionnent, ce qui fait mécaniquement baisser le taux d'endettement.
+
+**Exemple :**
+- Seul : 2 800€ de revenus, mensualité 1 000€ → 35,7% ❌
+- Avec co-emprunteur à 2 000€ : 4 800€ de revenus, mensualité 1 000€ → 20,8% ✅
+
+---
+
+## Ce que tu ne peux pas faire (et qui ne sert à rien)
+
+**Gonfler tes revenus déclarés** : la banque vérifie avec tes fiches de paie et avis d'imposition. Les incohérences sont immédiatement repérées et peuvent conduire à un refus définitif, voire des poursuites.
+
+**Oublier de déclarer un crédit** : la banque consulte tes relevés et peut interroger le FICP. Une charge non déclarée découverte pendant l'instruction = refus immédiat.
+
+**Rembourser un crédit en espèces juste avant le dépôt** : les mouvements inhabituels sur le compte sont notés. Un virement important "mystérieux" suivi d'une disparition de prélèvement sera questionné.
+
+---
+
+## Quand le taux d'endettement n'est pas le vrai problème
+
+Il arrive qu'un dossier soit refusé alors que le taux d'endettement semble correct. C'est parce que la banque analyse aussi :
+
+- Le **reste à vivre** — ce qu'il te reste après remboursement pour vivre normalement
+- La **stabilité des revenus** — un taux à 34% avec des revenus variables inquiète plus qu'un taux à 36% avec un CDI solide
+- Le **comportement bancaire** — des découverts réguliers peuvent compenser un taux d'endettement dans les clous
+
+Le taux d'endettement est une condition nécessaire, pas suffisante.
+
+---
+
+## Connais ton taux avant d'aller voir la banque
+
+Le pire moment pour découvrir que ton taux est trop élevé, c'est en face d'un conseiller bancaire, compromis de vente en main. Tu peux l'analyser maintenant, en 2 minutes, et identifier les leviers à activer avant de déposer.
+
+👉 [Calculer mon taux d'endettement gratuitement](https://www.dossierpret.fr)

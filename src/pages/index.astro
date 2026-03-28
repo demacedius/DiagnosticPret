@@ -11,7 +11,7 @@ const userId = user?.id ?? null;
 ---
 
 <BaseLayout
-  title="Diagnostic prêt immobilier gratuit — Testez votre dossier | DossierPrêt"
+  title="Votre dossier de prêt peut-il être refusé ? Diagnostic gratuit | DossierPrêt"
   description="Votre dossier de prêt immobilier peut-il être refusé ? Analysez votre profil en 2 minutes selon les critères bancaires. Gratuit, instantané, sans inscription."
 >
   <div class="min-h-screen flex flex-col">
@@ -63,15 +63,15 @@ const userId = user?.id ?? null;
             <div class="flex flex-wrap gap-2">
               <span class="badge badge-gray">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Critères bancaires HCSF
+                Basé sur les vrais critères bancaires
               </span>
               <span class="badge badge-gray">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Sans rendez-vous ni inscription
+                Aucune donnée personnelle
               </span>
               <span class="badge badge-gray">
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                Résultat en 2 minutes
+                Résultat en 30 secondes
               </span>
             </div>
           </div>
@@ -101,7 +101,7 @@ const userId = user?.id ?? null;
           {[
             {
               icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>`,
-              title: 'Votre taux d\'endettement décortiqué',
+              title: 'Ce que voit vraiment la banque',
               desc: 'Taux d\'endettement, reste à vivre, stabilité des revenus : vous savez exactement où vous en êtes face aux critères des banques.',
             },
             {
