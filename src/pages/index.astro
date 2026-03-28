@@ -4,10 +4,16 @@ import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
 import Simulator from '../components/Simulator.svelte';
 import { hasPremium } from '../lib/subscription';
+import { getCollection } from 'astro:content';
 
 const user = await Astro.locals.currentUser?.();
 const userHasPremium = hasPremium(user ?? null);
 const userId = user?.id ?? null;
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const latestPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 6);
 ---
 
 <BaseLayout
@@ -181,42 +187,11 @@ const userId = user?.id ?? null;
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {[
-            {
-              href: '/blog/refus-pret-immobilier-causes',
-              cat: 'Guide',
-              title: 'Refus de prêt immobilier : les causes fréquentes',
-              desc: 'Comprendre pourquoi une banque refuse un dossier et les leviers pour y remédier.',
-            },
-            {
-              href: '/blog/taux-endettement-regle-35-pourcent',
-              cat: 'Réglementation',
-              title: 'Taux d\'endettement : la règle des 35% expliquée',
-              desc: 'La réglementation HCSF et ses implications concrètes pour votre dossier.',
-            },
-            {
-              href: '/blog/apport-combien-faut-il',
-              cat: 'Guide',
-              title: 'Apport : combien faut-il vraiment ?',
-              desc: 'Le montant d\'apport attendu par les banques et les solutions si vous n\'atteignez pas le seuil.',
-            },
-            {
-              href: '/blog/credit-conso-pret-immobilier',
-              cat: 'Guide',
-              title: 'Crédit conso et prêt immobilier : ce que les banques regardent',
-              desc: 'Comment un crédit à la consommation influence votre taux d\'endettement et vos chances d\'accord.',
-            },
-            {
-              href: '/blog/decouvert-bancaire-credit-immobilier',
-              cat: 'Analyse',
-              title: 'Découvert bancaire : impact réel sur un crédit immobilier',
-              desc: 'Ce que voit vraiment la banque quand elle examine vos relevés.',
-            },
-          ].map(post => (
-            <a href={post.href} class="card hover:shadow-card-md transition-shadow duration-200 group flex flex-col">
-              <div class="badge badge-gray mb-3 w-fit">{post.cat}</div>
-              <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-gray-600 dark:group-hover:text-slate-300 transition-colors leading-snug">{post.title}</h3>
-              <p class="text-sm text-gray-500 dark:text-slate-400 leading-relaxed flex-1">{post.desc}</p>
+          {latestPosts.map(post => (
+            <a href={`/blog/${post.slug}`} class="card hover:shadow-card-md transition-shadow duration-200 group flex flex-col">
+              <div class="badge badge-gray mb-3 w-fit">{post.data.category}</div>
+              <h3 class="text-sm font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-gray-600 dark:group-hover:text-slate-300 transition-colors leading-snug">{post.data.title}</h3>
+              <p class="text-sm text-gray-500 dark:text-slate-400 leading-relaxed flex-1">{post.data.description}</p>
               <div class="flex items-center gap-1 mt-3 text-xs font-medium text-gray-900 dark:text-slate-200">
                 Lire l'article
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
